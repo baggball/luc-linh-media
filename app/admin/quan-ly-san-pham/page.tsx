@@ -8,8 +8,22 @@ export const metadata = { title: "Quản lý sản phẩm" };
 
 export default async function QuanLySanPhamPage() {
   const supabase = await createClient();
-  const { data } = await supabase.from("products").select("*").order("created_at", { ascending: false });
-  const products = (data ?? []) as Product[];
+  const { data } = await supabase
+    .from("products")
+    .select("*, product_private_content(workflow_link, video_url)")
+    .order("created_at", { ascending: false });
+  const products = (data ?? []).map((row) => {
+    const privateContent = Array.isArray(row.product_private_content)
+      ? row.product_private_content[0]
+      : row.product_private_content;
+    const { product_private_content: _privateContent, ...product } = row;
+    void _privateContent;
+    return {
+      ...product,
+      workflow_link: privateContent?.workflow_link ?? null,
+      video_url: privateContent?.video_url ?? null,
+    } as Product;
+  });
 
   return (
     <div className="content-wrap" style={{ padding: 32 }}>

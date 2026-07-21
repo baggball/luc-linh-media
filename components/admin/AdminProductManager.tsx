@@ -91,9 +91,12 @@ export default function AdminProductManager({ initialProducts }: { initialProduc
         description: form.description.trim(),
         is_free: form.isFree,
         price: form.isFree ? 0 : Number(form.price),
-        workflow_link: form.workflowLink.trim() || null,
         warranty: form.warranty,
         images: uploadedUrls,
+      };
+
+      const privatePayload = {
+        workflow_link: form.workflowLink.trim() || null,
       };
 
       if (editingId) {
@@ -104,7 +107,11 @@ export default function AdminProductManager({ initialProducts }: { initialProduc
           .select()
           .single();
         if (updateError) throw updateError;
-        setProducts((prev) => prev.map((p) => (p.id === editingId ? (data as Product) : p)));
+        const { error: privateError } = await supabase
+          .from("product_private_content")
+          .upsert({ product_id: editingId, ...privatePayload, updated_at: new Date().toISOString() });
+        if (privateError) throw privateError;
+        setProducts((prev) => prev.map((p) => (p.id === editingId ? { ...(data as Product), ...privatePayload } : p)));
         setToast(`Đã cập nhật "${payload.title}"!`);
       } else {
         const slug = `${payload.title.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/đ/g, "d").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "")}-${Date.now().toString(36)}`;
@@ -114,7 +121,11 @@ export default function AdminProductManager({ initialProducts }: { initialProduc
           .select()
           .single();
         if (insertError) throw insertError;
-        setProducts((prev) => [data as Product, ...prev]);
+        const { error: privateError } = await supabase
+          .from("product_private_content")
+          .upsert({ product_id: data.id, ...privatePayload });
+        if (privateError) throw privateError;
+        setProducts((prev) => [{ ...(data as Product), ...privatePayload }, ...prev]);
         setToast(`Đã thêm "${payload.title}" (${PRODUCT_TYPE_LABEL[form.type]})!`);
       }
 

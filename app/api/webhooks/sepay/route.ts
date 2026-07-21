@@ -15,6 +15,10 @@ type SepayWebhookPayload = {
 };
 
 export async function POST(request: NextRequest) {
+  if (!process.env.SEPAY_WEBHOOK_API_KEY || !process.env.SUPABASE_SECRET_KEY) {
+    return NextResponse.json({ success: false, error: "payment service is not configured" }, { status: 503 });
+  }
+
   const authHeader = request.headers.get("authorization") ?? "";
   const expected = `Apikey ${process.env.SEPAY_WEBHOOK_API_KEY}`;
   if (authHeader !== expected) {
@@ -49,7 +53,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ success: true, ignored: "transfer amount is less than order amount" });
   }
 
-  await supabase
+  const { data: updatedPurchase, error: updateError } = await supabase
     .from("purchases")
     .update({
       status: "paid",
@@ -57,7 +61,17 @@ export async function POST(request: NextRequest) {
       sepay_transaction_id: String(payload.id),
       sepay_reference_code: payload.referenceCode,
     })
-    .eq("id", purchase.id);
+    .eq("id", purchase.id)
+    .eq("status", "pending")
+    .select("id")
+    .maybeSingle();
+
+  if (updateError) {
+    return NextResponse.json({ success: false, error: "failed to confirm payment" }, { status: 500 });
+  }
+  if (!updatedPurchase) {
+    return NextResponse.json({ success: true, ignored: "purchase was already processed" });
+  }
 
   return NextResponse.json({ success: true });
 }
