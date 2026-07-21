@@ -13,7 +13,7 @@ const GROUPS: { title: string; items: { q: string; a: string }[] }[] = [
       },
       {
         q: "Lục Linh Media hỗ trợ những phương thức thanh toán nào?",
-        a: "Chúng tôi hỗ trợ ví điện tử (VNPay, Momo) và chuyển khoản ngân hàng. Sản phẩm sẽ xuất hiện trong tài khoản của bạn ngay sau khi thanh toán được xác nhận.",
+        a: "Hiện tại chúng tôi hỗ trợ chuyển khoản ngân hàng bằng mã QR. SePay tự động xác nhận giao dịch và sản phẩm sẽ xuất hiện trong tài khoản của bạn ngay sau khi thanh toán thành công.",
       },
       {
         q: "Tôi có thể huỷ gói đăng ký bất cứ lúc nào không?",

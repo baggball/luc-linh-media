@@ -159,19 +159,19 @@ export default async function Home() {
           </div>
           <div className={styles.steps}>
             <div className={styles.step}>
-              <div className="cmd">$ chọn-prompt --danh-muc=chatbot</div>
+              <div className="cmd">01 · Chọn sản phẩm</div>
               <h3>1. Chọn sản phẩm phù hợp</h3>
               <p>Duyệt theo ngành hàng: thời trang, mỹ phẩm, gia dụng, sách... mỗi sản phẩm có demo xem trước.</p>
             </div>
             <div className={styles.step}>
-              <div className="cmd">$ thanh-toan --phuong-thuc=vnpay,momo</div>
+              <div className="cmd">02 · Quét QR chuyển khoản</div>
               <h3>2. Thanh toán an toàn</h3>
-              <p>Hỗ trợ ví điện tử và chuyển khoản, nhận sản phẩm ngay trong tài khoản sau khi thanh toán.</p>
+              <p>Quét mã QR ngân hàng và chuyển khoản đúng nội dung. SePay tự động xác nhận giao dịch.</p>
             </div>
             <div className={styles.step}>
-              <div className="cmd">$ su-dung --ngay-bay-gio</div>
-              <h3>3. Dùng ngay, không giới hạn</h3>
-              <p>Sao chép prompt vào công cụ AI bạn đang dùng hoặc chạy thẳng workflow có sẵn.</p>
+              <div className="cmd">03 · Mở khóa tự động</div>
+              <h3>3. Nhận sản phẩm ngay</h3>
+              <p>Sản phẩm xuất hiện trong tài khoản ngay sau khi giao dịch được xác nhận thành công.</p>
             </div>
           </div>
         </div>
