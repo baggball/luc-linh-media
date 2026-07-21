@@ -1,0 +1,52 @@
+import Link from "next/link";
+
+export default function Footer() {
+  return (
+    <footer>
+      <div className="content-wrap">
+        <div className="foot-grid">
+          <div>
+            <Link className="sidebar-brand" href="/" style={{ padding: "0 0 12px" }}>
+              <span className="brand-mark">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M13 2 3 14h7l-1 8 10-12h-7z" />
+                </svg>
+              </span>
+              <span className="brand-word">
+                Lục Linh
+                <small>Media</small>
+              </span>
+            </Link>
+            <p style={{ color: "var(--mute-dim)", fontSize: "13.5px", maxWidth: "32ch" }}>
+              Chợ prompt, chatbot &amp; workflow AI dành cho người sáng tạo nội dung và bán hàng tại Việt Nam.
+            </p>
+          </div>
+          <div>
+            <h4>Sản phẩm</h4>
+            <Link href="/chatbot">Chatbot</Link>
+            <Link href="/workflow">Workflow</Link>
+            <Link href="/app-ai">App</Link>
+            <Link href="/veo3-workflow">VEO3 Workflow</Link>
+          </div>
+          <div>
+            <h4>Công ty</h4>
+            <Link href="/gioi-thieu">Giới thiệu</Link>
+            <Link href="/bang-gia">Bảng giá</Link>
+            <Link href="/huong-dan">Hướng dẫn</Link>
+            <Link href="/lien-he">Liên hệ</Link>
+          </div>
+          <div>
+            <h4>Hỗ trợ</h4>
+            <Link href="/faq">Câu hỏi thường gặp</Link>
+            <Link href="/chinh-sach-hoan-tien">Chính sách hoàn tiền</Link>
+            <Link href="/dieu-khoan-dich-vu">Điều khoản dịch vụ</Link>
+          </div>
+        </div>
+        <div className="foot-bottom">
+          <span>© 2026 Lục Linh Media. Bảo lưu mọi quyền.</span>
+          <span className="font-mono">made in Việt Nam</span>
+        </div>
+      </div>
+    </footer>
+  );
+}
