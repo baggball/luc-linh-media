@@ -31,6 +31,9 @@ export default function UserMenu({ name, isAdmin }: { name: string; isAdmin?: bo
           <Link className="btn btn-ghost" href="/admin/don-hang" style={{ display: "inline-block" }}>
             Đơn hàng
           </Link>
+          <Link className="btn btn-ghost" href="/admin/yeu-cau" style={{ display: "inline-block" }}>
+            Yêu cầu khách
+          </Link>
         </>
       )}
       <button className="btn btn-ghost" onClick={handleSignOut}>
