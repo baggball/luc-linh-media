@@ -1,6 +1,13 @@
 import Link from "next/link";
+import { createClient } from "@/lib/supabase/server";
+import UserMenu from "./UserMenu";
 
-export default function Topbar() {
+export default async function Topbar() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
   return (
     <div className="topbar">
       <div className="topbar-inner">
@@ -19,9 +26,13 @@ export default function Topbar() {
               <circle cx="18" cy="21" r="1" />
             </svg>
           </button>
-          <Link className="btn btn-primary" href="/dang-nhap" style={{ display: "inline-block" }}>
-            Đăng ký / Đăng nhập
-          </Link>
+          {user ? (
+            <UserMenu name={(user.user_metadata?.full_name as string) || user.email || "Tài khoản"} />
+          ) : (
+            <Link className="btn btn-primary" href="/dang-nhap" style={{ display: "inline-block" }}>
+              Đăng ký / Đăng nhập
+            </Link>
+          )}
         </div>
       </div>
     </div>
