@@ -1,9 +1,10 @@
 "use client";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 
-export default function UserMenu({ name }: { name: string }) {
+export default function UserMenu({ name, isAdmin }: { name: string; isAdmin?: boolean }) {
   const router = useRouter();
 
   async function handleSignOut() {
@@ -16,6 +17,11 @@ export default function UserMenu({ name }: { name: string }) {
   return (
     <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
       <span style={{ fontSize: 13.5, fontWeight: 600, color: "var(--paper)" }}>{name}</span>
+      {isAdmin && (
+        <Link className="btn btn-ghost" href="/admin/quan-ly-san-pham" style={{ display: "inline-block" }}>
+          Quản lý sản phẩm
+        </Link>
+      )}
       <button className="btn btn-ghost" onClick={handleSignOut}>
         Đăng xuất
       </button>

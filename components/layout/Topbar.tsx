@@ -8,6 +8,12 @@ export default async function Topbar() {
     data: { user },
   } = await supabase.auth.getUser();
 
+  let isAdmin = false;
+  if (user) {
+    const { data: profile } = await supabase.from("profiles").select("role").eq("id", user.id).maybeSingle();
+    isAdmin = profile?.role === "admin";
+  }
+
   return (
     <div className="topbar">
       <div className="topbar-inner">
@@ -27,7 +33,7 @@ export default async function Topbar() {
             </svg>
           </button>
           {user ? (
-            <UserMenu name={(user.user_metadata?.full_name as string) || user.email || "Tài khoản"} />
+            <UserMenu name={(user.user_metadata?.full_name as string) || user.email || "Tài khoản"} isAdmin={isAdmin} />
           ) : (
             <Link className="btn btn-primary" href="/dang-nhap" style={{ display: "inline-block" }}>
               Đăng ký / Đăng nhập
