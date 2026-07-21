@@ -6,6 +6,7 @@ import ProductGallery from "@/components/product/ProductGallery";
 import FaqAccordion from "@/components/product/FaqAccordion";
 import CopyLinkButton from "@/components/product/CopyLinkButton";
 import SaveButton from "@/components/product/SaveButton";
+import BuyButton from "@/components/product/BuyButton";
 import { createClient } from "@/lib/supabase/server";
 import { formatVND } from "@/lib/format";
 import { PRODUCT_TYPE_LABEL, PRODUCT_TYPE_ROUTE, type Product, type ProductType } from "@/lib/types";
@@ -51,6 +52,22 @@ export default async function ProductDetailPage({ type, id }: { type: ProductTyp
   const faq = product.faq ?? [];
   const listHref = `/${PRODUCT_TYPE_ROUTE[type]}`;
   const kindLabel = PRODUCT_TYPE_LABEL[type];
+
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  let hasPurchased = false;
+  if (user && !product.is_free) {
+    const { data: purchase } = await supabase
+      .from("purchases")
+      .select("id")
+      .eq("user_id", user.id)
+      .eq("product_id", product.id)
+      .eq("status", "paid")
+      .maybeSingle();
+    hasPurchased = !!purchase;
+  }
 
   return (
     <AppShell>
@@ -154,6 +171,33 @@ export default async function ProductDetailPage({ type, id }: { type: ProductTyp
                 )}
                 <div className="access-caption">Copy link để sử dụng</div>
               </div>
+            ) : hasPurchased ? (
+              <div className="access-box unlocked">
+                <div className="access-head ok">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <rect x="3" y="11" width="18" height="10" rx="2" />
+                    <path d="M7 11V7a5 5 0 0 1 9.9-1" />
+                  </svg>
+                  Bạn đã mua sản phẩm này — xem link bên dưới
+                </div>
+                {product.workflow_link && (
+                  <>
+                    <a className="btn btn-primary" href={product.workflow_link} target="_blank" rel="noopener">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                        <path d="M15 3h6v6" />
+                        <path d="M10 14L21 3" />
+                      </svg>
+                      Mở ngay
+                    </a>
+                    <div className="link-field">
+                      <span>{product.workflow_link}</span>
+                      <CopyLinkButton text={product.workflow_link} />
+                    </div>
+                  </>
+                )}
+                <div className="access-caption">Copy link để sử dụng</div>
+              </div>
             ) : (
               <div className="access-box locked">
                 <div className="access-head no">
@@ -164,9 +208,13 @@ export default async function ProductDetailPage({ type, id }: { type: ProductTyp
                   Sản phẩm trả phí — mua để mở khoá toàn bộ nội dung
                 </div>
                 <div className="paid-price-line">{formatVND(product.price)}</div>
-                <Link className="btn btn-primary" href="/dang-nhap">
-                  Đăng nhập để mua
-                </Link>
+                {user ? (
+                  <BuyButton productId={product.id} amount={product.price} />
+                ) : (
+                  <Link className="btn btn-primary" href="/dang-nhap">
+                    Đăng nhập để mua
+                  </Link>
+                )}
                 <div className="access-caption">
                   Hoàn tiền 7 ngày nếu không hài lòng · Bảo hành tài khoản AI {product.warranty || "15 ngày"}
                 </div>
@@ -219,19 +267,49 @@ export default async function ProductDetailPage({ type, id }: { type: ProductTyp
                 <div className="sub">Xem video để hiểu cách sử dụng {kindLabel.toLowerCase()} này</div>
               </div>
             </div>
-            <div className="video-box">
-              <div className="lock-circle">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <rect x="3" y="11" width="18" height="10" rx="2" />
-                  <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                </svg>
+            {product.is_free || hasPurchased ? (
+              product.video_url ? (
+                <div className="video-box">
+                  <div className="lock-circle playable">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                  </div>
+                  <h3>Sẵn sàng phát</h3>
+                  <a className="btn btn-primary" href={product.video_url} target="_blank" rel="noopener">
+                    Xem video hướng dẫn
+                  </a>
+                </div>
+              ) : (
+                <div className="video-box">
+                  <div className="lock-circle playable">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M8 5v14l11-7z" />
+                    </svg>
+                  </div>
+                  <h3>Chưa có video hướng dẫn</h3>
+                  <p>Đội ngũ Lục Linh Media sẽ cập nhật video sớm nhất.</p>
+                </div>
+              )
+            ) : (
+              <div className="video-box">
+                <div className="lock-circle">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <rect x="3" y="11" width="18" height="10" rx="2" />
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                  </svg>
+                </div>
+                <h3>Video bị khoá</h3>
+                <p>Mua sản phẩm để mở khoá video hướng dẫn</p>
+                {user ? (
+                  <BuyButton productId={product.id} amount={product.price} />
+                ) : (
+                  <Link className="btn btn-primary" href="/dang-nhap">
+                    Đăng nhập để mua
+                  </Link>
+                )}
               </div>
-              <h3>Video bị khoá</h3>
-              <p>Mua sản phẩm để mở khoá video hướng dẫn</p>
-              <Link className="btn btn-primary" href="/dang-nhap">
-                Đăng nhập để mua
-              </Link>
-            </div>
+            )}
           </div>
         </div>
 
