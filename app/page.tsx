@@ -3,6 +3,7 @@ import AppShell from "@/components/layout/AppShell";
 import Footer from "@/components/layout/Footer";
 import ProductCard from "@/components/product/ProductCard";
 import NewsletterForm from "@/components/home/NewsletterForm";
+import HeroHologram from "@/components/home/HeroHologram";
 import { createClient } from "@/lib/supabase/server";
 import type { Product } from "@/lib/types";
 import styles from "./home.module.css";
@@ -60,26 +61,7 @@ export default async function Home() {
             </div>
           </div>
 
-          <div className={styles.terminal}>
-            <div className={styles.terminalBar}>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span className="lbl">prompt.mauailamvideo.com — zsh</span>
-            </div>
-            <div className={styles.terminalBody}>
-              <div className={styles.tLine}>
-                <span className={styles.tPrompt}>→</span>{" "}
-                <span className={styles.tUser}>Viết kịch bản KOC 30s bán son môi, giọng gen Z, chèn 1 câu chốt đơn</span>
-              </div>
-              <div className={styles.tOut}>
-                {"✓ Đang tạo kịch bản...\n✓ Hook 3 giây đầu: \"Đừng lướt vội, môi bạn xứng đáng hơn thế\"\n✓ 3 bước demo sản phẩm + 1 lời chốt đơn tự nhiên\n✓ Xuất kèm prompt dựng video Veo3 tương ứng"}
-              </div>
-              <div className={styles.tLine} style={{ marginTop: 16 }}>
-                <span className={styles.tPrompt}>→</span> <span className={styles.caret}></span>
-              </div>
-            </div>
-          </div>
+          <HeroHologram />
         </div>
       </section>
 
