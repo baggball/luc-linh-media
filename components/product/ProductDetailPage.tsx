@@ -1,0 +1,260 @@
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import AppShell from "@/components/layout/AppShell";
+import Footer from "@/components/layout/Footer";
+import ProductGallery from "@/components/product/ProductGallery";
+import FaqAccordion from "@/components/product/FaqAccordion";
+import CopyLinkButton from "@/components/product/CopyLinkButton";
+import SaveButton from "@/components/product/SaveButton";
+import { createClient } from "@/lib/supabase/server";
+import { formatVND } from "@/lib/format";
+import { PRODUCT_TYPE_LABEL, PRODUCT_TYPE_ROUTE, type Product, type ProductType } from "@/lib/types";
+
+const KIND_ICON: Record<ProductType, React.ReactNode> = {
+  chatbot: <path d="M13 2 3 14h7l-1 8 10-12h-7z" />,
+  workflow: (
+    <>
+      <circle cx="6" cy="6" r="3" />
+      <circle cx="18" cy="18" r="3" />
+      <path d="M6 9v3a3 3 0 0 0 3 3h6" />
+    </>
+  ),
+  app: (
+    <>
+      <rect x="3" y="3" width="7" height="7" rx="1.5" />
+      <rect x="14" y="3" width="7" height="7" rx="1.5" />
+      <rect x="3" y="14" width="7" height="7" rx="1.5" />
+      <rect x="14" y="14" width="7" height="7" rx="1.5" />
+    </>
+  ),
+  veo3: (
+    <>
+      <circle cx="6" cy="6" r="3" />
+      <circle cx="18" cy="18" r="3" />
+      <path d="M6 9v3a3 3 0 0 0 3 3h6" />
+    </>
+  ),
+};
+
+export default async function ProductDetailPage({ type, id }: { type: ProductType; id: string }) {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("products")
+    .select("*")
+    .eq("id", id)
+    .eq("type", type)
+    .eq("is_published", true)
+    .maybeSingle();
+
+  if (!data) notFound();
+  const product = data as Product;
+  const faq = product.faq ?? [];
+  const listHref = `/${PRODUCT_TYPE_ROUTE[type]}`;
+  const kindLabel = PRODUCT_TYPE_LABEL[type];
+
+  return (
+    <AppShell>
+      <div className="content-wrap">
+        <div className="crumb" style={{ padding: "24px 0 0" }}>
+          <Link href="/">Trang chủ</Link>
+          <span className="sep">/</span>
+          <Link href={listHref}>{kindLabel}</Link>
+          <span className="sep">/</span>
+          <span className="cur">{product.title}</span>
+        </div>
+
+        <div className="detail-grid" style={{ marginTop: 20 }}>
+          <ProductGallery images={product.images} title={product.title} />
+
+          <div>
+            <div className="info-top">
+              <span className="kind-badge">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  {KIND_ICON[type]}
+                </svg>
+                {kindLabel}
+              </span>
+              <SaveButton />
+            </div>
+
+            <h1 className="p-title">{product.title}</h1>
+
+            <div className="detail-stat-row">
+              <div className="stat-item">
+                <div className="stat-icon" style={{ background: "rgba(242,181,68,0.16)", color: "var(--amber)" }}>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2l2.9 6.6 7.1.6-5.4 4.7L18.2 21 12 17.3 5.8 21l1.6-7.1L2 9.2l7.1-.6z" />
+                  </svg>
+                </div>
+                <b>{(product.rating ?? 5).toFixed(1)}</b>
+                <span>Đánh giá</span>
+              </div>
+              <div className="stat-item">
+                <div className="stat-icon" style={{ background: "rgba(51,196,141,0.16)", color: "var(--success)" }}>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M21 8l-9-5-9 5 9 5 9-5z" />
+                    <path d="M3 8v8l9 5 9-5V8" />
+                  </svg>
+                </div>
+                <b>{product.sold_count > 0 ? product.sold_count.toLocaleString("vi-VN") : "Mới"}</b>
+                <span>Đã bán</span>
+              </div>
+              <div className="stat-item">
+                <div className="stat-icon" style={{ background: "rgba(47,177,255,0.16)", color: "var(--electric-bright)" }}>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z" />
+                  </svg>
+                </div>
+                <b>{product.warranty || "15 ngày"}</b>
+                <span>Bảo hành</span>
+              </div>
+              <div className="stat-item">
+                <div className="stat-icon" style={{ background: "rgba(124,92,240,0.16)", color: "var(--violet)" }}>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <path d="M3 14v-2a9 9 0 0 1 18 0v2" />
+                    <path d="M21 15a2 2 0 0 1-2 2h-1v-5h1a2 2 0 0 1 2 2zM3 15a2 2 0 0 0 2 2h1v-5H5a2 2 0 0 0-2 2z" />
+                  </svg>
+                </div>
+                <b>1:1</b>
+                <span>Hỗ trợ</span>
+              </div>
+            </div>
+
+            <div className="price-box">
+              <div className="lbl">Giá</div>
+              <div className={`val${product.is_free ? "" : " paid"}`}>
+                {product.is_free ? "Miễn phí" : formatVND(product.price)}
+              </div>
+            </div>
+
+            {product.is_free ? (
+              <div className="access-box unlocked">
+                <div className="access-head ok">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <rect x="3" y="11" width="18" height="10" rx="2" />
+                    <path d="M7 11V7a5 5 0 0 1 9.9-1" />
+                  </svg>
+                  {kindLabel} miễn phí — xem link và hướng dẫn bên dưới
+                </div>
+                {product.workflow_link && (
+                  <>
+                    <a className="btn btn-primary" href={product.workflow_link} target="_blank" rel="noopener">
+                      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                        <path d="M15 3h6v6" />
+                        <path d="M10 14L21 3" />
+                      </svg>
+                      Mở ngay
+                    </a>
+                    <div className="link-field">
+                      <span>{product.workflow_link}</span>
+                      <CopyLinkButton text={product.workflow_link} />
+                    </div>
+                  </>
+                )}
+                <div className="access-caption">Copy link để sử dụng</div>
+              </div>
+            ) : (
+              <div className="access-box locked">
+                <div className="access-head no">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                    <rect x="3" y="11" width="18" height="10" rx="2" />
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                  </svg>
+                  Sản phẩm trả phí — mua để mở khoá toàn bộ nội dung
+                </div>
+                <div className="paid-price-line">{formatVND(product.price)}</div>
+                <Link className="btn btn-primary" href="/dang-nhap">
+                  Đăng nhập để mua
+                </Link>
+                <div className="access-caption">
+                  Hoàn tiền 7 ngày nếu không hài lòng · Bảo hành tài khoản AI {product.warranty || "15 ngày"}
+                </div>
+              </div>
+            )}
+
+            <div className="contact-box">
+              <span className="ico">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M21 11.5a8.38 8.38 0 0 1-9 8.4A8.5 8.5 0 1 1 21 11.5z" />
+                </svg>
+              </span>
+              <div>
+                <a href="https://zalo.me/0379062594" target="_blank" rel="noopener">
+                  Liên hệ Zalo tư vấn
+                </a>
+                <span>Người tạo: Đội ngũ Lục Linh Media</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="detail-section">
+          <div className="section-card">
+            <div className="section-head-row">
+              <span className="ico">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M13 2 3 14h7l-1 8 10-12h-7z" />
+                </svg>
+              </span>
+              <div>
+                <h2>Mô tả sản phẩm</h2>
+              </div>
+            </div>
+            <div className="divider-line"></div>
+            <p className="desc-text">{product.description || "Chưa có mô tả."}</p>
+          </div>
+        </div>
+
+        <div className="detail-section">
+          <div className="section-card">
+            <div className="section-head-row">
+              <span className="ico">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+              </span>
+              <div>
+                <h2>Video hướng dẫn</h2>
+                <div className="sub">Xem video để hiểu cách sử dụng {kindLabel.toLowerCase()} này</div>
+              </div>
+            </div>
+            <div className="video-box">
+              <div className="lock-circle">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <rect x="3" y="11" width="18" height="10" rx="2" />
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                </svg>
+              </div>
+              <h3>Video bị khoá</h3>
+              <p>Mua sản phẩm để mở khoá video hướng dẫn</p>
+              <Link className="btn btn-primary" href="/dang-nhap">
+                Đăng nhập để mua
+              </Link>
+            </div>
+          </div>
+        </div>
+
+        <div className="detail-section">
+          <div className="section-card">
+            <div className="section-head-row">
+              <span className="ico">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <circle cx="12" cy="12" r="9" />
+                  <path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 1.7-2.5 2-2.5 4" />
+                  <path d="M12 17h.01" />
+                </svg>
+              </span>
+              <div>
+                <h2>Câu hỏi thường gặp</h2>
+              </div>
+            </div>
+            <div className="divider-line"></div>
+            <FaqAccordion faq={faq} />
+          </div>
+        </div>
+      </div>
+      <Footer />
+    </AppShell>
+  );
+}
