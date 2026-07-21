@@ -99,7 +99,7 @@ export default async function Home() {
             <Link className="pill" href="/veo3-workflow">
               VEO3 Workflow
             </Link>
-            <Link className="pill" href="/viral-video-hooks">
+            <Link className="pill" href="/viral-hooks">
               Viral Video Hooks
             </Link>
           </div>

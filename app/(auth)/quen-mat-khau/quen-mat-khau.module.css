@@ -1,0 +1,40 @@
+.page{min-height:100vh; display:flex; align-items:center; justify-content:center; padding:40px 20px;}
+
+.card{
+  width:100%; max-width:420px; background:var(--ink-raised); border:1px solid var(--line); border-radius:20px;
+  padding:38px 34px; position:relative; overflow:hidden;
+}
+
+.brandRow{display:flex; align-items:center; gap:10px; margin-bottom:26px; position:relative;}
+.brandMark{width:32px; height:32px; border-radius:9px; flex:none; background:linear-gradient(155deg, var(--electric-bright), var(--electric-deep)); display:flex; align-items:center; justify-content:center; color:#04101a;}
+.brandWord{font-weight:800; font-size:15.5px; letter-spacing:-0.01em;}
+
+.stepIcon{width:56px; height:56px; border-radius:16px; display:flex; align-items:center; justify-content:center; margin-bottom:18px; background:linear-gradient(155deg, rgba(47,177,255,0.22), rgba(47,177,255,0.06)); border:1px solid rgba(47,177,255,0.35); color:var(--electric-bright);}
+.stepIcon.ok{background:linear-gradient(155deg, rgba(51,196,141,0.22), rgba(51,196,141,0.06)); border-color:rgba(51,196,141,0.4); color:var(--success);}
+
+.card h1{font-size:23px; margin-bottom:9px;}
+.sub{color:var(--mute); font-size:14px; margin-bottom:22px;}
+.sub b{color:var(--paper);}
+
+.field{margin-bottom:18px;}
+.field label{display:block; font-size:13px; font-weight:600; color:var(--mute); margin-bottom:7px;}
+.field input{width:100%; background:var(--ink-card); border:1px solid var(--line-strong); border-radius:10px; padding:12px 14px; color:var(--paper); font-size:14.5px;}
+.field input:focus{border-color:var(--electric); outline:none;}
+.field input::placeholder{color:var(--mute-dim);}
+.hint{font-size:12px; color:var(--mute-dim); margin-top:6px;}
+.hintError{color:var(--coral);}
+
+.btn{font-weight:700; font-size:14.5px; cursor:pointer; border:none; border-radius:10px; padding:13px 20px; width:100%; font-family:inherit;}
+.btnPrimary{background:linear-gradient(155deg, var(--electric-bright), var(--electric)); color:#04101a; box-shadow:0 10px 24px -10px rgba(47,177,255,0.6);}
+.btnPrimary:hover{filter:brightness(1.08);}
+.btnPrimary:disabled{opacity:0.7; cursor:default;}
+
+.resendRow{margin-top:16px; font-size:13px; color:var(--mute-dim); text-align:center;}
+.resendRow button{background:none; border:none; color:var(--electric-bright); font-weight:700; cursor:pointer; font-size:13px; padding:0; font-family:inherit;}
+.resendRow button:disabled{color:var(--mute-dim); cursor:default;}
+
+.backRow{margin-top:22px; text-align:center; font-size:13.5px;}
+.backRow a{color:var(--electric-bright); font-weight:700;}
+.backRow a:hover{text-decoration:underline;}
+
+.errorBox{background:rgba(255,107,94,0.1); border:1px solid rgba(255,107,94,0.35); color:#ffb3ac; font-size:13px; padding:10px 12px; border-radius:10px; margin-bottom:16px;}

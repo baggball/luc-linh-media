@@ -18,9 +18,14 @@ export default function UserMenu({ name, isAdmin }: { name: string; isAdmin?: bo
     <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
       <span style={{ fontSize: 13.5, fontWeight: 600, color: "var(--paper)" }}>{name}</span>
       {isAdmin && (
-        <Link className="btn btn-ghost" href="/admin/quan-ly-san-pham" style={{ display: "inline-block" }}>
-          Quản lý sản phẩm
-        </Link>
+        <>
+          <Link className="btn btn-ghost" href="/admin/quan-ly-san-pham" style={{ display: "inline-block" }}>
+            Quản lý sản phẩm
+          </Link>
+          <Link className="btn btn-ghost" href="/admin/them-prompt" style={{ display: "inline-block" }}>
+            Thêm prompt
+          </Link>
+        </>
       )}
       <button className="btn btn-ghost" onClick={handleSignOut}>
         Đăng xuất

@@ -34,3 +34,15 @@ export const PRODUCT_TYPE_LABEL: Record<ProductType, string> = {
   app: "App",
   veo3: "VEO3 Workflow",
 };
+
+export type FreePrompt = {
+  id: string;
+  title: string;
+  crumb: string;
+  tag: string | null;
+  hashtag: string | null;
+  prompt_text: string;
+  images: string[];
+  created_by: string | null;
+  created_at: string;
+};
