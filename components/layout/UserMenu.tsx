@@ -15,21 +15,30 @@ export default function UserMenu({ name, isAdmin }: { name: string; isAdmin?: bo
   }
 
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-      <span style={{ fontSize: 13.5, fontWeight: 600, color: "var(--paper)" }}>{name}</span>
-      {isAdmin && (
-        <>
-          <Link className="btn btn-ghost" href="/admin/quan-ly-san-pham" style={{ display: "inline-block" }}>
-            Quản lý sản phẩm
-          </Link>
-          <Link className="btn btn-ghost" href="/admin/them-prompt" style={{ display: "inline-block" }}>
-            Thêm prompt
-          </Link>
-        </>
-      )}
-      <button className="btn btn-ghost" onClick={handleSignOut}>
-        Đăng xuất
-      </button>
-    </div>
+    <details className="user-menu">
+      <summary className="user-menu-trigger" aria-label="Mở menu tài khoản">
+        <span className="user-avatar" aria-hidden="true">
+          {name.trim().charAt(0).toUpperCase() || "T"}
+        </span>
+        <span className="user-menu-name">{name}</span>
+        <svg aria-hidden="true" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="m6 9 6 6 6-6" />
+        </svg>
+      </summary>
+      <div className="user-menu-panel">
+        <Link href="/tai-khoan/san-pham">Sản phẩm của tôi</Link>
+        {isAdmin && (
+          <>
+            <div className="user-menu-divider" />
+            <Link href="/admin/quan-ly-san-pham">Quản lý sản phẩm</Link>
+            <Link href="/admin/them-prompt">Thêm prompt</Link>
+            <Link href="/admin/don-hang">Đơn hàng</Link>
+            <Link href="/admin/yeu-cau">Yêu cầu khách</Link>
+          </>
+        )}
+        <div className="user-menu-divider" />
+        <button type="button" onClick={handleSignOut}>Đăng xuất</button>
+      </div>
+    </details>
   );
 }

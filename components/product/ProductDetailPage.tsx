@@ -8,8 +8,9 @@ import CopyLinkButton from "@/components/product/CopyLinkButton";
 import SaveButton from "@/components/product/SaveButton";
 import BuyButton from "@/components/product/BuyButton";
 import { createClient } from "@/lib/supabase/server";
+import { getPublishedProduct } from "@/lib/products";
 import { formatVND } from "@/lib/format";
-import { PRODUCT_TYPE_LABEL, PRODUCT_TYPE_ROUTE, type Product, type ProductType } from "@/lib/types";
+import { PRODUCT_TYPE_LABEL, PRODUCT_TYPE_ROUTE, type ProductType } from "@/lib/types";
 
 const KIND_ICON: Record<ProductType, React.ReactNode> = {
   chatbot: <path d="M13 2 3 14h7l-1 8 10-12h-7z" />,
@@ -37,21 +38,56 @@ const KIND_ICON: Record<ProductType, React.ReactNode> = {
   ),
 };
 
-export default async function ProductDetailPage({ type, id }: { type: ProductType; id: string }) {
-  const supabase = await createClient();
-  const { data } = await supabase
-    .from("products")
-    .select("*")
-    .eq("id", id)
-    .eq("type", type)
-    .eq("is_published", true)
-    .maybeSingle();
+function safeJsonLd(data: unknown) {
+  return JSON.stringify(data).replace(/</g, "\\u003c");
+}
 
-  if (!data) notFound();
-  const product = data as Product;
+export default async function ProductDetailPage({ type, id }: { type: ProductType; id: string }) {
+  const product = await getPublishedProduct(type, id);
+  if (!product) notFound();
+
+  const supabase = await createClient();
   const faq = product.faq ?? [];
   const listHref = `/${PRODUCT_TYPE_ROUTE[type]}`;
   const kindLabel = PRODUCT_TYPE_LABEL[type];
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://web-bice-six-68.vercel.app";
+  const productUrl = `${siteUrl}${listHref}/${product.id}`;
+  const productJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: product.title,
+    description: product.description || undefined,
+    image: product.images ?? [],
+    category: kindLabel,
+    brand: { "@type": "Brand", name: "Lục Linh Media" },
+    offers: {
+      "@type": "Offer",
+      url: productUrl,
+      priceCurrency: "VND",
+      price: product.is_free ? 0 : product.price,
+      availability: "https://schema.org/InStock",
+    },
+    ...(product.sold_count > 0
+      ? {
+          aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: product.rating ?? 5,
+            reviewCount: product.sold_count,
+          },
+        }
+      : {}),
+  };
+  const faqJsonLd = faq.length
+    ? {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: faq.map((item) => ({
+          "@type": "Question",
+          name: item.question,
+          acceptedAnswer: { "@type": "Answer", text: item.answer },
+        })),
+      }
+    : null;
 
   const {
     data: { user },
@@ -71,6 +107,8 @@ export default async function ProductDetailPage({ type, id }: { type: ProductTyp
 
   return (
     <AppShell>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(productJsonLd) }} />
+      {faqJsonLd && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(faqJsonLd) }} />}
       <div className="content-wrap">
         <div className="crumb" style={{ padding: "24px 0 0" }}>
           <Link href="/">Trang chủ</Link>

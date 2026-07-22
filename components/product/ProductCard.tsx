@@ -10,12 +10,21 @@ function toneFor(id: string) {
   return TONES[sum % TONES.length];
 }
 
+function excerpt(text: string | null, maxLength = 150) {
+  if (!text) return "";
+  const normalized = text.replace(/\s+/g, " ").trim();
+  if (normalized.length <= maxLength) return normalized;
+  return `${normalized.slice(0, maxLength).replace(/\s+\S*$/, "")}…`;
+}
+
 export default function ProductCard({ product, badge }: { product: Product; badge?: "new" | "premium" }) {
   const href = `/${PRODUCT_TYPE_ROUTE[product.type]}/${product.id}`;
   const cover = product.images?.[0];
+  const summary = excerpt(product.description);
+  const priceLabel = product.is_free ? "Miễn phí" : formatVND(product.price);
 
   return (
-    <Link className="card" href={href}>
+    <Link className="card" href={href} aria-label={`${product.title} – ${priceLabel}`}>
       <div className={`thumb ${toneFor(product.id)}${cover ? " has-image" : ""}`}>
         {cover && <img src={cover} alt={product.title} />}
         <div className="badges">
@@ -32,13 +41,14 @@ export default function ProductCard({ product, badge }: { product: Product; badg
       </div>
       <div className="card-body">
         <div className="card-name">{product.title}</div>
-        {product.description && <p className="card-desc">{product.description}</p>}
+        {summary && <p className="card-desc">{summary}</p>}
         <div className="card-meta">
           <span className="rating">★ {(product.rating ?? 5).toFixed(1)}</span>
           <span>· Đã bán {product.sold_count.toLocaleString("vi-VN")}</span>
         </div>
         <div className="card-price">
-          <span className="price-now font-mono">{product.is_free ? "Miễn phí" : formatVND(product.price)}</span>
+          <span className="price-now font-mono">{priceLabel}</span>
+          <span className="card-link">Xem chi tiết →</span>
         </div>
       </div>
     </Link>
