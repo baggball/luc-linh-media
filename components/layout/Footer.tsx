@@ -31,8 +31,6 @@ export default function Footer() {
             <h4>Sản phẩm</h4>
             <Link href="/chatbot">Chatbot</Link>
             <Link href="/workflow">Workflow</Link>
-            <Link href="/app-ai">App</Link>
-            <Link href="/veo3-workflow">VEO3 Workflow</Link>
             <a href="https://luclinhmedia.com/" target="_blank" rel="noopener noreferrer">
               Kho tài nguyên ↗
             </a>

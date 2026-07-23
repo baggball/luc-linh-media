@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { track } from "@vercel/analytics";
 import { createClient } from "@/lib/supabase/client";
 import { formatVND } from "@/lib/format";
 
@@ -28,6 +29,7 @@ export default function CheckoutStatus({
 }) {
   const [status, setStatus] = useState(initialStatus);
   const [copied, setCopied] = useState<"account" | "content" | null>(null);
+  const trackedPaid = useRef(false);
 
   async function copyValue(value: string, kind: "account" | "content") {
     await navigator.clipboard.writeText(value);
@@ -44,6 +46,13 @@ export default function CheckoutStatus({
     }, 3000);
     return () => clearInterval(interval);
   }, [purchaseId, status]);
+
+  useEffect(() => {
+    if (status === "paid" && !trackedPaid.current) {
+      trackedPaid.current = true;
+      track("purchase_completed", { product: productHref, value: amount });
+    }
+  }, [amount, productHref, status]);
 
   if (status === "paid") {
     return (

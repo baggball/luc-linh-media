@@ -8,8 +8,6 @@ const STATIC_PAGES = [
   { path: "/", priority: 1, changeFrequency: "daily" as const },
   { path: "/chatbot", priority: 0.9, changeFrequency: "daily" as const },
   { path: "/workflow", priority: 0.8, changeFrequency: "weekly" as const },
-  { path: "/app-ai", priority: 0.8, changeFrequency: "weekly" as const },
-  { path: "/veo3-workflow", priority: 0.8, changeFrequency: "weekly" as const },
   { path: "/prompt-mien-phi", priority: 0.8, changeFrequency: "weekly" as const },
   { path: "/viral-hooks", priority: 0.7, changeFrequency: "weekly" as const },
   { path: "/huong-dan", priority: 0.7, changeFrequency: "monthly" as const },

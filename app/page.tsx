@@ -57,8 +57,8 @@ export default async function Home() {
                 <span>Chatbot theo ngành</span>
               </div>
               <div className={styles.stat}>
-                <b className="font-mono">4</b>
-                <span>Nhóm công cụ AI</span>
+                <b className="font-mono">16+</b>
+                <span>Sản phẩm thực chiến</span>
               </div>
               <div className={styles.stat}>
                 <b className="font-mono">1:1</b>
@@ -80,12 +80,6 @@ export default async function Home() {
             </Link>
             <Link className="pill" href="/workflow">
               Workflow
-            </Link>
-            <Link className="pill" href="/app-ai">
-              App
-            </Link>
-            <Link className="pill" href="/veo3-workflow">
-              VEO3 Workflow
             </Link>
             <Link className="pill" href="/viral-hooks">
               Viral Video Hooks
@@ -119,8 +113,8 @@ export default async function Home() {
         <div className="content-wrap">
           <div className="sec-head">
             <div>
-              <h2>Chatbot nổi bật</h2>
-              <p className="sub">Những chatbot được cộng đồng KOC dùng nhiều nhất tuần này</p>
+              <h2>Chatbot theo ngành hàng</h2>
+              <p className="sub">Chọn đúng nhóm sản phẩm bạn đang làm nội dung hoặc affiliate</p>
             </div>
             <Link className="see-all" href="/chatbot">
               Xem tất cả →
@@ -149,7 +143,7 @@ export default async function Home() {
             <div className={styles.step}>
               <div className="cmd">01 · Chọn sản phẩm</div>
               <h3>1. Chọn sản phẩm phù hợp</h3>
-              <p>Duyệt theo ngành hàng: thời trang, mỹ phẩm, gia dụng, sách... mỗi sản phẩm có demo xem trước.</p>
+              <p>Duyệt theo ngành hàng: thời trang, mỹ phẩm, gia dụng, sách... và đọc kỹ đầu vào cần chuẩn bị.</p>
             </div>
             <div className={styles.step}>
               <div className="cmd">02 · Quét QR chuyển khoản</div>

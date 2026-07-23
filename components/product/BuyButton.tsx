@@ -2,9 +2,10 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { track } from "@vercel/analytics";
 import { createClient } from "@/lib/supabase/client";
 
-export default function BuyButton({ productId }: { productId: string }) {
+export default function BuyButton({ productId, productSlug }: { productId: string; productSlug: string }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -31,6 +32,7 @@ export default function BuyButton({ productId }: { productId: string }) {
       setError(insertError?.message || "Không thể tạo đơn hàng, thử lại sau.");
       return;
     }
+    track("begin_checkout", { product: productSlug });
     router.push(`/thanh-toan/${data}`);
   }
 

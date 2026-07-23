@@ -17,7 +17,7 @@ export default function ChatbotCatalogPage() {
           Chatbot GPT cho <em>người sáng tạo &amp; bán hàng</em>
         </>
       }
-      description="Chatbot dựng sẵn theo ngành hàng — dán thẳng vào ChatGPT và dùng ngay, không cần chỉnh prompt."
+      description="Chatbot dựng sẵn theo ngành hàng — mở trong ChatGPT, làm theo hướng dẫn và tạo nội dung theo sản phẩm của bạn."
       ctaLabel="Yêu cầu Custom Chatbot"
       ctaHref="/custom-chatbot"
     />

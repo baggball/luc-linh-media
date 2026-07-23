@@ -40,6 +40,11 @@ export default function ChinhSachBaoMatPage() {
             liệu), SePay/ngân hàng liên kết (xác nhận giao dịch). Các đơn vị này chỉ nhận dữ liệu cần thiết để cung cấp
             chức năng tương ứng.
           </p>
+          <p>
+            Vercel Web Analytics và Speed Insights được dùng để ghi nhận dữ liệu truy cập ẩn danh, nguồn giới thiệu,
+            loại thiết bị và chỉ số tốc độ. Công cụ này không dùng cookie theo tài liệu của Vercel; chúng tôi không gửi
+            email, số điện thoại hoặc nội dung biểu mẫu vào sự kiện phân tích.
+          </p>
 
           <h2>4. Lưu trữ và bảo vệ</h2>
           <p>

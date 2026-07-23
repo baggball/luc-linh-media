@@ -6,6 +6,7 @@ export const metadata = {
   description:
     "Quy trình và prompt Veo 3 dựng sẵn giúp tạo video quảng cáo, video KOC và video affiliate nhanh hơn.",
   alternates: { canonical: "/veo3-workflow" },
+  robots: { index: false, follow: true },
 };
 
 export default function Veo3CatalogPage() {

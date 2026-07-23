@@ -6,6 +6,7 @@ export const metadata = {
   description:
     "Khám phá ứng dụng AI tiếng Việt dành cho người sáng tạo, KOC, affiliate và chủ shop.",
   alternates: { canonical: "/app-ai" },
+  robots: { index: false, follow: true },
 };
 
 export default function AppCatalogPage() {

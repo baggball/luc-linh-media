@@ -57,29 +57,6 @@ const san_pham: NavItem[] = [
     ),
   },
   {
-    href: "/app-ai",
-    label: "App",
-    icon: (
-      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <rect x="3" y="3" width="7" height="7" rx="1.5" />
-        <rect x="14" y="3" width="7" height="7" rx="1.5" />
-        <rect x="3" y="14" width="7" height="7" rx="1.5" />
-        <rect x="14" y="14" width="7" height="7" rx="1.5" />
-      </svg>
-    ),
-  },
-  {
-    href: "/veo3-workflow",
-    label: "VEO3 Workflow",
-    icon: (
-      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <circle cx="6" cy="6" r="3" />
-        <circle cx="18" cy="18" r="3" />
-        <path d="M6 9v3a3 3 0 0 0 3 3h6" />
-      </svg>
-    ),
-  },
-  {
     href: "/viral-hooks",
     label: "Viral Video Hooks",
     badge: { text: "FREE", kind: "free" },

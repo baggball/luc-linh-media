@@ -7,6 +7,7 @@ import FaqAccordion from "@/components/product/FaqAccordion";
 import CopyLinkButton from "@/components/product/CopyLinkButton";
 import SaveButton from "@/components/product/SaveButton";
 import BuyButton from "@/components/product/BuyButton";
+import ProductViewTracker from "@/components/product/ProductViewTracker";
 import { createClient } from "@/lib/supabase/server";
 import { getPublishedProduct } from "@/lib/products";
 import { publicProductSlug } from "@/lib/product-url";
@@ -44,6 +45,33 @@ function safeJsonLd(data: unknown) {
   return JSON.stringify(data).replace(/</g, "\\u003c");
 }
 
+function defaultFaq(type: ProductType) {
+  const isChatbot = type === "chatbot";
+  return [
+    {
+      question: "Sau khi thanh toán tôi nhận được gì?",
+      answer:
+        "Sản phẩm được mở khóa trong tài khoản Lục Linh Video AI, gồm liên kết sử dụng, hướng dẫn đi kèm và video hướng dẫn nếu sản phẩm có cung cấp.",
+    },
+    {
+      question: isChatbot ? "Tôi cần tài khoản ChatGPT nào để sử dụng?" : "Tôi cần chuẩn bị gì để sử dụng?",
+      answer: isChatbot
+        ? "Bạn cần đăng nhập ChatGPT để mở và trò chuyện với GPT. Khả năng tạo ảnh, video hoặc dùng công cụ nâng cao còn phụ thuộc tính năng mà tài khoản ChatGPT của bạn đang được hỗ trợ."
+        : "Hãy xem phần mô tả và hướng dẫn của sản phẩm để chuẩn bị đúng ảnh, video hoặc dữ liệu đầu vào trước khi bắt đầu.",
+    },
+    {
+      question: "Tôi có được chia sẻ hoặc bán lại sản phẩm không?",
+      answer:
+        "Không. Quyền mua dành cho người mua sử dụng vào công việc của mình; không được bán lại, phát tán công khai hoặc chia sẻ nguyên bản liên kết và nội dung được mở khóa.",
+    },
+    {
+      question: "Nếu không mở được sản phẩm thì làm sao?",
+      answer:
+        "Hãy gửi mã đơn hàng qua Zalo hoặc trang Liên hệ. Đội ngũ sẽ kiểm tra quyền mua và hỗ trợ lỗi truy cập theo chính sách của website.",
+    },
+  ];
+}
+
 export default async function ProductDetailPage({ type, id }: { type: ProductType; id: string }) {
   const product = await getPublishedProduct(type, id);
   if (!product) notFound();
@@ -53,7 +81,8 @@ export default async function ProductDetailPage({ type, id }: { type: ProductTyp
   }
 
   const supabase = await createClient();
-  const faq = product.faq ?? [];
+  const productFaq = product.faq ?? [];
+  const faq = productFaq.length > 0 ? productFaq : defaultFaq(type);
   const listHref = `/${PRODUCT_TYPE_ROUTE[type]}`;
   const kindLabel = PRODUCT_TYPE_LABEL[type];
   const productUrl = absoluteUrl(`${listHref}/${canonicalSlug}`);
@@ -125,6 +154,7 @@ export default async function ProductDetailPage({ type, id }: { type: ProductTyp
 
   return (
     <AppShell>
+      <ProductViewTracker product={canonicalSlug} category={type} price={product.is_free ? 0 : product.price} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(productJsonLd) }} />
       {faqJsonLd && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(faqJsonLd) }} />}
       <div className="content-wrap">
@@ -159,8 +189,8 @@ export default async function ProductDetailPage({ type, id }: { type: ProductTyp
                     <path d="M12 2l2.9 6.6 7.1.6-5.4 4.7L18.2 21 12 17.3 5.8 21l1.6-7.1L2 9.2l7.1-.6z" />
                   </svg>
                 </div>
-                <b>{(product.rating ?? 5).toFixed(1)}</b>
-                <span>Đánh giá</span>
+                <b>{product.sold_count > 0 ? (product.rating ?? 5).toFixed(1) : "Mới"}</b>
+                <span>{product.sold_count > 0 ? "Đánh giá" : "Ra mắt"}</span>
               </div>
               <div className="stat-item">
                 <div className="stat-icon" style={{ background: "rgba(51,196,141,0.16)", color: "var(--success)" }}>
@@ -265,14 +295,15 @@ export default async function ProductDetailPage({ type, id }: { type: ProductTyp
                 </div>
                 <div className="paid-price-line">{formatVND(product.price)}</div>
                 {user ? (
-                  <BuyButton productId={product.id} />
+                  <BuyButton productId={product.id} productSlug={canonicalSlug} />
                 ) : (
                   <Link className="btn btn-primary" href="/dang-nhap">
                     Đăng nhập để mua
                   </Link>
                 )}
                 <div className="access-caption">
-                  Hoàn tiền 7 ngày nếu không hài lòng · Bảo hành tài khoản AI {product.warranty || "15 ngày"}
+                  Thanh toán một lần · Mở khóa trong tài khoản ·{" "}
+                  <Link href="/chinh-sach-hoan-tien">Xem chính sách hoàn tiền</Link>
                 </div>
               </div>
             )}
@@ -290,6 +321,40 @@ export default async function ProductDetailPage({ type, id }: { type: ProductTyp
                 <span>Người tạo: Đội ngũ {SITE_NAME}</span>
               </div>
             </div>
+          </div>
+        </div>
+
+        <div className="detail-section product-value-grid">
+          <div className="section-card product-value-card">
+            <div className="section-head-row">
+              <span className="ico value-ok">✓</span>
+              <div>
+                <h2>Bạn nhận được gì?</h2>
+                <div className="sub">Quyền lợi rõ ràng sau khi đơn hàng được xác nhận</div>
+              </div>
+            </div>
+            <ul className="product-value-list">
+              <li>Liên kết sản phẩm được mở khóa trong tài khoản của bạn</li>
+              <li>Hướng dẫn và video đi kèm nếu sản phẩm có cung cấp</li>
+              <li>Nhận các cập nhật được phát hành trên cùng sản phẩm</li>
+              <li>Hỗ trợ lỗi truy cập qua Zalo trong thời hạn niêm yết</li>
+            </ul>
+          </div>
+
+          <div className="section-card product-value-card">
+            <div className="section-head-row">
+              <span className="ico value-note">!</span>
+              <div>
+                <h2>Cần biết trước khi mua</h2>
+                <div className="sub">Để sử dụng đúng kỳ vọng và tránh mua nhầm</div>
+              </div>
+            </div>
+            <ul className="product-value-list">
+              {type === "chatbot" && <li>Chatbot hoạt động bên trong ChatGPT; bạn cần đăng nhập ChatGPT để sử dụng</li>}
+              <li>Kết quả AI phụ thuộc ảnh, dữ liệu đầu vào và nền tảng AI bên thứ ba</li>
+              <li>Đây là công cụ hỗ trợ sáng tạo, không cam kết doanh số hoặc kết quả kinh doanh</li>
+              <li>Không chia sẻ công khai, bán lại hoặc phát tán nguyên bản sản phẩm</li>
+            </ul>
           </div>
         </div>
 
@@ -358,7 +423,7 @@ export default async function ProductDetailPage({ type, id }: { type: ProductTyp
                 <h3>Video bị khoá</h3>
                 <p>Mua sản phẩm để mở khoá video hướng dẫn</p>
                 {user ? (
-                  <BuyButton productId={product.id} />
+                  <BuyButton productId={product.id} productSlug={canonicalSlug} />
                 ) : (
                   <Link className="btn btn-primary" href="/dang-nhap">
                     Đăng nhập để mua

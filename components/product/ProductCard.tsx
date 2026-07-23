@@ -23,6 +23,7 @@ export default function ProductCard({ product, badge }: { product: Product; badg
   const cover = product.images?.[0];
   const summary = excerpt(product.description);
   const priceLabel = product.is_free ? "Miễn phí" : formatVND(product.price);
+  const hasSales = product.sold_count > 0;
 
   return (
     <Link className="card" href={href} aria-label={`${product.title} – ${priceLabel}`}>
@@ -44,8 +45,14 @@ export default function ProductCard({ product, badge }: { product: Product; badg
         <div className="card-name">{product.title}</div>
         {summary && <p className="card-desc">{summary}</p>}
         <div className="card-meta">
-          <span className="rating">★ {(product.rating ?? 5).toFixed(1)}</span>
-          <span>· Đã bán {product.sold_count.toLocaleString("vi-VN")}</span>
+          {hasSales ? (
+            <>
+              <span className="rating">★ {(product.rating ?? 5).toFixed(1)}</span>
+              <span>· Đã bán {product.sold_count.toLocaleString("vi-VN")}</span>
+            </>
+          ) : (
+            <span className="new-product-label">✦ Sản phẩm mới</span>
+          )}
         </div>
         <div className="card-price">
           <span className="price-now font-mono">{priceLabel}</span>
