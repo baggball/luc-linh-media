@@ -212,28 +212,27 @@ export default function Sidebar() {
         </span>
       </Link>
 
-      <div className="side-group">
+      <div className="side-group side-group-explore">
         <div className="side-label">Khám phá</div>
         {kham_pha.map((item) => (
           <NavLink key={item.href} item={item} pathname={pathname} />
         ))}
       </div>
 
-      <div className="side-group">
+      <div className="side-group side-group-products">
         <div className="side-label">Sản phẩm</div>
         {san_pham.map((item) => (
           <NavLink key={item.href} item={item} pathname={pathname} />
         ))}
-      </div>
-
-      <div className="side-group side-ecosystem">
-        <div className="side-label">Hệ sinh thái Lục Linh</div>
+        <div className="side-product-divider">
+          <span>Website Lục Linh</span>
+        </div>
         {he_sinh_thai.map((item) => (
           <NavLink key={item.href} item={item} pathname={pathname} />
         ))}
       </div>
 
-      <div className="side-group">
+      <div className="side-group side-group-other">
         <div className="side-label">Khác</div>
         {khac.map((item) => (
           <NavLink key={item.href} item={item} pathname={pathname} />
