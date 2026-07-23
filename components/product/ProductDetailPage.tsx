@@ -128,19 +128,30 @@ export default async function ProductDetailPage({ type, id }: { type: ProductTyp
   } = await supabase.auth.getUser();
 
   let hasPurchased = false;
-  if (user && !product.is_free) {
-    const { data: purchase } = await supabase
-      .from("purchases")
-      .select("id")
-      .eq("user_id", user.id)
-      .eq("product_id", product.id)
-      .eq("status", "paid")
+  let isAdmin = false;
+  if (user) {
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("role")
+      .eq("id", user.id)
       .maybeSingle();
-    hasPurchased = !!purchase;
+    isAdmin = profile?.role === "admin";
+
+    if (!product.is_free && !isAdmin) {
+      const { data: purchase } = await supabase
+        .from("purchases")
+        .select("id")
+        .eq("user_id", user.id)
+        .eq("product_id", product.id)
+        .eq("status", "paid")
+        .maybeSingle();
+      hasPurchased = !!purchase;
+    }
   }
 
+  const hasAccess = product.is_free || hasPurchased || isAdmin;
   let privateContent: { workflow_link: string | null; video_url: string | null } | null = null;
-  if (product.is_free || hasPurchased) {
+  if (hasAccess) {
     const { data: content } = await supabase
       .from("product_private_content")
       .select("workflow_link, video_url")
@@ -257,14 +268,16 @@ export default async function ProductDetailPage({ type, id }: { type: ProductTyp
                 )}
                 <div className="access-caption">Copy link để sử dụng</div>
               </div>
-            ) : hasPurchased ? (
+            ) : hasAccess ? (
               <div className="access-box unlocked">
                 <div className="access-head ok">
                   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <rect x="3" y="11" width="18" height="10" rx="2" />
                     <path d="M7 11V7a5 5 0 0 1 9.9-1" />
                   </svg>
-                  Bạn đã mua sản phẩm này — xem link bên dưới
+                  {isAdmin
+                    ? "Quyền quản trị viên — xem link mà không cần thanh toán"
+                    : "Bạn đã mua sản phẩm này — xem link bên dưới"}
                 </div>
                 {workflowLink && (
                   <>
@@ -388,7 +401,7 @@ export default async function ProductDetailPage({ type, id }: { type: ProductTyp
                 <div className="sub">Xem video để hiểu cách sử dụng {kindLabel.toLowerCase()} này</div>
               </div>
             </div>
-            {product.is_free || hasPurchased ? (
+            {hasAccess ? (
               videoUrl ? (
                 <div className="video-box">
                   <div className="lock-circle playable">
