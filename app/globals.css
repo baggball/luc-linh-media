@@ -83,12 +83,13 @@ img{max-width:100%; display:block;}
 }
 .brand-mark{
   width:38px; height:38px; border-radius:12px; flex:none;
-  background:linear-gradient(145deg,#a5f3fc 0%,var(--electric) 52%,#7857f5 100%);
+  background:#050505; overflow:hidden;
   display:flex; align-items:center; justify-content:center; color:#04101a;
-  box-shadow:0 0 0 1px rgba(127,224,255,.45),0 0 24px -7px rgba(47,177,255,.9),inset 0 1px rgba(255,255,255,.7);
+  box-shadow:0 0 0 1px rgba(242,181,68,.5),0 0 24px -7px rgba(242,181,68,.9),inset 0 1px rgba(255,255,255,.22);
 }
+.brand-logo-image{display:block; width:100%; height:100%; object-fit:cover;}
 .brand-word{font-weight:850; font-size:16.5px; letter-spacing:-0.015em; line-height:1.12;}
-.brand-word small{display:block; font-weight:600; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--electric-bright);}
+.brand-word small{display:block; font-weight:650; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--amber);}
 
 .side-group{position:relative; margin-bottom:11px; padding:8px 6px 7px; border-radius:15px;}
 .side-group-products{
@@ -153,6 +154,12 @@ img{max-width:100%; display:block;}
   border-bottom:1px solid var(--line);
 }
 .topbar-inner{display:flex; align-items:center; gap:16px; height:68px; padding:0 32px;}
+.topbar-mobile-brand{
+  display:none; width:40px; height:40px; flex:none; padding:2px; overflow:hidden; border-radius:12px;
+  background:#050505; border:1px solid rgba(242,181,68,.45);
+  box-shadow:0 0 20px -8px rgba(242,181,68,.85);
+}
+.topbar-mobile-brand img{width:100%; height:100%; border-radius:9px; object-fit:cover;}
 .crumb{display:flex; align-items:center; gap:8px; font-size:13.5px; color:var(--mute-dim);}
 .crumb a:hover{color:var(--paper);}
 .crumb .sep{opacity:.5;}
@@ -227,6 +234,7 @@ img{max-width:100%; display:block;}
   .crumb{overflow:hidden; white-space:nowrap;}
   .crumb .cur{overflow:hidden; text-overflow:ellipsis;}
 }
+@media (max-width:980px){.topbar-mobile-brand{display:block;}}
 
 footer{border-top:1px solid var(--line); padding:44px 0 26px;}
 .foot-grid{display:grid; grid-template-columns:1.4fr repeat(3,1fr); gap:32px; margin-bottom:32px;}

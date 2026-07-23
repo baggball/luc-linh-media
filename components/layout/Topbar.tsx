@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 import UserMenu from "./UserMenu";
@@ -17,6 +18,9 @@ export default async function Topbar() {
   return (
     <div className="topbar">
       <div className="topbar-inner">
+        <Link className="topbar-mobile-brand" href="/" aria-label="Lục Linh Video AI — Trang chủ">
+          <Image src="/brand/luc-linh-logo-gold.png" alt="" width={38} height={38} priority />
+        </Link>
         <div className="search">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <circle cx="11" cy="11" r="7" />

@@ -21,6 +21,13 @@ export const metadata: Metadata = {
   authors: [{ name: SITE_NAME, url: SITE_URL }],
   creator: SITE_NAME,
   publisher: SITE_NAME,
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.png", type: "image/png", sizes: "512x512" },
+    ],
+    apple: [{ url: "/icon.png", sizes: "512x512" }],
+  },
   formatDetection: { email: false, address: false, telephone: false },
   openGraph: {
     type: "website",
