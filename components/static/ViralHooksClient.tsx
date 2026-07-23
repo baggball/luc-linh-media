@@ -72,7 +72,7 @@ export default function ViralHooksClient() {
 
   const filtered = useMemo(() => {
     const q = normalize(query.trim());
-    return HOOKS.filter((h, i) => {
+    return HOOKS.filter((h) => {
       const matchesCat = cat === "all" || h.cat === cat;
       const matchesQuery = !q || normalize(h.catLabel + " " + h.text).includes(q);
       return matchesCat && matchesQuery;

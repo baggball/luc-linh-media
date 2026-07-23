@@ -17,6 +17,7 @@ const STATIC_PAGES = [
   { path: "/gioi-thieu", priority: 0.5, changeFrequency: "yearly" as const },
   { path: "/faq", priority: 0.5, changeFrequency: "monthly" as const },
   { path: "/lien-he", priority: 0.4, changeFrequency: "yearly" as const },
+  { path: "/chinh-sach-bao-mat", priority: 0.3, changeFrequency: "yearly" as const },
   { path: "/chinh-sach-hoan-tien", priority: 0.3, changeFrequency: "yearly" as const },
   { path: "/dieu-khoan-dich-vu", priority: 0.3, changeFrequency: "yearly" as const },
 ];

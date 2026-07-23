@@ -1,7 +1,16 @@
-import { type NextRequest } from "next/server";
+import { NextResponse, type NextRequest } from "next/server";
 import { updateSession } from "@/lib/supabase/proxy";
 
 export async function proxy(request: NextRequest) {
+  const hostname = request.nextUrl.hostname.toLowerCase();
+
+  if (hostname === "web-bice-six-68.vercel.app" || hostname === "www.luclinhvideoai.com") {
+    const destination = request.nextUrl.clone();
+    destination.protocol = "https:";
+    destination.host = "luclinhvideoai.com";
+    return NextResponse.redirect(destination, 308);
+  }
+
   return await updateSession(request);
 }
 

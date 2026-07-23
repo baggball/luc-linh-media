@@ -1,8 +1,13 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import AppShell from "@/components/layout/AppShell";
 import Footer from "@/components/layout/Footer";
 
-export const metadata = { title: "Điều khoản dịch vụ" };
+export const metadata: Metadata = {
+  title: "Điều khoản dịch vụ",
+  description: "Điều kiện mua và sử dụng sản phẩm số, chatbot, workflow và dịch vụ của Lục Linh Video AI.",
+  alternates: { canonical: "/dieu-khoan-dich-vu" },
+};
 
 export default function DieuKhoanDichVuPage() {
   return (
@@ -10,7 +15,7 @@ export default function DieuKhoanDichVuPage() {
       <div className="content-wrap doc-wrap">
         <div className="doc-head">
           <h1>Điều khoản dịch vụ</h1>
-          <span className="updated">Cập nhật lần cuối: 01/07/2026</span>
+          <span className="updated">Cập nhật lần cuối: 23/07/2026</span>
         </div>
 
         <div className="doc">
@@ -36,11 +41,12 @@ export default function DieuKhoanDichVuPage() {
             <li>Nội dung do AI tạo ra dựa trên prompt của chúng tôi thuộc quyền sử dụng của bạn, Lục Linh Video AI không giữ bản quyền đối với kết quả đầu ra.</li>
           </ul>
 
-          <h2>4. Thanh toán &amp; gói dịch vụ</h2>
+          <h2>4. Giá và thanh toán</h2>
           <p>
-            Giá sản phẩm được niêm yết công khai tại trang Bảng giá và có thể thay đổi theo thời gian. Các gói theo
-            tháng/năm tự động hết hạn vào cuối chu kỳ nếu không gia hạn; sản phẩm mua lẻ được sở hữu vĩnh viễn theo
-            Mục 3. Chi tiết hoàn tiền xem tại trang Chính sách hoàn tiền.
+            Giá sản phẩm số được hiển thị tại trang chi tiết trước khi đặt hàng. Khách hàng thanh toán bằng chuyển
+            khoản theo đúng số tiền và nội dung trên mã QR; hệ thống mở khóa sản phẩm sau khi giao dịch được xác nhận.
+            Website hiện không tự động gia hạn hoặc tự động trừ tiền. Dịch vụ tùy chỉnh chỉ được triển khai sau khi hai
+            bên thống nhất phạm vi, chi phí và thời gian bàn giao.
           </p>
 
           <h2>5. Giới hạn trách nhiệm</h2>
@@ -73,7 +79,7 @@ export default function DieuKhoanDichVuPage() {
 
           <div className="cta-band" style={{ marginTop: 36, textAlign: "center", padding: 26 }}>
             <h3 style={{ fontSize: 17, marginBottom: 6 }}>Có thắc mắc về điều khoản?</h3>
-            <p style={{ marginBottom: 16 }}>Đội ngũ pháp lý &amp; hỗ trợ sẵn sàng giải đáp cho bạn.</p>
+            <p style={{ marginBottom: 16 }}>Đội ngũ hỗ trợ sẵn sàng giải đáp trước khi bạn mua hàng.</p>
             <Link className="btn btn-primary" href="/lien-he">
               Liên hệ hỗ trợ →
             </Link>

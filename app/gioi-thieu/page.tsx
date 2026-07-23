@@ -36,10 +36,6 @@ export default function GioiThieuPage() {
               <b className="font-mono">1:1</b>
               <span>hỗ trợ sử dụng</span>
             </div>
-            <div className="stat">
-              <b className="font-mono">4.9/5</b>
-              <span>đánh giá trung bình</span>
-            </div>
           </div>
         </div>
       </section>

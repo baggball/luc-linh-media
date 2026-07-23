@@ -38,16 +38,16 @@ export default function YeuCauVideoAiPage() {
             </div>
             <div className="info-stats">
               <div className="stat">
-                <b className="font-mono">420+</b>
-                <span>yêu cầu đã xử lý</span>
+                <b className="font-mono">24h</b>
+                <span>mục tiêu phản hồi</span>
               </div>
               <div className="stat">
-                <b className="font-mono">&lt; 24h</b>
-                <span>thời gian báo giá</span>
+                <b className="font-mono">RÕ RÀNG</b>
+                <span>báo giá theo phạm vi</span>
               </div>
               <div className="stat">
-                <b className="font-mono">4.9/5</b>
-                <span>đánh giá dịch vụ</span>
+                <b className="font-mono">1:1</b>
+                <span>trao đổi yêu cầu</span>
               </div>
             </div>
           </aside>

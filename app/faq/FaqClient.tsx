@@ -16,8 +16,8 @@ const GROUPS: { title: string; items: { q: string; a: string }[] }[] = [
         a: "Hiện tại chúng tôi hỗ trợ chuyển khoản ngân hàng bằng mã QR. SePay tự động xác nhận giao dịch và sản phẩm sẽ xuất hiện trong tài khoản của bạn ngay sau khi thanh toán thành công.",
       },
       {
-        q: "Tôi có thể huỷ gói đăng ký bất cứ lúc nào không?",
-        a: "Có. Các gói theo tháng/năm không ràng buộc thời hạn tối thiểu — bạn có thể huỷ bất cứ lúc nào và vẫn dùng được đến hết chu kỳ đã thanh toán.",
+        q: "Website có tự động gia hạn hoặc tự động trừ tiền không?",
+        a: "Không. Hiện tại mỗi đơn hàng được thanh toán riêng bằng mã QR ngân hàng. Website không lưu thông tin ngân hàng và không tự động trừ tiền.",
       },
     ],
   },
@@ -26,7 +26,7 @@ const GROUPS: { title: string; items: { q: string; a: string }[] }[] = [
     items: [
       {
         q: "Prompt mua rồi có dùng được mãi mãi không?",
-        a: "Có, khi mua lẻ từng Chatbot Prompt bạn sở hữu vĩnh viễn. Với các gói theo tháng/năm, quyền truy cập chatbot/workflow gắn theo thời hạn gói đang hoạt động.",
+        a: "Bạn được quyền tiếp tục sử dụng sản phẩm số đã mua theo điều khoản tại thời điểm mua. Không được chia sẻ công khai, bán lại hoặc phân phối lại nội dung gốc.",
       },
       {
         q: "Chatbot GPT hoạt động trên nền tảng nào?",
@@ -43,11 +43,11 @@ const GROUPS: { title: string; items: { q: string; a: string }[] }[] = [
     items: [
       {
         q: "Chính sách hoàn tiền như thế nào?",
-        a: "Gói Khởi đầu và Sáng tạo được hoàn tiền trong 7 ngày nếu không hài lòng; gói Studio là 2 ngày. Xem chi tiết tại trang Chính sách hoàn tiền.",
+        a: "Sản phẩm số được xem xét hoàn tiền trong vòng 3 ngày nếu thanh toán trùng, không được mở khóa hoặc có lỗi nghiêm trọng không thể khắc phục. Xem đầy đủ điều kiện tại trang Chính sách hoàn tiền.",
       },
       {
-        q: "Tài khoản AI đi kèm có được bảo hành không?",
-        a: "Có, tài khoản AI đi kèm các gói đăng ký được bảo hành 15 ngày kể từ ngày kích hoạt, hỗ trợ xử lý qua Zalo.",
+        q: "Nếu sản phẩm không mở khóa sau khi chuyển khoản thì sao?",
+        a: "Hãy giữ nguyên nội dung chuyển khoản và gửi mã đơn hàng qua trang Liên hệ hoặc Zalo. Đội ngũ sẽ đối soát giao dịch và hỗ trợ mở khóa.",
       },
       {
         q: "Làm sao để yêu cầu hoàn tiền?",

@@ -50,12 +50,13 @@ export default function Footer() {
           <div>
             <h4>Hỗ trợ</h4>
             <Link href="/faq">Câu hỏi thường gặp</Link>
+            <Link href="/chinh-sach-bao-mat">Chính sách bảo mật</Link>
             <Link href="/chinh-sach-hoan-tien">Chính sách hoàn tiền</Link>
             <Link href="/dieu-khoan-dich-vu">Điều khoản dịch vụ</Link>
           </div>
         </div>
         <div className="foot-bottom">
-          <span>© 2026 {SITE_NAME}. Bảo lưu mọi quyền.</span>
+          <span>© {new Date().getFullYear()} {SITE_NAME}. Bảo lưu mọi quyền.</span>
           <span className="font-mono">made in Việt Nam</span>
         </div>
       </div>

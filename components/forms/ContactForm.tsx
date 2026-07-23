@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from "react";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
+import FormPrivacyConsent from "./FormPrivacyConsent";
 
 export default function ContactForm() {
   const [name, setName] = useState("");
@@ -26,7 +27,7 @@ export default function ContactForm() {
     });
     setSending(false);
     if (insertError) {
-      setError(insertError.message);
+      setError("Chưa thể gửi tin nhắn lúc này. Vui lòng thử lại hoặc liên hệ qua Zalo.");
       return;
     }
     setDone(true);
@@ -62,11 +63,11 @@ export default function ContactForm() {
         <div className="form-row">
           <div className="field">
             <label htmlFor="lh-ten">Họ và tên</label>
-            <input id="lh-ten" type="text" placeholder="Nguyễn Văn A" required value={name} onChange={(e) => setName(e.target.value)} />
+            <input id="lh-ten" type="text" placeholder="Nguyễn Văn A" autoComplete="name" minLength={2} required value={name} onChange={(e) => setName(e.target.value)} />
           </div>
           <div className="field">
             <label htmlFor="lh-email">Email</label>
-            <input id="lh-email" type="email" placeholder="ban@vidu.com" required value={email} onChange={(e) => setEmail(e.target.value)} />
+            <input id="lh-email" type="email" placeholder="ban@vidu.com" autoComplete="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
           </div>
         </div>
         <div className="field">
@@ -89,6 +90,7 @@ export default function ContactForm() {
             onChange={(e) => setMessage(e.target.value)}
           />
         </div>
+        <FormPrivacyConsent id="contact-privacy-consent" />
         <button type="submit" className="btn btn-primary" disabled={sending} style={{ width: "100%", padding: 14 }}>
           {sending ? "Đang gửi..." : "Gửi tin nhắn"}
         </button>

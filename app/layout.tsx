@@ -10,6 +10,7 @@ export const metadata: Metadata = {
   },
   description: SITE_DESCRIPTION,
   applicationName: SITE_NAME,
+  manifest: "/manifest.webmanifest",
   keywords: [
     "chatbot tạo video AI",
     "KOC AI",
@@ -60,7 +61,9 @@ export default function RootLayout({
               "@type": "Organization",
               name: SITE_NAME,
               url: SITE_URL,
+              logo: `${SITE_URL}/icon.png`,
               email: "luclinhstudio@gmail.com",
+              sameAs: ["https://luclinhmedia.com/", "https://luclinhonlineshop.io.vn/"],
               contactPoint: {
                 "@type": "ContactPoint",
                 telephone: "+84-379-062-594",

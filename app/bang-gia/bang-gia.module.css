@@ -29,7 +29,7 @@
 .amount{font-family:var(--font-mono); font-size:30px; font-weight:700; color:var(--paper);}
 .unit{color:var(--mute-dim); font-size:13.5px;}
 .planOld{font-family:var(--font-mono); font-size:13px; color:var(--mute-dim); text-decoration:line-through; margin-bottom:18px;}
-.planCta{width:100%; padding:12px; border-radius:10px; font-weight:700; font-size:14px; cursor:pointer; margin-bottom:20px; border:1px solid var(--line-strong); background:none; color:var(--paper);}
+.planCta{width:100%; padding:12px; border-radius:10px; font-weight:700; font-size:14px; cursor:pointer; margin-bottom:20px; border:1px solid var(--line-strong); background:none; color:var(--paper);text-align:center;display:block;}
 .feat .planCta{background:linear-gradient(155deg, var(--electric-bright), var(--electric)); color:#04101a; border:none; box-shadow:0 10px 24px -10px rgba(47,177,255,0.6);}
 .planFeats{list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:11px; font-size:13.5px; color:var(--mute); flex:1;}
 .planFeats li{display:flex; gap:9px; align-items:flex-start;}

@@ -1,25 +1,5 @@
-"use client";
-
-import { useState } from "react";
 import Link from "next/link";
 import styles from "./bang-gia.module.css";
-
-const MONTH = {
-  unit: "/tháng",
-  plans: [
-    { price: "199.000đ", old: "399.000đ" },
-    { price: "645.000đ", old: "1.290.000đ" },
-    { price: "1.245.000đ", old: "2.490.000đ" },
-  ],
-};
-const YEAR = {
-  unit: "/năm",
-  plans: [
-    { price: "1.990.000đ", old: "3.990.000đ" },
-    { price: "6.450.000đ", old: "12.900.000đ" },
-    { price: "12.450.000đ", old: "24.900.000đ" },
-  ],
-};
 
 const CHECK = (
   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
@@ -28,122 +8,88 @@ const CHECK = (
 );
 
 export default function BangGiaClient() {
-  const [mode, setMode] = useState<"month" | "year">("month");
-  const data = mode === "month" ? MONTH : YEAR;
-
   return (
     <div className={styles.wrap}>
       <div className="stat-row" style={{ justifyContent: "center", marginBottom: 28 }}>
-        <span className="stat">
-          🤖 <b className="font-mono">15+</b>&nbsp;chatbot theo ngành
-        </span>
-        <span className="stat">
-          🎬 <b className="font-mono">4</b>&nbsp;nhóm công cụ AI
-        </span>
-        <span className="stat">
-          💬 <b className="font-mono">1:1</b>&nbsp;hỗ trợ sử dụng
-        </span>
+        <span className="stat">✓ Giá công khai theo từng sản phẩm</span>
+        <span className="stat">✓ Thanh toán QR tự động xác nhận</span>
+        <span className="stat">✓ Hỗ trợ sử dụng 1:1</span>
       </div>
 
       <div className={styles.pgHead}>
-        <span className={styles.premiumBadge}>☆ Ưu đãi ra mắt — rẻ hơn 50%</span>
+        <span className={styles.premiumBadge}>Mua đúng nhu cầu · Không phí duy trì bắt buộc</span>
         <h1>
-          Mở khóa toàn bộ <em>Chatbot Prompt</em>
+          Chọn cách phù hợp để <em>bắt đầu kinh doanh với AI</em>
         </h1>
-        <p>Truy cập không giới hạn, hướng dẫn chi tiết và cập nhật mới nhất mỗi tuần.</p>
-      </div>
-
-      <div className={styles.toggle}>
-        <div className={styles.toggleTrack}>
-          <button className={`${styles.toggleOpt}${mode === "month" ? " " + styles.active : ""}`} onClick={() => setMode("month")}>
-            Hàng tháng
-          </button>
-          <button className={`${styles.toggleOpt}${mode === "year" ? " " + styles.active : ""}`} onClick={() => setMode("year")}>
-            Gói năm Studio <span className={styles.saveChip}>Tặng khoá học</span>
-          </button>
-        </div>
+        <p>
+          Sản phẩm số được niêm yết giá riêng và mở khóa sau khi thanh toán. Dịch vụ tùy chỉnh được báo giá rõ ràng
+          theo phạm vi công việc.
+        </p>
       </div>
 
       <div className={styles.plans}>
         <div className={styles.plan}>
-          <div className={styles.planName}>Khởi đầu</div>
-          <div className={styles.planDesc}>Người mới thử nghiệm AI làm video</div>
+          <div className={styles.planName}>Mua sản phẩm lẻ</div>
+          <div className={styles.planDesc}>Phù hợp khi bạn muốn dùng ngay một chatbot, workflow hoặc app cụ thể.</div>
           <div className={styles.planPrice}>
-            <span className={`${styles.amount} font-mono`}>{data.plans[0].price}</span>
-            <span className={styles.unit}>{data.unit}</span>
+            <span className={`${styles.amount} font-mono`}>Niêm yết</span>
           </div>
-          <div className={`${styles.planOld} font-mono`}>{data.plans[0].old}</div>
-          <button className={styles.planCta}>Bắt đầu</button>
+          <div className={styles.planOld}>Giá hiển thị tại từng trang sản phẩm</div>
+          <Link className={styles.planCta} href="/chatbot">
+            Xem kho sản phẩm
+          </Link>
           <ul className={styles.planFeats}>
-            <li>{CHECK}5 chatbot/tháng (tự chọn)</li>
-            <li>{CHECK}3 ngày Tools Workflow thử đầu</li>
-            <li>{CHECK}Không có workflow template</li>
-            <li>{CHECK}Cộng đồng hỗ trợ</li>
+            <li>{CHECK}Xem trước mô tả và quy trình sử dụng</li>
+            <li>{CHECK}Thanh toán bằng QR ngân hàng</li>
+            <li>{CHECK}Tự động mở khóa trong tài khoản</li>
+            <li>{CHECK}Không tự động gia hạn</li>
           </ul>
-          <div className={styles.planFine}>
-            <span>↩ Hoàn tiền 7 ngày nếu không hài lòng</span>
-            <span>🛡 Bảo hành tài khoản AI 15 ngày · Hỗ trợ Zalo</span>
-          </div>
         </div>
 
         <div className={`${styles.plan} ${styles.feat}`}>
-          <span className={styles.planTag}>★ ĐƯỢC CHỌN NHIỀU NHẤT</span>
-          <div className={styles.planName}>Sáng tạo</div>
-          <div className={styles.planDesc}>Dành cho creator, KOC, freelancer cần chatbot &amp; workflow</div>
+          <span className={styles.planTag}>PHÙ HỢP KOC &amp; AFFILIATE</span>
+          <div className={styles.planName}>Video AI theo yêu cầu</div>
+          <div className={styles.planDesc}>Dành cho video sản phẩm, KOC, quảng cáo ngắn hoặc chiến dịch riêng.</div>
           <div className={styles.planPrice}>
-            <span className={`${styles.amount} font-mono`}>{data.plans[1].price}</span>
-            <span className={styles.unit}>{data.unit}</span>
+            <span className={`${styles.amount} font-mono`}>Báo giá</span>
           </div>
-          <div className={`${styles.planOld} font-mono`}>{data.plans[1].old}</div>
-          <button className={styles.planCta}>Chọn Sáng tạo</button>
+          <div className={styles.planOld}>Theo thời lượng, số cảnh và mức độ hoàn thiện</div>
+          <Link className={styles.planCta} href="/yeu-cau-video-ai">
+            Gửi yêu cầu video
+          </Link>
           <ul className={styles.planFeats}>
-            <li>{CHECK}15 chatbot/tháng (tự chọn)</li>
-            <li>{CHECK}3 workflow template/tháng</li>
-            <li>{CHECK}License Tools Workflow 30 ngày, gia hạn theo tháng</li>
-            <li>{CHECK}Hỗ trợ ưu tiên</li>
+            <li>{CHECK}Trao đổi ý tưởng và nền tảng đăng</li>
+            <li>{CHECK}Báo giá trước khi triển khai</li>
+            <li>{CHECK}Chốt phạm vi và thời gian bàn giao</li>
+            <li>{CHECK}Hỗ trợ 1:1 qua Zalo/email</li>
           </ul>
-          <div className={styles.planFine}>
-            <span>↩ Hoàn tiền 7 ngày nếu không hài lòng</span>
-            <span>🛡 Bảo hành tài khoản AI 15 ngày · Hỗ trợ Zalo</span>
-          </div>
         </div>
 
         <div className={styles.plan}>
-          <div className={styles.planName}>Studio</div>
-          <div className={styles.planDesc}>Agency, doanh nghiệp làm video AI quy mô lớn</div>
+          <div className={styles.planName}>Chatbot riêng</div>
+          <div className={styles.planDesc}>Dành cho cá nhân, shop hoặc doanh nghiệp cần chatbot theo ngành hàng.</div>
           <div className={styles.planPrice}>
-            <span className={`${styles.amount} font-mono`}>{data.plans[2].price}</span>
-            <span className={styles.unit}>{data.unit}</span>
+            <span className={`${styles.amount} font-mono`}>Tùy chỉnh</span>
           </div>
-          <div className={`${styles.planOld} font-mono`}>{data.plans[2].old}</div>
-          <button className={styles.planCta} style={{ background: "var(--amber)", color: "#231604", border: "none" }}>
-            Chọn Gói này
-          </button>
+          <div className={styles.planOld}>Theo nền tảng, dữ liệu và tính năng cần xây dựng</div>
+          <Link className={styles.planCta} href="/custom-chatbot">
+            Nhận tư vấn chatbot
+          </Link>
           <ul className={styles.planFeats}>
-            <li>
-              {CHECK}Chatbot tuỳ chọn: <b className="font-mono">∞</b>
-            </li>
-            <li>
-              {CHECK}Workflow template: <b className="font-mono">∞</b>
-            </li>
-            <li>{CHECK}License Tools Workflow 365 ngày</li>
-            <li>{CHECK}Chatbot KHÔNG GIỚI HẠN — full toàn bộ kho</li>
-            <li>{CHECK}Hỗ trợ 1-1 qua Zalo 24/7</li>
-            <li>{CHECK}Cập nhật Chatbot hàng tuần</li>
+            <li>{CHECK}Khảo sát mục tiêu và quy trình bán hàng</li>
+            <li>{CHECK}Thiết kế hướng dẫn, câu lệnh và luồng hội thoại</li>
+            <li>{CHECK}Bàn giao kèm hướng dẫn sử dụng</li>
+            <li>{CHECK}Thống nhất chi phí trước khi thực hiện</li>
           </ul>
-          <div className={styles.planFine}>
-            <span>↩ Hoàn tiền 2 ngày nếu không hài lòng</span>
-            <span>🛡 Bảo hành tài khoản AI 15 ngày · Hỗ trợ Zalo</span>
-          </div>
         </div>
       </div>
 
       <div className={styles.below}>
         <p>
-          Không muốn theo gói? Bạn vẫn có thể mua lẻ từng Chatbot Prompt từ <b className="font-mono">99.000đ</b> — sở hữu vĩnh viễn.
+          Chưa chắc nên chọn gì? Hãy gửi nhu cầu, đội ngũ sẽ gợi ý phương án phù hợp trước khi bạn thanh toán.
         </p>
-        <Link className="btn" href="/chatbot">
-          Xem kho Chatbot Prompt
+        <Link className="btn" href="/lien-he">
+          Liên hệ tư vấn
         </Link>
       </div>
     </div>

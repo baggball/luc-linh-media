@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from "react";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
+import FormPrivacyConsent from "./FormPrivacyConsent";
 
 export default function RequestVideoForm() {
   const [loaiVideo, setLoaiVideo] = useState("");
@@ -32,7 +33,7 @@ export default function RequestVideoForm() {
     });
     setSending(false);
     if (insertError) {
-      setError(insertError.message);
+      setError("Chưa thể gửi yêu cầu lúc này. Vui lòng thử lại hoặc liên hệ qua Zalo.");
       return;
     }
     setDone(true);
@@ -152,18 +153,19 @@ export default function RequestVideoForm() {
         <div className="form-row">
           <div className="field">
             <label htmlFor="ten">Họ và tên</label>
-            <input id="ten" type="text" placeholder="Nguyễn Văn A" required value={ten} onChange={(e) => setTen(e.target.value)} />
+            <input id="ten" type="text" placeholder="Nguyễn Văn A" autoComplete="name" minLength={2} required value={ten} onChange={(e) => setTen(e.target.value)} />
           </div>
           <div className="field">
             <label htmlFor="lien-he-email">Email</label>
-            <input id="lien-he-email" type="email" placeholder="ban@vidu.com" required value={email} onChange={(e) => setEmail(e.target.value)} />
+            <input id="lien-he-email" type="email" placeholder="ban@vidu.com" autoComplete="email" required value={email} onChange={(e) => setEmail(e.target.value)} />
           </div>
         </div>
         <div className="field">
           <label htmlFor="zalo">Số điện thoại / Zalo</label>
-          <input id="zalo" type="tel" placeholder="09xx xxx xxx" required value={zalo} onChange={(e) => setZalo(e.target.value)} />
+          <input id="zalo" type="tel" placeholder="09xx xxx xxx" autoComplete="tel" inputMode="tel" minLength={9} required value={zalo} onChange={(e) => setZalo(e.target.value)} />
         </div>
 
+        <FormPrivacyConsent id="video-privacy-consent" />
         <button type="submit" className="btn btn-primary" disabled={sending} style={{ width: "100%", padding: 14 }}>
           {sending ? "Đang gửi..." : "Gửi yêu cầu"}
         </button>

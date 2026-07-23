@@ -1,8 +1,13 @@
+import type { Metadata } from "next";
 import AppShell from "@/components/layout/AppShell";
 import Footer from "@/components/layout/Footer";
 import CustomChatbotForm from "@/components/forms/CustomChatbotForm";
 
-export const metadata = { title: "Custom Chatbot" };
+export const metadata: Metadata = {
+  title: "Đặt làm Custom Chatbot",
+  description: "Gửi yêu cầu xây dựng chatbot theo ngành hàng, nền tảng và quy trình bán hàng của bạn.",
+  alternates: { canonical: "/custom-chatbot" },
+};
 
 export default function CustomChatbotPage() {
   return (
@@ -30,23 +35,23 @@ export default function CustomChatbotPage() {
               <div className="info-step">
                 <span className="num">3</span>
                 <div>
-                  <b>Bàn giao trong 48h</b>
-                  <span>Nhận chatbot đã huấn luyện, sẵn sàng dùng ngay trên nền tảng bạn chọn.</span>
+                  <b>Thống nhất và bàn giao</b>
+                  <span>Chốt thời gian thực hiện, nghiệm thu và nhận hướng dẫn sử dụng.</span>
                 </div>
               </div>
             </div>
             <div className="info-stats">
               <div className="stat">
-                <b className="font-mono">180+</b>
-                <span>chatbot đã custom</span>
+                <b className="font-mono">24h</b>
+                <span>mục tiêu phản hồi</span>
               </div>
               <div className="stat">
-                <b className="font-mono">48h</b>
-                <span>bàn giao trung bình</span>
+                <b className="font-mono">RÕ RÀNG</b>
+                <span>phạm vi và báo giá</span>
               </div>
               <div className="stat">
-                <b className="font-mono">4.9/5</b>
-                <span>đánh giá dịch vụ</span>
+                <b className="font-mono">1:1</b>
+                <span>trao đổi yêu cầu</span>
               </div>
             </div>
           </aside>
