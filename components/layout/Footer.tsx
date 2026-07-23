@@ -28,6 +28,12 @@ export default function Footer() {
             <Link href="/workflow">Workflow</Link>
             <Link href="/app-ai">App</Link>
             <Link href="/veo3-workflow">VEO3 Workflow</Link>
+            <a href="https://luclinhmedia.com/" target="_blank" rel="noopener noreferrer">
+              Kho tài nguyên ↗
+            </a>
+            <a href="https://luclinhonlineshop.io.vn/" target="_blank" rel="noopener noreferrer">
+              Voice AI ↗
+            </a>
           </div>
           <div>
             <h4>Công ty</h4>

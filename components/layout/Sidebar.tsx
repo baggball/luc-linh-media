@@ -7,7 +7,8 @@ type NavItem = {
   href: string;
   label: string;
   icon: React.ReactNode;
-  badge?: { text: string; kind: "free" | "new" };
+  badge?: { text: string; kind: "free" | "new" | "web" };
+  external?: boolean;
 };
 
 const kham_pha: NavItem[] = [
@@ -136,13 +137,60 @@ const khac: NavItem[] = [
   },
 ];
 
+const he_sinh_thai: NavItem[] = [
+  {
+    href: "https://luclinhmedia.com/",
+    label: "Kho tài nguyên",
+    external: true,
+    badge: { text: "WEB", kind: "web" },
+    icon: (
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <path d="M4 6.5A2.5 2.5 0 0 1 6.5 4H10l2 2h5.5A2.5 2.5 0 0 1 20 8.5v9A2.5 2.5 0 0 1 17.5 20h-11A2.5 2.5 0 0 1 4 17.5z" />
+        <path d="M8 12h8M8 15h5" />
+      </svg>
+    ),
+  },
+  {
+    href: "https://luclinhonlineshop.io.vn/",
+    label: "Voice AI",
+    external: true,
+    badge: { text: "WEB", kind: "web" },
+    icon: (
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <rect x="9" y="3" width="6" height="12" rx="3" />
+        <path d="M5 11a7 7 0 0 0 14 0M12 18v3M8 21h8" />
+      </svg>
+    ),
+  },
+];
+
 function NavLink({ item, pathname }: { item: NavItem; pathname: string }) {
   const active = item.href === "/" ? pathname === "/" : pathname.startsWith(item.href);
-  return (
-    <Link href={item.href} className={`side-link${active ? " active" : ""}`}>
+  const content = (
+    <>
       {item.icon}
       {item.label}
       {item.badge && <span className={`side-badge ${item.badge.kind}`}>{item.badge.text}</span>}
+    </>
+  );
+
+  if (item.external) {
+    return (
+      <a
+        href={item.href}
+        className="side-link side-link-external"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`${item.label} — mở website mới`}
+      >
+        {content}
+      </a>
+    );
+  }
+
+  return (
+    <Link href={item.href} className={`side-link${active ? " active" : ""}`}>
+      {content}
     </Link>
   );
 }
@@ -174,6 +222,13 @@ export default function Sidebar() {
       <div className="side-group">
         <div className="side-label">Sản phẩm</div>
         {san_pham.map((item) => (
+          <NavLink key={item.href} item={item} pathname={pathname} />
+        ))}
+      </div>
+
+      <div className="side-group side-ecosystem">
+        <div className="side-label">Hệ sinh thái Lục Linh</div>
+        {he_sinh_thai.map((item) => (
           <NavLink key={item.href} item={item} pathname={pathname} />
         ))}
       </div>
