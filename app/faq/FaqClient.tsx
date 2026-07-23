@@ -13,7 +13,7 @@ const GROUPS: { title: string; items: { q: string; a: string }[] }[] = [
       },
       {
         q: "Lục Linh Video AI hỗ trợ những phương thức thanh toán nào?",
-        a: "Chúng tôi hỗ trợ chuyển khoản ngân hàng qua mã QR. Hệ thống SePay tự động xác nhận đúng số tiền và nội dung chuyển khoản, sau đó mở sản phẩm trong tài khoản của bạn.",
+        a: "Hiện tại chúng tôi hỗ trợ chuyển khoản ngân hàng bằng mã QR. SePay tự động xác nhận giao dịch và sản phẩm sẽ xuất hiện trong tài khoản của bạn ngay sau khi thanh toán thành công.",
       },
       {
         q: "Tôi có thể huỷ gói đăng ký bất cứ lúc nào không?",

@@ -110,6 +110,19 @@ export default async function ProductDetailPage({ type, id }: { type: ProductTyp
     hasPurchased = !!purchase;
   }
 
+  let privateContent: { workflow_link: string | null; video_url: string | null } | null = null;
+  if (product.is_free || hasPurchased) {
+    const { data: content } = await supabase
+      .from("product_private_content")
+      .select("workflow_link, video_url")
+      .eq("product_id", product.id)
+      .maybeSingle();
+    privateContent = content;
+  }
+
+  const workflowLink = privateContent?.workflow_link ?? null;
+  const videoUrl = privateContent?.video_url ?? null;
+
   return (
     <AppShell>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(productJsonLd) }} />
@@ -196,9 +209,9 @@ export default async function ProductDetailPage({ type, id }: { type: ProductTyp
                   </svg>
                   {kindLabel} miễn phí — xem link và hướng dẫn bên dưới
                 </div>
-                {product.workflow_link && (
+                {workflowLink && (
                   <>
-                    <a className="btn btn-primary" href={product.workflow_link} target="_blank" rel="noopener">
+                    <a className="btn btn-primary" href={workflowLink} target="_blank" rel="noopener">
                       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
                         <path d="M15 3h6v6" />
@@ -207,8 +220,8 @@ export default async function ProductDetailPage({ type, id }: { type: ProductTyp
                       Mở ngay
                     </a>
                     <div className="link-field">
-                      <span>{product.workflow_link}</span>
-                      <CopyLinkButton text={product.workflow_link} />
+                      <span>{workflowLink}</span>
+                      <CopyLinkButton text={workflowLink} />
                     </div>
                   </>
                 )}
@@ -223,9 +236,9 @@ export default async function ProductDetailPage({ type, id }: { type: ProductTyp
                   </svg>
                   Bạn đã mua sản phẩm này — xem link bên dưới
                 </div>
-                {product.workflow_link && (
+                {workflowLink && (
                   <>
-                    <a className="btn btn-primary" href={product.workflow_link} target="_blank" rel="noopener">
+                    <a className="btn btn-primary" href={workflowLink} target="_blank" rel="noopener">
                       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                         <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
                         <path d="M15 3h6v6" />
@@ -234,8 +247,8 @@ export default async function ProductDetailPage({ type, id }: { type: ProductTyp
                       Mở ngay
                     </a>
                     <div className="link-field">
-                      <span>{product.workflow_link}</span>
-                      <CopyLinkButton text={product.workflow_link} />
+                      <span>{workflowLink}</span>
+                      <CopyLinkButton text={workflowLink} />
                     </div>
                   </>
                 )}
@@ -252,7 +265,7 @@ export default async function ProductDetailPage({ type, id }: { type: ProductTyp
                 </div>
                 <div className="paid-price-line">{formatVND(product.price)}</div>
                 {user ? (
-                  <BuyButton productId={product.id} amount={product.price} />
+                  <BuyButton productId={product.id} />
                 ) : (
                   <Link className="btn btn-primary" href="/dang-nhap">
                     Đăng nhập để mua
@@ -311,7 +324,7 @@ export default async function ProductDetailPage({ type, id }: { type: ProductTyp
               </div>
             </div>
             {product.is_free || hasPurchased ? (
-              product.video_url ? (
+              videoUrl ? (
                 <div className="video-box">
                   <div className="lock-circle playable">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -319,7 +332,7 @@ export default async function ProductDetailPage({ type, id }: { type: ProductTyp
                     </svg>
                   </div>
                   <h3>Sẵn sàng phát</h3>
-                  <a className="btn btn-primary" href={product.video_url} target="_blank" rel="noopener">
+                  <a className="btn btn-primary" href={videoUrl} target="_blank" rel="noopener">
                     Xem video hướng dẫn
                   </a>
                 </div>
@@ -345,7 +358,7 @@ export default async function ProductDetailPage({ type, id }: { type: ProductTyp
                 <h3>Video bị khoá</h3>
                 <p>Mua sản phẩm để mở khoá video hướng dẫn</p>
                 {user ? (
-                  <BuyButton productId={product.id} amount={product.price} />
+                  <BuyButton productId={product.id} />
                 ) : (
                   <Link className="btn btn-primary" href="/dang-nhap">
                     Đăng nhập để mua

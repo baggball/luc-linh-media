@@ -27,6 +27,7 @@ export default async function ThanhToanPage({ params }: { params: Promise<{ id: 
   const product = purchase.products as unknown as { title: string; type: ProductType };
   const bankAccount = process.env.SEPAY_BANK_ACCOUNT;
   const bankName = process.env.SEPAY_BANK_NAME;
+  const bankAccountName = process.env.SEPAY_BANK_ACCOUNT_NAME;
   const qrUrl = `https://qr.sepay.vn/img?acc=${encodeURIComponent(bankAccount || "")}&bank=${encodeURIComponent(bankName || "")}&amount=${purchase.amount}&des=${encodeURIComponent(purchase.order_code)}`;
   const productHref = product ? `/${PRODUCT_TYPE_ROUTE[product.type]}/${purchase.product_id}` : "/";
 
@@ -58,12 +59,22 @@ export default async function ThanhToanPage({ params }: { params: Promise<{ id: 
           {product?.title} — <b style={{ color: "var(--paper)" }}>{formatVND(purchase.amount)}</b>
         </p>
 
-        {!bankAccount || !bankName ? (
+        {!bankAccount || !bankName || !bankAccountName ? (
           <p style={{ color: "var(--coral)", fontSize: 13.5 }}>
             Chưa cấu hình tài khoản nhận thanh toán. Vui lòng liên hệ quản trị viên.
           </p>
         ) : (
-          <CheckoutStatus purchaseId={purchase.id} initialStatus={purchase.status} qrUrl={qrUrl} orderCode={purchase.order_code} productHref={productHref} />
+          <CheckoutStatus
+            purchaseId={purchase.id}
+            initialStatus={purchase.status}
+            qrUrl={qrUrl}
+            orderCode={purchase.order_code}
+            productHref={productHref}
+            bankName={bankName}
+            bankAccount={bankAccount}
+            bankAccountName={bankAccountName}
+            amount={purchase.amount}
+          />
         )}
       </div>
     </div>

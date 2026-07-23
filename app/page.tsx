@@ -3,6 +3,7 @@ import AppShell from "@/components/layout/AppShell";
 import Footer from "@/components/layout/Footer";
 import ProductCard from "@/components/product/ProductCard";
 import NewsletterForm from "@/components/home/NewsletterForm";
+import HeroHologram from "@/components/home/HeroHologram";
 import { createClient } from "@/lib/supabase/server";
 import { SITE_DESCRIPTION, SITE_NAME } from "@/lib/site";
 import type { Product } from "@/lib/types";
@@ -66,26 +67,7 @@ export default async function Home() {
             </div>
           </div>
 
-          <div className={styles.terminal}>
-            <div className={styles.terminalBar}>
-              <span></span>
-              <span></span>
-              <span></span>
-              <span className="lbl">luclinhvideoai.com — trợ lý KOC</span>
-            </div>
-            <div className={styles.terminalBody}>
-              <div className={styles.tLine}>
-                <span className={styles.tPrompt}>→</span>{" "}
-                <span className={styles.tUser}>Viết kịch bản KOC 30s bán son môi, giọng gen Z, chèn 1 câu chốt đơn</span>
-              </div>
-              <div className={styles.tOut}>
-                {"✓ Đang tạo kịch bản...\n✓ Hook 3 giây đầu: \"Đừng lướt vội, môi bạn xứng đáng hơn thế\"\n✓ 3 bước demo sản phẩm + 1 lời chốt đơn tự nhiên\n✓ Xuất kèm prompt dựng video Veo3 tương ứng"}
-              </div>
-              <div className={styles.tLine} style={{ marginTop: 16 }}>
-                <span className={styles.tPrompt}>→</span> <span className={styles.caret}></span>
-              </div>
-            </div>
-          </div>
+          <HeroHologram />
         </div>
       </section>
 
@@ -165,19 +147,19 @@ export default async function Home() {
           </div>
           <div className={styles.steps}>
             <div className={styles.step}>
-              <div className="cmd">$ chọn-prompt --danh-muc=chatbot</div>
+              <div className="cmd">01 · Chọn sản phẩm</div>
               <h3>1. Chọn sản phẩm phù hợp</h3>
               <p>Duyệt theo ngành hàng: thời trang, mỹ phẩm, gia dụng, sách... mỗi sản phẩm có demo xem trước.</p>
             </div>
             <div className={styles.step}>
-              <div className="cmd">$ thanh-toan --phuong-thuc=chuyen-khoan</div>
+              <div className="cmd">02 · Quét QR chuyển khoản</div>
               <h3>2. Thanh toán an toàn</h3>
-              <p>Quét mã QR chuyển khoản đúng nội dung, hệ thống SePay tự xác nhận và mở sản phẩm trong tài khoản.</p>
+              <p>Quét mã QR ngân hàng và chuyển khoản đúng nội dung. SePay tự động xác nhận giao dịch.</p>
             </div>
             <div className={styles.step}>
-              <div className="cmd">$ su-dung --ngay-bay-gio</div>
-              <h3>3. Dùng ngay, không giới hạn</h3>
-              <p>Sao chép prompt vào công cụ AI bạn đang dùng hoặc chạy thẳng workflow có sẵn.</p>
+              <div className="cmd">03 · Mở khóa tự động</div>
+              <h3>3. Nhận sản phẩm ngay</h3>
+              <p>Sản phẩm xuất hiện trong tài khoản ngay sau khi giao dịch được xác nhận thành công.</p>
             </div>
           </div>
         </div>

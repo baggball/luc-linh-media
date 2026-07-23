@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
+import { formatVND } from "@/lib/format";
 
 export default function CheckoutStatus({
   purchaseId,
@@ -10,14 +11,29 @@ export default function CheckoutStatus({
   qrUrl,
   orderCode,
   productHref,
+  bankName,
+  bankAccount,
+  bankAccountName,
+  amount,
 }: {
   purchaseId: string;
   initialStatus: string;
   qrUrl: string;
   orderCode: string;
   productHref: string;
+  bankName: string;
+  bankAccount: string;
+  bankAccountName: string;
+  amount: number;
 }) {
   const [status, setStatus] = useState(initialStatus);
+  const [copied, setCopied] = useState<"account" | "content" | null>(null);
+
+  async function copyValue(value: string, kind: "account" | "content") {
+    await navigator.clipboard.writeText(value);
+    setCopied(kind);
+    window.setTimeout(() => setCopied(null), 1800);
+  }
 
   useEffect(() => {
     if (status === "paid") return;
@@ -76,7 +92,21 @@ export default function CheckoutStatus({
           marginBottom: 16,
         }}
       >
-        Nội dung chuyển khoản: <b style={{ color: "var(--paper)" }}>{orderCode}</b>
+        <div style={{ display: "grid", gridTemplateColumns: "120px 1fr", gap: "8px 12px" }}>
+          <span>Ngân hàng</span><b style={{ color: "var(--paper)" }}>{bankName}</b>
+          <span>Số tài khoản</span><b style={{ color: "var(--paper)" }}>{bankAccount}</b>
+          <span>Chủ tài khoản</span><b style={{ color: "var(--paper)" }}>{bankAccountName}</b>
+          <span>Số tiền</span><b style={{ color: "var(--paper)" }}>{formatVND(amount)}</b>
+          <span>Nội dung</span><b style={{ color: "var(--paper)" }}>{orderCode}</b>
+        </div>
+      </div>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginBottom: 16 }}>
+        <button className="btn btn-ghost" type="button" onClick={() => copyValue(bankAccount, "account")} style={{ flex: "1 1 160px" }}>
+          {copied === "account" ? "Đã sao chép" : "Sao chép số tài khoản"}
+        </button>
+        <button className="btn btn-primary" type="button" onClick={() => copyValue(orderCode, "content")} style={{ flex: "1 1 160px" }}>
+          {copied === "content" ? "Đã sao chép" : "Sao chép nội dung"}
+        </button>
       </div>
       <p style={{ color: "var(--mute-dim)", fontSize: 12.5, textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center", gap: 8 }}>
         <span className="caret" style={{ width: 7, height: 15, background: "var(--electric-bright)", display: "inline-block" }}></span>

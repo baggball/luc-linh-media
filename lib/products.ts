@@ -2,11 +2,14 @@ import { cache } from "react";
 import { createClient } from "@/lib/supabase/server";
 import type { Product, ProductType } from "@/lib/types";
 
+const PUBLIC_PRODUCT_COLUMNS =
+  "id, type, slug, title, description, is_free, price, warranty, rating, sold_count, images, faq, is_published, created_by, created_at, updated_at";
+
 export const getPublishedProduct = cache(async (type: ProductType, id: string) => {
   const supabase = await createClient();
   const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(id);
   const baseQuery = () =>
-    supabase.from("products").select("*").eq("type", type).eq("is_published", true);
+    supabase.from("products").select(PUBLIC_PRODUCT_COLUMNS).eq("type", type).eq("is_published", true);
 
   if (isUuid) {
     const { data } = await baseQuery().eq("id", id).maybeSingle();

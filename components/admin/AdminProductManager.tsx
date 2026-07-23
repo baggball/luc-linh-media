@@ -15,6 +15,9 @@ const EMPTY_FORM = {
   isFree: true,
   price: "",
   workflowLink: "",
+  videoUrl: "",
+  faqText: "",
+  isPublished: true,
   warranty: "15 ngày",
 };
 
@@ -43,6 +46,9 @@ export default function AdminProductManager({ initialProducts }: { initialProduc
       isFree: p.is_free,
       price: p.is_free ? "" : String(p.price),
       workflowLink: p.workflow_link ?? "",
+      videoUrl: p.video_url ?? "",
+      faqText: (p.faq ?? []).map((item) => `${item.question} | ${item.answer}`).join("\n"),
+      isPublished: p.is_published,
       warranty: p.warranty ?? "15 ngày",
     });
     setImages(p.images.map((url, i) => ({ key: `existing-${i}-${url}`, url })));
@@ -91,9 +97,19 @@ export default function AdminProductManager({ initialProducts }: { initialProduc
         description: form.description.trim(),
         is_free: form.isFree,
         price: form.isFree ? 0 : Number(form.price),
-        workflow_link: form.workflowLink.trim() || null,
         warranty: form.warranty,
         images: uploadedUrls,
+        faq: form.faqText
+          .split("\n")
+          .map((line) => line.split("|").map((part) => part.trim()))
+          .filter(([question, answer]) => question && answer)
+          .map(([question, answer]) => ({ question, answer })),
+        is_published: form.isPublished,
+      };
+
+      const privatePayload = {
+        workflow_link: form.workflowLink.trim() || null,
+        video_url: form.videoUrl.trim() || null,
       };
 
       if (editingId) {
@@ -104,7 +120,11 @@ export default function AdminProductManager({ initialProducts }: { initialProduc
           .select()
           .single();
         if (updateError) throw updateError;
-        setProducts((prev) => prev.map((p) => (p.id === editingId ? (data as Product) : p)));
+        const { error: privateError } = await supabase
+          .from("product_private_content")
+          .upsert({ product_id: editingId, ...privatePayload, updated_at: new Date().toISOString() });
+        if (privateError) throw privateError;
+        setProducts((prev) => prev.map((p) => (p.id === editingId ? { ...(data as Product), ...privatePayload } : p)));
         setToast(`Đã cập nhật "${payload.title}"!`);
       } else {
         const slug = `${payload.title.toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/đ/g, "d").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "")}-${Date.now().toString(36)}`;
@@ -114,7 +134,11 @@ export default function AdminProductManager({ initialProducts }: { initialProduc
           .select()
           .single();
         if (insertError) throw insertError;
-        setProducts((prev) => [data as Product, ...prev]);
+        const { error: privateError } = await supabase
+          .from("product_private_content")
+          .upsert({ product_id: data.id, ...privatePayload });
+        if (privateError) throw privateError;
+        setProducts((prev) => [{ ...(data as Product), ...privatePayload }, ...prev]);
         setToast(`Đã thêm "${payload.title}" (${PRODUCT_TYPE_LABEL[form.type]})!`);
       }
 
@@ -234,16 +258,17 @@ export default function AdminProductManager({ initialProducts }: { initialProduc
                 />
               </div>
             )}
-            {form.isFree && (
-              <div className="link-input-wrap show">
-                <input
-                  type="text"
-                  placeholder="Link mở sản phẩm (Google Drive, ChatGPT share link...)"
-                  value={form.workflowLink}
-                  onChange={(e) => setForm((f) => ({ ...f, workflowLink: e.target.value }))}
-                />
-              </div>
-            )}
+            <div className="link-input-wrap show">
+              <input
+                type="url"
+                placeholder="Link bàn giao sản phẩm (chỉ hiện sau khi thanh toán)"
+                value={form.workflowLink}
+                onChange={(e) => setForm((f) => ({ ...f, workflowLink: e.target.value }))}
+              />
+            </div>
+            <p style={{ color: "var(--mute-dim)", fontSize: 12, marginTop: 7 }}>
+              Link này được lưu trong vùng bảo vệ. Sản phẩm trả phí chỉ mở link cho người đã thanh toán.
+            </p>
           </div>
 
           <div className="form-row-3">
@@ -271,6 +296,39 @@ export default function AdminProductManager({ initialProducts }: { initialProduc
               value={form.description}
               onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))}
             />
+          </div>
+
+          <div className="field">
+            <label htmlFor="pr-video">Video hướng dẫn (không bắt buộc)</label>
+            <input
+              id="pr-video"
+              type="url"
+              placeholder="https://youtube.com/... hoặc link video"
+              value={form.videoUrl}
+              onChange={(e) => setForm((f) => ({ ...f, videoUrl: e.target.value }))}
+            />
+          </div>
+
+          <div className="field">
+            <label htmlFor="pr-faq">Câu hỏi thường gặp</label>
+            <textarea
+              id="pr-faq"
+              placeholder={"Mỗi dòng một câu theo mẫu:\nKhách nhận được gì? | Bạn nhận link và hướng dẫn sử dụng ngay sau thanh toán."}
+              value={form.faqText}
+              onChange={(e) => setForm((f) => ({ ...f, faqText: e.target.value }))}
+            />
+          </div>
+
+          <div className="field">
+            <label>Trạng thái hiển thị</label>
+            <div className="price-toggle">
+              <button type="button" className={`price-opt${form.isPublished ? " active" : ""}`} onClick={() => setForm((f) => ({ ...f, isPublished: true }))}>
+                Đang bán
+              </button>
+              <button type="button" className={`price-opt${!form.isPublished ? " active" : ""}`} onClick={() => setForm((f) => ({ ...f, isPublished: false }))}>
+                Lưu bản nháp
+              </button>
+            </div>
           </div>
 
           <div className="field">
@@ -347,6 +405,9 @@ export default function AdminProductManager({ initialProducts }: { initialProduc
               <div className="prod-body">
                 <b>{p.title}</b>
                 <span className="price">{p.is_free ? "Miễn phí" : formatVND(p.price)}</span>
+                <span style={{ color: p.is_published ? "var(--success)" : "var(--amber)" }}>
+                  {p.is_published ? "Đang hiển thị" : "Bản nháp"}
+                </span>
                 <div className="prod-actions">
                   <Link href={`/${PRODUCT_TYPE_ROUTE[p.type]}/${p.id}`}>Xem chi tiết</Link>
                   <button type="button" className="prod-edit-btn" onClick={() => startEdit(p)}>

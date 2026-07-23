@@ -3,9 +3,8 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
-import { generateOrderCode } from "@/lib/order-code";
 
-export default function BuyButton({ productId, amount }: { productId: string; amount: number }) {
+export default function BuyButton({ productId }: { productId: string }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -23,18 +22,16 @@ export default function BuyButton({ productId, amount }: { productId: string; am
       return;
     }
 
-    const { data, error: insertError } = await supabase
-      .from("purchases")
-      .insert({ user_id: user.id, product_id: productId, amount, order_code: generateOrderCode(), status: "pending" })
-      .select("id")
-      .single();
+    const { data, error: insertError } = await supabase.rpc("create_purchase", {
+      p_product_id: productId,
+    });
 
     setLoading(false);
     if (insertError || !data) {
       setError(insertError?.message || "Không thể tạo đơn hàng, thử lại sau.");
       return;
     }
-    router.push(`/thanh-toan/${data.id}`);
+    router.push(`/thanh-toan/${data}`);
   }
 
   return (
