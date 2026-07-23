@@ -2,7 +2,11 @@ import AppShell from "@/components/layout/AppShell";
 import Footer from "@/components/layout/Footer";
 import ContactForm from "@/components/forms/ContactForm";
 
-export const metadata = { title: "Liên hệ" };
+export const metadata = {
+  title: "Liên hệ",
+  description: "Liên hệ Lục Linh Video AI để được tư vấn chatbot, workflow và giải pháp tạo video AI theo nhu cầu.",
+  alternates: { canonical: "/lien-he" },
+};
 
 export default function LienHePage() {
   return (
@@ -13,7 +17,7 @@ export default function LienHePage() {
           <h1>
             Cần tư vấn thêm? <em>Chúng tôi luôn sẵn sàng</em>
           </h1>
-          <p>Gửi câu hỏi qua form bên dưới hoặc liên hệ trực tiếp — đội ngũ Lục Linh Media phản hồi trong vòng 24 giờ.</p>
+          <p>Gửi câu hỏi qua form bên dưới hoặc liên hệ trực tiếp — đội ngũ Lục Linh Video AI phản hồi trong vòng 24 giờ.</p>
         </div>
       </section>
 

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import AppShell from "@/components/layout/AppShell";
 import Footer from "@/components/layout/Footer";
 import ProductGallery from "@/components/product/ProductGallery";
@@ -9,7 +9,9 @@ import SaveButton from "@/components/product/SaveButton";
 import BuyButton from "@/components/product/BuyButton";
 import { createClient } from "@/lib/supabase/server";
 import { getPublishedProduct } from "@/lib/products";
+import { publicProductSlug } from "@/lib/product-url";
 import { formatVND } from "@/lib/format";
+import { absoluteUrl, SITE_NAME } from "@/lib/site";
 import { PRODUCT_TYPE_LABEL, PRODUCT_TYPE_ROUTE, type ProductType } from "@/lib/types";
 
 const KIND_ICON: Record<ProductType, React.ReactNode> = {
@@ -45,13 +47,16 @@ function safeJsonLd(data: unknown) {
 export default async function ProductDetailPage({ type, id }: { type: ProductType; id: string }) {
   const product = await getPublishedProduct(type, id);
   if (!product) notFound();
+  const canonicalSlug = publicProductSlug(product);
+  if (id !== canonicalSlug) {
+    permanentRedirect(`/${PRODUCT_TYPE_ROUTE[type]}/${canonicalSlug}`);
+  }
 
   const supabase = await createClient();
   const faq = product.faq ?? [];
   const listHref = `/${PRODUCT_TYPE_ROUTE[type]}`;
   const kindLabel = PRODUCT_TYPE_LABEL[type];
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://web-bice-six-68.vercel.app";
-  const productUrl = `${siteUrl}${listHref}/${product.id}`;
+  const productUrl = absoluteUrl(`${listHref}/${canonicalSlug}`);
   const productJsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -59,7 +64,7 @@ export default async function ProductDetailPage({ type, id }: { type: ProductTyp
     description: product.description || undefined,
     image: product.images ?? [],
     category: kindLabel,
-    brand: { "@type": "Brand", name: "Lục Linh Media" },
+    brand: { "@type": "Brand", name: SITE_NAME },
     offers: {
       "@type": "Offer",
       url: productUrl,
@@ -269,7 +274,7 @@ export default async function ProductDetailPage({ type, id }: { type: ProductTyp
                 <a href="https://zalo.me/0379062594" target="_blank" rel="noopener">
                   Liên hệ Zalo tư vấn
                 </a>
-                <span>Người tạo: Đội ngũ Lục Linh Media</span>
+                <span>Người tạo: Đội ngũ {SITE_NAME}</span>
               </div>
             </div>
           </div>
@@ -326,7 +331,7 @@ export default async function ProductDetailPage({ type, id }: { type: ProductTyp
                     </svg>
                   </div>
                   <h3>Chưa có video hướng dẫn</h3>
-                  <p>Đội ngũ Lục Linh Media sẽ cập nhật video sớm nhất.</p>
+                  <p>Đội ngũ {SITE_NAME} sẽ cập nhật video sớm nhất.</p>
                 </div>
               )
             ) : (

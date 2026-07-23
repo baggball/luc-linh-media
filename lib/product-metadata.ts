@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
 import { getPublishedProduct } from "@/lib/products";
+import { publicProductSlug } from "@/lib/product-url";
+import { absoluteUrl, SITE_NAME } from "@/lib/site";
 import { PRODUCT_TYPE_LABEL, PRODUCT_TYPE_ROUTE, type ProductType } from "@/lib/types";
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://web-bice-six-68.vercel.app";
-
 function descriptionFor(title: string, description: string | null, kind: string) {
-  const fallback = `${title} – ${kind} dựng sẵn, dùng ngay cho sáng tạo nội dung và bán hàng.`;
+  const fallback = `${title} – ${kind} dựng sẵn giúp tạo video KOC, nội dung affiliate và kịch bản bán hàng nhanh hơn.`;
   const text = (description || fallback).replace(/\s+/g, " ").trim();
   return text.length > 158 ? `${text.slice(0, 155).replace(/\s+\S*$/, "")}…` : text;
 }
@@ -22,7 +22,7 @@ export async function buildProductMetadata(type: ProductType, id: string): Promi
 
   const kind = PRODUCT_TYPE_LABEL[type];
   const route = PRODUCT_TYPE_ROUTE[type];
-  const canonical = `${SITE_URL}/${route}/${product.id}`;
+  const canonical = absoluteUrl(`/${route}/${publicProductSlug(product)}`);
   const description = descriptionFor(product.title, product.description, kind);
   const image = product.images?.[0];
 
@@ -34,7 +34,7 @@ export async function buildProductMetadata(type: ProductType, id: string): Promi
       type: "website",
       locale: "vi_VN",
       url: canonical,
-      siteName: "Lục Linh Media",
+      siteName: SITE_NAME,
       title: product.title,
       description,
       images: image ? [{ url: image, alt: product.title }] : undefined,

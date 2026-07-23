@@ -35,13 +35,13 @@ export default function BangGiaClient() {
     <div className={styles.wrap}>
       <div className="stat-row" style={{ justifyContent: "center", marginBottom: 28 }}>
         <span className="stat">
-          👥 <b className="font-mono">6.200+</b>&nbsp;người dùng
+          🤖 <b className="font-mono">15+</b>&nbsp;chatbot theo ngành
         </span>
         <span className="stat">
-          🤖 <b className="font-mono">210+</b>&nbsp;Chatbot Prompt
+          🎬 <b className="font-mono">4</b>&nbsp;nhóm công cụ AI
         </span>
         <span className="stat">
-          🛒 <b className="font-mono">24.800+</b>&nbsp;lượt mua
+          💬 <b className="font-mono">1:1</b>&nbsp;hỗ trợ sử dụng
         </span>
       </div>
 

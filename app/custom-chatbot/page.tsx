@@ -11,7 +11,7 @@ export default function CustomChatbotPage() {
         <div className="layout-2col">
           <aside className="info-panel">
             <h1>Đặt làm Custom Chatbot riêng</h1>
-            <p>Chatbot có sẵn chưa đúng ý? Mô tả ngành hàng và tính năng bạn cần, đội ngũ Lục Linh Media sẽ huấn luyện chatbot riêng cho bạn.</p>
+            <p>Chatbot có sẵn chưa đúng ý? Mô tả ngành hàng và tính năng bạn cần, đội ngũ Lục Linh Video AI sẽ huấn luyện chatbot riêng cho bạn.</p>
             <div className="info-steps">
               <div className="info-step">
                 <span className="num">1</span>

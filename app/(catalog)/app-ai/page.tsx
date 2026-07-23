@@ -1,7 +1,12 @@
 import CatalogPage from "@/components/catalog/CatalogPage";
 
 export const revalidate = 0;
-export const metadata = { title: "App" };
+export const metadata = {
+  title: "Ứng dụng AI cho sáng tạo nội dung & bán hàng",
+  description:
+    "Khám phá ứng dụng AI tiếng Việt dành cho người sáng tạo, KOC, affiliate và chủ shop.",
+  alternates: { canonical: "/app-ai" },
+};
 
 export default function AppCatalogPage() {
   return (

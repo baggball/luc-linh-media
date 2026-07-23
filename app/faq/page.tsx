@@ -4,7 +4,12 @@ import Footer from "@/components/layout/Footer";
 import FaqClient from "./FaqClient";
 import styles from "./faq.module.css";
 
-export const metadata = { title: "Câu hỏi thường gặp" };
+export const metadata = {
+  title: "Câu hỏi thường gặp",
+  description:
+    "Giải đáp về thanh toán, nhận sản phẩm, sử dụng chatbot GPT, bảo hành và hoàn tiền tại Lục Linh Video AI.",
+  alternates: { canonical: "/faq" },
+};
 
 export default function FaqPage() {
   return (
@@ -25,7 +30,7 @@ export default function FaqPage() {
 
           <div className={styles.ctaBand}>
             <h3>Vẫn còn thắc mắc?</h3>
-            <p>Đội ngũ Lục Linh Media luôn sẵn sàng hỗ trợ bạn.</p>
+            <p>Đội ngũ Lục Linh Video AI luôn sẵn sàng hỗ trợ bạn.</p>
             <Link className="btn btn-primary" href="/lien-he">
               Liên hệ hỗ trợ →
             </Link>

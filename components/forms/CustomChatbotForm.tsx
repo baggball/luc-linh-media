@@ -47,7 +47,7 @@ export default function CustomChatbotForm() {
           </svg>
         </div>
         <h2>Đã nhận yêu cầu của bạn!</h2>
-        <p>Đội ngũ Lục Linh Media sẽ liên hệ trong vòng 24 giờ qua email hoặc Zalo bạn đã cung cấp để báo giá chi tiết.</p>
+        <p>Đội ngũ Lục Linh Video AI sẽ liên hệ trong vòng 24 giờ qua email hoặc Zalo bạn đã cung cấp để báo giá chi tiết.</p>
         <div className="success-summary">
           <div className="row">
             <span className="k">Người gửi</span>

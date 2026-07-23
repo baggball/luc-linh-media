@@ -64,7 +64,7 @@ function DangNhapForm() {
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                 <path d="M20 6L9 17l-5-5" />
               </svg>
-              1.200+ prompt &amp; chatbot chuyên nghiệp
+              Chatbot chuyên biệt theo từng ngành hàng
             </li>
             <li>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
@@ -86,7 +86,7 @@ function DangNhapForm() {
             <span></span>
             <span></span>
             <span></span>
-            <span className="lbl">mauailamvideo.com — zsh</span>
+            <span className="lbl">luclinhvideoai.com — tài khoản</span>
           </div>
           <div className={styles.terminalBody}>
             → <b>đăng-nhập --tai-khoan=ban@vidu.com</b>

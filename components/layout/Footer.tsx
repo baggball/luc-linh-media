@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { SITE_NAME } from "@/lib/site";
 
 export default function Footer() {
   return (
@@ -14,11 +15,11 @@ export default function Footer() {
               </span>
               <span className="brand-word">
                 Lục Linh
-                <small>Media</small>
+                <small>Video AI</small>
               </span>
             </Link>
             <p style={{ color: "var(--mute-dim)", fontSize: "13.5px", maxWidth: "32ch" }}>
-              Chợ prompt, chatbot &amp; workflow AI dành cho người sáng tạo nội dung và bán hàng tại Việt Nam.
+              Chatbot, prompt và workflow AI dành cho KOC, người làm affiliate và bán hàng tại Việt Nam.
             </p>
           </div>
           <div>
@@ -43,7 +44,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="foot-bottom">
-          <span>© 2026 Lục Linh Media. Bảo lưu mọi quyền.</span>
+          <span>© 2026 {SITE_NAME}. Bảo lưu mọi quyền.</span>
           <span className="font-mono">made in Việt Nam</span>
         </div>
       </div>

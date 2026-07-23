@@ -16,7 +16,7 @@ export default function DieuKhoanDichVuPage() {
         <div className="doc">
           <h2>1. Phạm vi dịch vụ</h2>
           <p>
-            Lục Linh Media cung cấp kho prompt, chatbot GPT, workflow tự động hoá và các dịch vụ tuỳ chỉnh (Custom
+            Lục Linh Video AI cung cấp kho prompt, chatbot GPT, workflow tự động hoá và các dịch vụ tuỳ chỉnh (Custom
             Chatbot, Yêu cầu Video AI) phục vụ mục đích sáng tạo nội dung và bán hàng. Bằng việc truy cập hoặc sử
             dụng website, bạn đồng ý tuân thủ các điều khoản dưới đây.
           </p>
@@ -33,7 +33,7 @@ export default function DieuKhoanDichVuPage() {
           <ul>
             <li>Được phép: sử dụng, chỉnh sửa nội dung đầu ra để phục vụ công việc/kinh doanh của bạn.</li>
             <li>Không được phép: bán lại, phân phối lại hoặc chia sẻ công khai nguyên văn prompt/chatbot dưới tên khác.</li>
-            <li>Nội dung do AI tạo ra dựa trên prompt của chúng tôi thuộc quyền sử dụng của bạn, Lục Linh Media không giữ bản quyền đối với kết quả đầu ra.</li>
+            <li>Nội dung do AI tạo ra dựa trên prompt của chúng tôi thuộc quyền sử dụng của bạn, Lục Linh Video AI không giữ bản quyền đối với kết quả đầu ra.</li>
           </ul>
 
           <h2>4. Thanh toán &amp; gói dịch vụ</h2>
@@ -45,7 +45,7 @@ export default function DieuKhoanDichVuPage() {
 
           <h2>5. Giới hạn trách nhiệm</h2>
           <p>
-            Lục Linh Media nỗ lực đảm bảo chất lượng prompt và chatbot, nhưng không cam kết kết quả đầu ra từ công cụ
+            Lục Linh Video AI nỗ lực đảm bảo chất lượng prompt và chatbot, nhưng không cam kết kết quả đầu ra từ công cụ
             AI của bên thứ ba (ChatGPT, Midjourney, Veo3...) là chính xác tuyệt đối trong mọi trường hợp. Chúng tôi
             không chịu trách nhiệm cho thiệt hại gián tiếp phát sinh từ việc sử dụng nội dung do AI tạo ra.
           </p>

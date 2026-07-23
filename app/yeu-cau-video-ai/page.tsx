@@ -12,7 +12,7 @@ export default function YeuCauVideoAiPage() {
           <aside className="info-panel">
             <span className="new-badge">✦ Dịch vụ mới</span>
             <h1>Yêu cầu Video AI theo ý tưởng riêng</h1>
-            <p>Không tìm được workflow có sẵn phù hợp? Mô tả ý tưởng của bạn, đội ngũ Lục Linh Media sẽ dựng video AI theo đúng yêu cầu.</p>
+            <p>Không tìm được workflow có sẵn phù hợp? Mô tả ý tưởng của bạn, đội ngũ Lục Linh Video AI sẽ dựng video AI theo đúng yêu cầu.</p>
             <div className="info-steps">
               <div className="info-step">
                 <span className="num">1</span>

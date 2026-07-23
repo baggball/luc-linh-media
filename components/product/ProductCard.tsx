@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { PRODUCT_TYPE_LABEL, PRODUCT_TYPE_ROUTE, type Product } from "@/lib/types";
 import { formatVND } from "@/lib/format";
+import { publicProductSlug } from "@/lib/product-url";
 
 const TONES = ["blue", "amber", "coral", "mixed"] as const;
 
@@ -18,7 +19,7 @@ function excerpt(text: string | null, maxLength = 150) {
 }
 
 export default function ProductCard({ product, badge }: { product: Product; badge?: "new" | "premium" }) {
-  const href = `/${PRODUCT_TYPE_ROUTE[product.type]}/${product.id}`;
+  const href = `/${PRODUCT_TYPE_ROUTE[product.type]}/${publicProductSlug(product)}`;
   const cover = product.images?.[0];
   const summary = excerpt(product.description);
   const priceLabel = product.is_free ? "Miễn phí" : formatVND(product.price);

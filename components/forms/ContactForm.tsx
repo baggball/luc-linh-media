@@ -41,7 +41,7 @@ export default function ContactForm() {
           </svg>
         </div>
         <h2>Đã gửi tin nhắn thành công!</h2>
-        <p>Cảm ơn bạn đã liên hệ. Đội ngũ Lục Linh Media sẽ phản hồi trong vòng 24 giờ qua email bạn đã cung cấp.</p>
+        <p>Cảm ơn bạn đã liên hệ. Đội ngũ Lục Linh Video AI sẽ phản hồi trong vòng 24 giờ qua email bạn đã cung cấp.</p>
         <Link className="btn btn-primary" href="/" style={{ display: "block", textAlign: "center", marginTop: 18 }}>
           Về trang chủ
         </Link>

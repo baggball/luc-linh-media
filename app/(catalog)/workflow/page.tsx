@@ -1,7 +1,12 @@
 import CatalogPage from "@/components/catalog/CatalogPage";
 
 export const revalidate = 0;
-export const metadata = { title: "Workflow" };
+export const metadata = {
+  title: "Workflow AI tạo video & nội dung tự động",
+  description:
+    "Workflow AI dựng sẵn giúp tự động hóa quy trình tạo ảnh, video, kịch bản và nội dung bán hàng.",
+  alternates: { canonical: "/workflow" },
+};
 
 export default function WorkflowCatalogPage() {
   return (

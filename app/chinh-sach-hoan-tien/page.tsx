@@ -15,7 +15,7 @@ export default function ChinhSachHoanTienPage() {
 
         <div className="doc">
           <h2>1. Điều kiện áp dụng</h2>
-          <p>Lục Linh Media hỗ trợ hoàn tiền cho các gói đăng ký (Khởi đầu, Sáng tạo, Studio) và sản phẩm mua lẻ nếu:</p>
+          <p>Lục Linh Video AI hỗ trợ hoàn tiền cho các gói đăng ký (Khởi đầu, Sáng tạo, Studio) và sản phẩm mua lẻ nếu:</p>
           <ul>
             <li>Yêu cầu hoàn tiền được gửi trong thời hạn quy định kể từ ngày thanh toán thành công.</li>
             <li>Sản phẩm/chatbot chưa được sử dụng vượt quá 20% giới hạn sử dụng của gói (ví dụ: số lượt tải chatbot, số workflow đã chạy).</li>

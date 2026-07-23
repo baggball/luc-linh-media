@@ -4,10 +4,16 @@ import Footer from "@/components/layout/Footer";
 import ProductCard from "@/components/product/ProductCard";
 import NewsletterForm from "@/components/home/NewsletterForm";
 import { createClient } from "@/lib/supabase/server";
+import { SITE_DESCRIPTION, SITE_NAME } from "@/lib/site";
 import type { Product } from "@/lib/types";
 import styles from "./home.module.css";
 
 export const revalidate = 0;
+export const metadata = {
+  title: "Chatbot & Workflow tạo video AI bán hàng",
+  description: SITE_DESCRIPTION,
+  alternates: { canonical: "/" },
+};
 
 export default async function Home() {
   const supabase = await createClient();
@@ -33,8 +39,8 @@ export default async function Home() {
               Biến một dòng lệnh thành <em>video, chatbot &amp; kịch bản bán hàng</em> hoàn chỉnh
             </h1>
             <p className={styles.heroSub}>
-              Hơn 1.200 prompt, workflow và chatbot GPT dựng sẵn — chuyên cho KOC, video AI Veo3 và bán hàng đa kênh.
-              Mua một lần, dùng mãi mãi.
+              Chatbot, prompt và workflow dựng sẵn cho KOC, video AI Veo 3 và bán hàng đa kênh. Chọn đúng ngành hàng,
+              làm theo từng bước và dùng ngay.
             </p>
             <div className={styles.heroCtas}>
               <Link className="btn btn-primary" href="/chatbot">
@@ -46,16 +52,16 @@ export default async function Home() {
             </div>
             <div className={styles.heroStats}>
               <div className={styles.stat}>
-                <b className="font-mono">1.200+</b>
-                <span>Prompt &amp; workflow</span>
+                <b className="font-mono">15+</b>
+                <span>Chatbot theo ngành</span>
               </div>
               <div className={styles.stat}>
-                <b className="font-mono">18.500</b>
-                <span>Lượt tải về</span>
+                <b className="font-mono">4</b>
+                <span>Nhóm công cụ AI</span>
               </div>
               <div className={styles.stat}>
-                <b className="font-mono">4.9 / 5</b>
-                <span>Đánh giá trung bình</span>
+                <b className="font-mono">1:1</b>
+                <span>Hỗ trợ sử dụng</span>
               </div>
             </div>
           </div>
@@ -65,7 +71,7 @@ export default async function Home() {
               <span></span>
               <span></span>
               <span></span>
-              <span className="lbl">prompt.mauailamvideo.com — zsh</span>
+              <span className="lbl">luclinhvideoai.com — trợ lý KOC</span>
             </div>
             <div className={styles.terminalBody}>
               <div className={styles.tLine}>
@@ -111,7 +117,7 @@ export default async function Home() {
           <div className="sec-head">
             <div>
               <h2>Sản phẩm mới nhất</h2>
-              <p className="sub">Vừa được thêm vào Lục Linh Media</p>
+              <p className="sub">Vừa được thêm vào {SITE_NAME}</p>
             </div>
           </div>
 
@@ -164,9 +170,9 @@ export default async function Home() {
               <p>Duyệt theo ngành hàng: thời trang, mỹ phẩm, gia dụng, sách... mỗi sản phẩm có demo xem trước.</p>
             </div>
             <div className={styles.step}>
-              <div className="cmd">$ thanh-toan --phuong-thuc=vnpay,momo</div>
+              <div className="cmd">$ thanh-toan --phuong-thuc=chuyen-khoan</div>
               <h3>2. Thanh toán an toàn</h3>
-              <p>Hỗ trợ ví điện tử và chuyển khoản, nhận sản phẩm ngay trong tài khoản sau khi thanh toán.</p>
+              <p>Quét mã QR chuyển khoản đúng nội dung, hệ thống SePay tự xác nhận và mở sản phẩm trong tài khoản.</p>
             </div>
             <div className={styles.step}>
               <div className="cmd">$ su-dung --ngay-bay-gio</div>
@@ -182,7 +188,7 @@ export default async function Home() {
           <div className={styles.ctaBand}>
             <div>
               <h3>Nhận prompt mới &amp; ưu đãi mỗi tuần</h3>
-              <p>Tham gia cộng đồng người sáng tạo đang nhận bản tin của Lục Linh Media.</p>
+              <p>Nhận hướng dẫn thực chiến, prompt mới và ưu đãi từ {SITE_NAME}.</p>
             </div>
             <NewsletterForm />
           </div>

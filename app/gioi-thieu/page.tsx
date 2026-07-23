@@ -3,7 +3,12 @@ import AppShell from "@/components/layout/AppShell";
 import Footer from "@/components/layout/Footer";
 import styles from "./gioi-thieu.module.css";
 
-export const metadata = { title: "Giới thiệu" };
+export const metadata = {
+  title: "Giới thiệu Lục Linh Video AI",
+  description:
+    "Lục Linh Video AI xây dựng chatbot, prompt và workflow thực chiến cho người sáng tạo nội dung và bán hàng Việt Nam.",
+  alternates: { canonical: "/gioi-thieu" },
+};
 
 export default function GioiThieuPage() {
   return (
@@ -20,16 +25,16 @@ export default function GioiThieuPage() {
           </p>
           <div className="stat-row" style={{ justifyContent: "center" }}>
             <div className="stat">
-              <b className="font-mono">6.200+</b>
-              <span>người dùng</span>
+              <b className="font-mono">15+</b>
+              <span>chatbot theo ngành</span>
             </div>
             <div className="stat">
-              <b className="font-mono">1.200+</b>
-              <span>prompt &amp; workflow</span>
+              <b className="font-mono">4</b>
+              <span>nhóm công cụ AI</span>
             </div>
             <div className="stat">
-              <b className="font-mono">24.800+</b>
-              <span>lượt mua</span>
+              <b className="font-mono">1:1</b>
+              <span>hỗ trợ sử dụng</span>
             </div>
             <div className="stat">
               <b className="font-mono">4.9/5</b>
@@ -47,16 +52,16 @@ export default function GioiThieuPage() {
                 CÂU CHUYỆN CỦA CHÚNG TÔI
               </span>
               <p style={{ marginTop: 14 }}>
-                Lục Linh Media ra đời từ chính trải nghiệm của đội ngũ sáng lập — những người từng mất hàng giờ mỗi
+                Lục Linh Video AI ra đời từ chính trải nghiệm của đội ngũ sáng lập — những người từng mất hàng giờ mỗi
                 ngày để viết kịch bản KOC, tạo ảnh sản phẩm và dựng video quảng cáo bằng AI, rồi nhận ra phần khó nhất
                 không phải là công cụ, mà là biết &quot;yêu cầu&quot; đúng cách.
               </p>
               <p>
                 Chúng tôi tin rằng AI chỉ thực sự hữu ích khi đi kèm với prompt đã được kiểm chứng và hướng dẫn rõ
-                ràng. Vì vậy, Lục Linh Media tập trung biến những kịch bản, workflow phức tạp thành thứ ai cũng dùng
+                ràng. Vì vậy, Lục Linh Video AI tập trung biến những kịch bản, workflow phức tạp thành thứ ai cũng dùng
                 được — không cần biết code, không cần hiểu kỹ thuật.
               </p>
-              <p>Từ một bộ 50 prompt mẫu đầu tiên, đến nay Lục Linh Media đã phục vụ hơn 6.200 nhà sáng tạo và người bán hàng trên khắp Việt Nam.</p>
+              <p>Từ những prompt mẫu đầu tiên, chúng tôi đã phát triển thành một thư viện chatbot theo nhiều ngành hàng dành cho nhà sáng tạo và người bán hàng Việt Nam.</p>
             </div>
             <div className={styles.storyVisual}>
               <svg viewBox="0 0 100 100">
@@ -82,7 +87,7 @@ export default function GioiThieuPage() {
             </span>
             <h2>Giúp việc dùng AI trở nên đơn giản như sao chép &amp; dán</h2>
             <p>
-              Mỗi prompt, chatbot và workflow trên Lục Linh Media đều được thử nghiệm thực tế trước khi đưa lên kho —
+              Mỗi prompt, chatbot và workflow trên Lục Linh Video AI đều được thử nghiệm thực tế trước khi đưa lên kho —
               để bạn tiết kiệm thời gian, tăng chất lượng nội dung và tập trung vào việc bán hàng, sáng tạo.
             </p>
           </div>
@@ -135,7 +140,7 @@ export default function GioiThieuPage() {
             <span className="eyebrow" style={{ justifyContent: "center", marginBottom: 14 }}>
               HÀNH TRÌNH
             </span>
-            <h2>Những cột mốc của Lục Linh Media</h2>
+            <h2>Những cột mốc của Lục Linh Video AI</h2>
           </div>
 
           <div className={styles.timeline}>
@@ -156,7 +161,7 @@ export default function GioiThieuPage() {
             </div>
             <div className={styles.tItem}>
               <div className={styles.tWhen}>Quý 2 · 2026</div>
-              <h3>Vượt mốc 6.200 người dùng</h3>
+              <h3>Mở rộng hệ sinh thái Video AI</h3>
               <p>Ra mắt dịch vụ Custom Chatbot và Yêu cầu Video AI theo yêu cầu riêng, mở rộng đội ngũ hỗ trợ.</p>
             </div>
           </div>
@@ -212,7 +217,7 @@ export default function GioiThieuPage() {
       <section className="section">
         <div className="content-wrap">
           <div className={styles.ctaBand}>
-            <h3>Sẵn sàng thử Lục Linh Media?</h3>
+            <h3>Sẵn sàng thử Lục Linh Video AI?</h3>
             <p>Tạo tài khoản miễn phí và nhận ngay 5 prompt mẫu để bắt đầu.</p>
             <div className={styles.ctaBtns}>
               <Link className="btn btn-primary" href="/dang-ky">

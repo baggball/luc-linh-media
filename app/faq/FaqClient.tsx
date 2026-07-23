@@ -12,8 +12,8 @@ const GROUPS: { title: string; items: { q: string; a: string }[] }[] = [
         a: "Không bắt buộc — bạn có thể xem và sao chép prompt mẫu miễn phí ngay mà không cần đăng ký. Tuy nhiên tạo tài khoản giúp lưu lại lịch sử mua hàng và đồng bộ trên nhiều thiết bị.",
       },
       {
-        q: "Lục Linh Media hỗ trợ những phương thức thanh toán nào?",
-        a: "Chúng tôi hỗ trợ ví điện tử (VNPay, Momo) và chuyển khoản ngân hàng. Sản phẩm sẽ xuất hiện trong tài khoản của bạn ngay sau khi thanh toán được xác nhận.",
+        q: "Lục Linh Video AI hỗ trợ những phương thức thanh toán nào?",
+        a: "Chúng tôi hỗ trợ chuyển khoản ngân hàng qua mã QR. Hệ thống SePay tự động xác nhận đúng số tiền và nội dung chuyển khoản, sau đó mở sản phẩm trong tài khoản của bạn.",
       },
       {
         q: "Tôi có thể huỷ gói đăng ký bất cứ lúc nào không?",

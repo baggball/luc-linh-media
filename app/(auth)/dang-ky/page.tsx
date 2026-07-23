@@ -168,7 +168,7 @@ export default function DangKyPage() {
             <label className={styles.agree}>
               <input type="checkbox" required checked={agree} onChange={(e) => setAgree(e.target.checked)} />
               <span>
-                Tôi đồng ý với <Link href="/dieu-khoan-dich-vu">Điều khoản dịch vụ</Link> &amp; Chính sách bảo mật của Lục Linh Media.
+                Tôi đồng ý với <Link href="/dieu-khoan-dich-vu">Điều khoản dịch vụ</Link> &amp; Chính sách bảo mật của Lục Linh Video AI.
               </span>
             </label>
             <button type="submit" className={styles.btn + " " + styles.btnPrimary} disabled={loading}>
@@ -224,16 +224,16 @@ function AuthBrandPanel() {
 
       <div className={styles.statRow}>
         <div className={styles.stat}>
-          <b className="font-mono">6.200+</b>
-          <span>người dùng</span>
+          <b className="font-mono">15+</b>
+          <span>chatbot theo ngành</span>
         </div>
         <div className={styles.stat}>
-          <b className="font-mono">4.9/5</b>
-          <span>đánh giá</span>
+          <b className="font-mono">4</b>
+          <span>nhóm công cụ AI</span>
         </div>
         <div className={styles.stat}>
-          <b className="font-mono">24.800+</b>
-          <span>lượt mua</span>
+          <b className="font-mono">1:1</b>
+          <span>hỗ trợ sử dụng</span>
         </div>
       </div>
     </div>

@@ -214,7 +214,7 @@ function Card({ children }: { children: React.ReactNode }) {
               <path d="M13 2 3 14h7l-1 8 10-12h-7z" />
             </svg>
           </span>
-          <span className={styles.brandWord}>Lục Linh Media</span>
+          <span className={styles.brandWord}>Lục Linh Video AI</span>
         </Link>
         {children}
       </div>

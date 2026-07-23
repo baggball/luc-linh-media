@@ -3,7 +3,12 @@ import AppShell from "@/components/layout/AppShell";
 import Footer from "@/components/layout/Footer";
 import styles from "./huong-dan.module.css";
 
-export const metadata = { title: "Hướng dẫn" };
+export const metadata = {
+  title: "Hướng dẫn sử dụng chatbot & workflow AI",
+  description:
+    "Hướng dẫn từng bước để dùng chatbot GPT, prompt Veo 3 và workflow tạo video bán hàng tại Lục Linh Video AI.",
+  alternates: { canonical: "/huong-dan" },
+};
 
 export default function HuongDanPage() {
   return (
@@ -12,7 +17,7 @@ export default function HuongDanPage() {
         <div className="content-wrap">
           <span className="eyebrow">HƯỚNG DẪN SỬ DỤNG</span>
           <h1>
-            Bắt đầu với Lục Linh Media trong <em>vài phút</em>
+            Bắt đầu với Lục Linh Video AI trong <em>vài phút</em>
           </h1>
           <p>Từ sao chép prompt đầu tiên đến chạy chatbot &amp; workflow tự động — mọi thứ bạn cần biết đều ở đây.</p>
         </div>
@@ -31,9 +36,9 @@ export default function HuongDanPage() {
               <p>Duyệt theo ngành hàng: thời trang, mỹ phẩm, gia dụng, sách... mỗi sản phẩm có demo xem trước.</p>
             </div>
             <div className={styles.step}>
-              <div className="cmd">$ thanh-toan --phuong-thuc=vnpay,momo</div>
+              <div className="cmd">$ thanh-toan --phuong-thuc=chuyen-khoan</div>
               <h3>2. Thanh toán an toàn</h3>
-              <p>Hỗ trợ ví điện tử và chuyển khoản, nhận sản phẩm ngay trong tài khoản sau khi thanh toán.</p>
+              <p>Quét mã QR, chuyển đúng nội dung và hệ thống SePay tự mở sản phẩm sau khi xác nhận.</p>
             </div>
             <div className={styles.step}>
               <div className="cmd">$ su-dung --ngay-bay-gio</div>

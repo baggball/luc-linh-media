@@ -3,7 +3,12 @@ import AppShell from "@/components/layout/AppShell";
 import Footer from "@/components/layout/Footer";
 import ViralHooksClient from "@/components/static/ViralHooksClient";
 
-export const metadata = { title: "Viral Video Hooks" };
+export const metadata = {
+  title: "Hook video TikTok bán hàng miễn phí",
+  description:
+    "Kho câu mở đầu video TikTok, Reels và Shorts giúp giữ người xem, giới thiệu sản phẩm và tăng tỷ lệ chốt đơn.",
+  alternates: { canonical: "/viral-hooks" },
+};
 
 export default function ViralHooksPage() {
   return (

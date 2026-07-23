@@ -6,7 +6,7 @@ import { PRODUCT_TYPE_ROUTE, type ProductType } from "@/lib/types";
 import CheckoutStatus from "@/components/checkout/CheckoutStatus";
 
 export const revalidate = 0;
-export const metadata = { title: "Thanh toán" };
+export const metadata = { title: "Thanh toán", robots: { index: false, follow: false } };
 
 export default async function ThanhToanPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -50,7 +50,7 @@ export default async function ThanhToanPage({ params }: { params: Promise<{ id: 
               <path d="M13 2 3 14h7l-1 8 10-12h-7z" />
             </svg>
           </span>
-          <span style={{ fontWeight: 800, fontSize: 15.5 }}>Lục Linh Media</span>
+          <span style={{ fontWeight: 800, fontSize: 15.5 }}>Lục Linh Video AI</span>
         </Link>
 
         <h1 style={{ fontSize: 21, marginBottom: 6 }}>Thanh toán đơn hàng</h1>

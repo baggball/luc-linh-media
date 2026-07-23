@@ -1,14 +1,40 @@
 import type { Metadata } from "next";
+import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://web-bice-six-68.vercel.app"),
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "Lục Linh Media — Chợ Prompt & Công Cụ AI",
-    template: "%s — Lục Linh Media",
+    default: "Lục Linh Video AI — Chatbot & Workflow tạo video bán hàng",
+    template: `%s — ${SITE_NAME}`,
   },
-  description:
-    "Chợ prompt, chatbot & workflow AI dành cho người sáng tạo nội dung và bán hàng tại Việt Nam.",
+  description: SITE_DESCRIPTION,
+  applicationName: SITE_NAME,
+  keywords: [
+    "chatbot tạo video AI",
+    "KOC AI",
+    "video affiliate",
+    "prompt Veo 3",
+    "workflow video AI",
+    "kịch bản video bán hàng",
+  ],
+  authors: [{ name: SITE_NAME, url: SITE_URL }],
+  creator: SITE_NAME,
+  publisher: SITE_NAME,
+  formatDetection: { email: false, address: false, telephone: false },
+  openGraph: {
+    type: "website",
+    locale: "vi_VN",
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    title: "Lục Linh Video AI — Chatbot & Workflow tạo video bán hàng",
+    description: SITE_DESCRIPTION,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Lục Linh Video AI — Chatbot & Workflow tạo video bán hàng",
+    description: SITE_DESCRIPTION,
+  },
 };
 
 export default function RootLayout({
@@ -18,7 +44,27 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="vi">
-      <body>{children}</body>
+      <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: SITE_NAME,
+              url: SITE_URL,
+              email: "luclinhstudio@gmail.com",
+              contactPoint: {
+                "@type": "ContactPoint",
+                telephone: "+84-379-062-594",
+                contactType: "customer support",
+                availableLanguage: "Vietnamese",
+              },
+            }).replace(/</g, "\\u003c"),
+          }}
+        />
+        {children}
+      </body>
     </html>
   );
 }

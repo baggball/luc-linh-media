@@ -160,7 +160,7 @@ export default function Sidebar() {
         </span>
         <span className="brand-word">
           Lục Linh
-          <small>Media</small>
+          <small>Video AI</small>
         </span>
       </Link>
 

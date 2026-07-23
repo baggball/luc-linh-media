@@ -6,7 +6,12 @@ import { createClient } from "@/lib/supabase/server";
 import type { FreePrompt } from "@/lib/types";
 
 export const revalidate = 0;
-export const metadata = { title: "Prompt miễn phí" };
+export const metadata = {
+  title: "Prompt AI miễn phí cho ảnh, video & bán hàng",
+  description:
+    "Dùng thử prompt AI tiếng Việt miễn phí cho video KOC, ảnh sản phẩm, kịch bản bán hàng và Veo 3.",
+  alternates: { canonical: "/prompt-mien-phi" },
+};
 
 export default async function PromptMienPhiPage() {
   const supabase = await createClient();
