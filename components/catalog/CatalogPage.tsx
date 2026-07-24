@@ -4,6 +4,7 @@ import AppShell from "@/components/layout/AppShell";
 import Footer from "@/components/layout/Footer";
 import ProductCatalog from "@/components/catalog/ProductCatalog";
 import { createClient } from "@/lib/supabase/server";
+import { applyProductsOverrides } from "@/lib/product-overrides";
 import { PRODUCT_TYPE_LABEL, type Product, type ProductType } from "@/lib/types";
 
 function isPublicCatalogHidden(product: Product) {
@@ -32,7 +33,7 @@ export default async function CatalogPage({
     .eq("type", type)
     .order("created_at", { ascending: false });
 
-  const products = ((data ?? []) as Product[]).filter((product) => type !== "chatbot" || !isPublicCatalogHidden(product));
+  const products = applyProductsOverrides((data ?? []) as Product[]).filter((product) => type !== "chatbot" || !isPublicCatalogHidden(product));
 
   return (
     <AppShell>

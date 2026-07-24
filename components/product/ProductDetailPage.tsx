@@ -11,6 +11,7 @@ import AddToCartButton from "@/components/product/AddToCartButton";
 import ProductViewTracker from "@/components/product/ProductViewTracker";
 import { createClient } from "@/lib/supabase/server";
 import { getPublishedProduct } from "@/lib/products";
+import { applyProductOverrides } from "@/lib/product-overrides";
 import { publicProductSlug } from "@/lib/product-url";
 import { formatVND } from "@/lib/format";
 import { absoluteUrl, SITE_NAME } from "@/lib/site";
@@ -243,8 +244,9 @@ function getSalesProfile(slug: string, title: string, type: ProductType): SalesP
 }
 
 export default async function ProductDetailPage({ type, id }: { type: ProductType; id: string }) {
-  const product = await getPublishedProduct(type, id);
-  if (!product) notFound();
+  const publishedProduct = await getPublishedProduct(type, id);
+  if (!publishedProduct) notFound();
+  const product = applyProductOverrides(publishedProduct);
   const canonicalSlug = publicProductSlug(product);
   if (id !== canonicalSlug) {
     permanentRedirect(`/${PRODUCT_TYPE_ROUTE[type]}/${canonicalSlug}`);
