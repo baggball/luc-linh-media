@@ -13,8 +13,8 @@ const plans = [
     name: "Mua chatbot lẻ",
     tag: "BẮT ĐẦU NHẸ",
     monthlyPrice: "159K–199K",
-    yearlyPrice: "1.717K–2.149K",
-    yearlyNote: "Tương đương tiết kiệm 10% khi mua 12 tháng",
+    yearlyPrice: "1.526K–1.910K",
+    yearlyNote: "Tương đương tiết kiệm 20% khi mua 12 tháng",
     old: "Chọn đúng 1 ngành cần làm trước",
     desc: "Phù hợp khi bạn muốn test một ngách KOC cụ thể trước khi mua nhiều chatbot.",
     href: "/chatbot",
@@ -30,8 +30,8 @@ const plans = [
     name: "Combo 3 chatbot mũi nhọn",
     tag: "KHUYÊN DÙNG",
     monthlyPrice: "399K",
-    yearlyPrice: "4.309K",
-    yearlyNote: "Tương đương 359K/tháng khi mua năm",
+    yearlyPrice: "3.830K",
+    yearlyNote: "Tương đương 319K/tháng khi mua năm",
     old: "Tiết kiệm hơn mua lẻ từng sản phẩm",
     desc: "Combo cố định gồm 3 ngách dễ bán nhất: mỹ phẩm, gia dụng và thời trang/phố. Hợp cho người làm affiliate, TikTok Shop, Reels.",
     href: "/chatbot",
@@ -48,8 +48,8 @@ const plans = [
     name: "Full bộ chatbot KOC",
     tag: "MỞ RỘNG KINH DOANH",
     monthlyPrice: "899K",
-    yearlyPrice: "9.709K",
-    yearlyNote: "Tương đương 809K/tháng khi mua năm",
+    yearlyPrice: "8.630K",
+    yearlyNote: "Tương đương 719K/tháng khi mua năm",
     old: "Dành cho người muốn phủ nhiều ngành",
     desc: "Dành cho team nội dung, shop nhiều ngành hoặc người muốn xây kho video AI affiliate lâu dài.",
     href: "/chatbot",
@@ -70,7 +70,7 @@ export default function BangGiaClient() {
         <span>✓ Có gói theo tháng và theo năm</span>
         <span>✓ Thanh toán QR tự động xác nhận</span>
         <span>✓ Có link dùng sau khi mua</span>
-        <span>✓ Mua năm tiết kiệm thêm 10%</span>
+        <span>✓ Mua năm tiết kiệm thêm 20%</span>
       </div>
 
       <div className={styles.pgHead}>
@@ -79,8 +79,40 @@ export default function BangGiaClient() {
           Chọn gói phù hợp để <em>bắt đầu tạo video bán hàng bằng AI</em>
         </h1>
         <p>
-          Nếu mới bắt đầu, chọn gói tháng để test nhanh. Nếu đã xác định làm nội dung bán hàng lâu dài, chọn gói năm để tiết kiệm thêm 10% và được đồng hành ổn định hơn.
+          Nếu mới bắt đầu, chọn gói tháng để test nhanh. Nếu đã xác định làm nội dung bán hàng lâu dài, chọn gói năm để tiết kiệm thêm 20% và được đồng hành ổn định hơn.
         </p>
+      </div>
+
+      <div className={styles.plans}>
+        {plans.map((plan) => (
+          <div className={`${styles.plan} ${plan.featured ? styles.feat : ""}`} key={plan.name}>
+            <span className={styles.planTag}>{plan.tag}</span>
+            <div className={styles.planName}>{plan.name}</div>
+            <div className={styles.planDesc}>{plan.desc}</div>
+            <div className={styles.billingGrid}>
+              <div className={styles.billingBox}>
+                <span>Theo tháng</span>
+                <strong className="font-mono">{plan.monthlyPrice}</strong>
+                <small>/ tháng</small>
+              </div>
+              <div className={`${styles.billingBox} ${styles.yearlyBox}`}>
+                <span>Theo năm</span>
+                <strong className="font-mono">{plan.yearlyPrice}</strong>
+                <small>/ năm · giảm 20%</small>
+              </div>
+            </div>
+            <div className={styles.yearlyNote}>{plan.yearlyNote}</div>
+            <div className={styles.planOld}>{plan.old}</div>
+            <Link className={styles.planCta} href={plan.href}>
+              {plan.cta}
+            </Link>
+            <ul className={styles.planFeats}>
+              {plan.features.map((feature) => (
+                <li key={feature}>{CHECK}{feature}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
       </div>
 
       <div className={styles.comboBand}>
@@ -103,38 +135,6 @@ export default function BangGiaClient() {
         <a className="btn btn-primary" href={ZALO_COMMUNITY_URL} target="_blank" rel="noopener">
           Vào cộng đồng Zalo
         </a>
-      </div>
-
-      <div className={styles.plans}>
-        {plans.map((plan) => (
-          <div className={`${styles.plan} ${plan.featured ? styles.feat : ""}`} key={plan.name}>
-            <span className={styles.planTag}>{plan.tag}</span>
-            <div className={styles.planName}>{plan.name}</div>
-            <div className={styles.planDesc}>{plan.desc}</div>
-            <div className={styles.billingGrid}>
-              <div className={styles.billingBox}>
-                <span>Theo tháng</span>
-                <strong className="font-mono">{plan.monthlyPrice}</strong>
-                <small>/ tháng</small>
-              </div>
-              <div className={`${styles.billingBox} ${styles.yearlyBox}`}>
-                <span>Theo năm</span>
-                <strong className="font-mono">{plan.yearlyPrice}</strong>
-                <small>/ năm · giảm 10%</small>
-              </div>
-            </div>
-            <div className={styles.yearlyNote}>{plan.yearlyNote}</div>
-            <div className={styles.planOld}>{plan.old}</div>
-            <Link className={styles.planCta} href={plan.href}>
-              {plan.cta}
-            </Link>
-            <ul className={styles.planFeats}>
-              {plan.features.map((feature) => (
-                <li key={feature}>{CHECK}{feature}</li>
-              ))}
-            </ul>
-          </div>
-        ))}
       </div>
 
       <div className={styles.compare}>
