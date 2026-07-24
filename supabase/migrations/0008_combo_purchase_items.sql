@@ -296,7 +296,7 @@ create policy "product_private_content_entitled_read"
     )
     or exists (
       select 1 from public.purchases pu
-      where pu.product_id = product_id
+      where pu.product_id = product_private_content.product_id
         and pu.user_id = auth.uid()
         and pu.status = 'paid'
     )
@@ -304,7 +304,7 @@ create policy "product_private_content_entitled_read"
       select 1
       from public.purchase_items pi
       join public.purchases pu on pu.id = pi.purchase_id
-      where pi.product_id = product_id
+      where pi.product_id = product_private_content.product_id
         and pu.user_id = auth.uid()
         and pu.status = 'paid'
     )
