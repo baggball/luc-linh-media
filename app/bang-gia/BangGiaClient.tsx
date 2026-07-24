@@ -12,7 +12,9 @@ const plans = [
   {
     name: "Mua chatbot lẻ",
     tag: "BẮT ĐẦU NHẸ",
-    price: "159K–199K",
+    monthlyPrice: "159K–199K",
+    yearlyPrice: "1.717K–2.149K",
+    yearlyNote: "Tương đương tiết kiệm 10% khi mua 12 tháng",
     old: "Chọn đúng 1 ngành cần làm trước",
     desc: "Phù hợp khi bạn muốn test một ngách KOC cụ thể trước khi mua nhiều chatbot.",
     href: "/chatbot",
@@ -27,7 +29,9 @@ const plans = [
   {
     name: "Combo 3 chatbot mũi nhọn",
     tag: "KHUYÊN DÙNG",
-    price: "399K",
+    monthlyPrice: "399K",
+    yearlyPrice: "4.309K",
+    yearlyNote: "Tương đương 359K/tháng khi mua năm",
     old: "Tiết kiệm hơn mua lẻ từng sản phẩm",
     desc: "Combo cố định gồm 3 ngách dễ bán nhất: mỹ phẩm, gia dụng và thời trang/phố. Hợp cho người làm affiliate, TikTok Shop, Reels.",
     href: "/chatbot",
@@ -43,7 +47,9 @@ const plans = [
   {
     name: "Full bộ chatbot KOC",
     tag: "MỞ RỘNG KINH DOANH",
-    price: "899K",
+    monthlyPrice: "899K",
+    yearlyPrice: "9.709K",
+    yearlyNote: "Tương đương 809K/tháng khi mua năm",
     old: "Dành cho người muốn phủ nhiều ngành",
     desc: "Dành cho team nội dung, shop nhiều ngành hoặc người muốn xây kho video AI affiliate lâu dài.",
     href: "/chatbot",
@@ -61,19 +67,19 @@ export default function BangGiaClient() {
   return (
     <div className={styles.wrap}>
       <div className={styles.trustRow}>
-        <span>✓ Sản phẩm số mua một lần</span>
+        <span>✓ Có gói theo tháng và theo năm</span>
         <span>✓ Thanh toán QR tự động xác nhận</span>
         <span>✓ Có link dùng sau khi mua</span>
-        <span>✓ Hỗ trợ Zalo 1:1</span>
+        <span>✓ Mua năm tiết kiệm thêm 10%</span>
       </div>
 
       <div className={styles.pgHead}>
-        <span className={styles.premiumBadge}>Bảng giá combo chatbot KOC AI</span>
+        <span className={styles.premiumBadge}>Bảng giá tháng & năm chatbot KOC AI</span>
         <h1>
           Chọn gói phù hợp để <em>bắt đầu tạo video bán hàng bằng AI</em>
         </h1>
         <p>
-          Nếu mới bắt đầu, mua lẻ một chatbot để test. Nếu muốn chạy thật, combo 3 chatbot mũi nhọn là lựa chọn dễ ra nội dung và dễ bán nhất.
+          Nếu mới bắt đầu, chọn gói tháng để test nhanh. Nếu đã xác định làm nội dung bán hàng lâu dài, chọn gói năm để tiết kiệm thêm 10% và được đồng hành ổn định hơn.
         </p>
       </div>
 
@@ -105,9 +111,19 @@ export default function BangGiaClient() {
             <span className={styles.planTag}>{plan.tag}</span>
             <div className={styles.planName}>{plan.name}</div>
             <div className={styles.planDesc}>{plan.desc}</div>
-            <div className={styles.planPrice}>
-              <span className={`${styles.amount} font-mono`}>{plan.price}</span>
+            <div className={styles.billingGrid}>
+              <div className={styles.billingBox}>
+                <span>Theo tháng</span>
+                <strong className="font-mono">{plan.monthlyPrice}</strong>
+                <small>/ tháng</small>
+              </div>
+              <div className={`${styles.billingBox} ${styles.yearlyBox}`}>
+                <span>Theo năm</span>
+                <strong className="font-mono">{plan.yearlyPrice}</strong>
+                <small>/ năm · giảm 10%</small>
+              </div>
             </div>
+            <div className={styles.yearlyNote}>{plan.yearlyNote}</div>
             <div className={styles.planOld}>{plan.old}</div>
             <Link className={styles.planCta} href={plan.href}>
               {plan.cta}
