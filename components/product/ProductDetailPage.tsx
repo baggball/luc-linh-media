@@ -506,7 +506,7 @@ export default async function ProductDetailPage({ type, id }: { type: ProductTyp
                 <div className="paid-price-line">{formatVND(product.price)}</div>
                 {user ? (
                   <div className="detail-cta-stack">
-                    <BuyButton productId={product.id} productSlug={canonicalSlug} />
+                    <BuyButton productId={product.id} productSlug={canonicalSlug} price={product.price} />
                     {type === "chatbot" && <AddToCartButton productId={product.id} productSlug={canonicalSlug} />}
                   </div>
                 ) : (
@@ -657,7 +657,7 @@ export default async function ProductDetailPage({ type, id }: { type: ProductTyp
                   {type === "chatbot" && !hasAccess && <AddToCartButton productId={product.id} productSlug={canonicalSlug} />}
                   {!hasAccess &&
                     (user ? (
-                      <BuyButton productId={product.id} productSlug={canonicalSlug} />
+                      <BuyButton productId={product.id} productSlug={canonicalSlug} price={product.price} />
                     ) : (
                       <Link className="btn btn-primary" href="/dang-nhap">Đăng nhập để mua</Link>
                     ))}
@@ -732,7 +732,7 @@ export default async function ProductDetailPage({ type, id }: { type: ProductTyp
                 <h3>Video bị khoá</h3>
                 <p>Mua sản phẩm để mở khoá video hướng dẫn</p>
                 {user ? (
-                  <BuyButton productId={product.id} productSlug={canonicalSlug} />
+                  <BuyButton productId={product.id} productSlug={canonicalSlug} price={product.price} />
                 ) : (
                   <Link className="btn btn-primary" href="/dang-nhap">
                     Đăng nhập để mua

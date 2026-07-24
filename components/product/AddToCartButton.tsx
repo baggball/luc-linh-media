@@ -13,7 +13,12 @@ export default function AddToCartButton({ productId, productSlug }: { productId:
       const current = JSON.parse(window.localStorage.getItem(CART_KEY) || "[]") as string[];
       const next = current.includes(productId) ? current : [...current, productId].slice(0, 3);
       window.localStorage.setItem(CART_KEY, JSON.stringify(next));
-      track("add_to_cart", { product: productSlug, count: next.length });
+      track("add_to_cart", {
+        source: "product_detail",
+        product_id: productId,
+        product: productSlug,
+        item_count: next.length,
+      });
     } catch {
       window.localStorage.setItem(CART_KEY, JSON.stringify([productId]));
     }

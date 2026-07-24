@@ -53,9 +53,15 @@ export default function CheckoutStatus({
   useEffect(() => {
     if (status === "paid" && !trackedPaid.current) {
       trackedPaid.current = true;
-      track("purchase_completed", { product: productHref, value: amount });
+      track("purchase_completed", {
+        purchase_id: purchaseId,
+        order_code: orderCode,
+        product: productHref,
+        value: amount,
+        currency: "VND",
+      });
     }
-  }, [amount, productHref, status]);
+  }, [amount, orderCode, productHref, purchaseId, status]);
 
   if (status === "paid") {
     return (

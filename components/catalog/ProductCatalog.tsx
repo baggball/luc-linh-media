@@ -142,6 +142,14 @@ export default function ProductCatalog({
       setCartOpen(true);
       const next = [...current, product.id];
       window.localStorage.setItem(CART_KEY, JSON.stringify(next));
+      track("add_to_cart", {
+        source: "catalog",
+        product_id: product.id,
+        product: product.slug,
+        item_count: next.length,
+        value: product.price,
+        currency: "VND",
+      });
       return next;
     });
   }
@@ -175,10 +183,13 @@ export default function ProductCatalog({
       return;
     }
 
-    track(isCombo ? "begin_combo_checkout" : "begin_cart_checkout", {
-      count: cartIds.length,
+    track("begin_checkout", {
+      checkout_type: isCombo ? "combo" : "cart",
+      item_count: cartIds.length,
       billing: isCombo ? billingCycle : "single",
       value: checkoutTotal,
+      currency: "VND",
+      products: cartProducts.map((product) => product.slug).join(","),
     });
     window.localStorage.removeItem(CART_KEY);
     router.push(`/thanh-toan/${data}`);
