@@ -73,7 +73,8 @@ export default async function MyProductsPage() {
               const product = purchase.products;
               const paid = purchase.status === "paid";
               const items = itemsByPurchase.get(purchase.id);
-              const isCombo = (items?.length ?? 0) > 1;
+              const isMultiItem = (items?.length ?? 0) > 1;
+              const isCombo = (items?.length ?? 0) === 3;
               const href = paid && product
                 ? `/${PRODUCT_TYPE_ROUTE[product.type]}/${purchase.product_id}`
                 : `/thanh-toan/${purchase.id}`;
@@ -84,20 +85,20 @@ export default async function MyProductsPage() {
                       <div style={{ color: paid ? "var(--success)" : "var(--amber)", fontSize: 12, fontWeight: 800, marginBottom: 5 }}>
                         {paid ? "ĐÃ THANH TOÁN" : purchase.status === "cancelled" ? "ĐÃ HỦY" : "CHỜ THANH TOÁN"}
                       </div>
-                      <h2 style={{ fontSize: 17 }}>{isCombo ? `Combo tự chọn ${items?.length ?? 3} Chatbot KOC AI` : product?.title ?? "Sản phẩm không còn tồn tại"}</h2>
+                      <h2 style={{ fontSize: 17 }}>{isCombo ? `Combo tự chọn ${items?.length ?? 3} Chatbot KOC AI` : isMultiItem ? `Giỏ hàng Chatbot AI (${items?.length ?? 0} sản phẩm)` : product?.title ?? "Sản phẩm không còn tồn tại"}</h2>
                       <p style={{ color: "var(--mute-dim)", fontSize: 13, marginTop: 5 }}>
                         {formatVND(purchase.amount)} · {new Date(purchase.paid_at ?? purchase.created_at).toLocaleString("vi-VN")}
                       </p>
                     </div>
-                    {purchase.status !== "cancelled" && !isCombo && product && (
+                    {purchase.status !== "cancelled" && !isMultiItem && product && (
                       <Link className="btn btn-primary" href={href}>{paid ? "Mở sản phẩm" : "Tiếp tục thanh toán"}</Link>
                     )}
-                    {purchase.status !== "cancelled" && isCombo && !paid && (
+                    {purchase.status !== "cancelled" && isMultiItem && !paid && (
                       <Link className="btn btn-primary" href={`/thanh-toan/${purchase.id}`}>Tiếp tục thanh toán</Link>
                     )}
                   </div>
 
-                  {isCombo && items && items.length > 0 && (
+                  {isMultiItem && items && items.length > 0 && (
                     <div className="combo-owned-grid">
                       {items.map((item) => (
                         <div className="combo-owned-item" key={item.id}>
