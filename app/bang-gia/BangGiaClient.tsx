@@ -92,7 +92,7 @@ export default function BangGiaClient() {
         <div>
           <span>Cộng đồng khách hàng</span>
           <h2>Sau khi mua, khách được mời vào nhóm Zalo để được chăm sóc và thảo luận</h2>
-          <p>Đây là nơi gom khách đã mua, hướng dẫn dùng chatbot, chia sẻ output, cập nhật prompt mới và chăm sóc khách hàng lâu dài.</p>
+          <p>Đây là cộng đồng dành cho khách hàng đã mua: nhận hướng dẫn dùng chatbot, chia sẻ output, cập nhật prompt mới và được Lục Linh đồng hành lâu dài.</p>
         </div>
         <a className="btn btn-primary" href={ZALO_COMMUNITY_URL} target="_blank" rel="noopener">
           Vào cộng đồng Zalo

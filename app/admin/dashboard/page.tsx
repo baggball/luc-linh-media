@@ -239,7 +239,7 @@ export default async function AdminDashboardPage() {
       title: lead7 > 0 ? "Có lead mới để chăm sóc" : "Cần tăng lead đầu phễu",
       body: lead7 > 0
         ? `${lead7} yêu cầu/email mới trong 7 ngày. Nên gọi/Zalo/email trong 24h để tăng tỷ lệ chốt.`
-        : "Trang dùng thử miễn phí nên có form lấy email/Zalo rõ hơn để gom khách tiềm năng.",
+        : "Trang dùng thử miễn phí nên có form nhận email/Zalo rõ hơn để chăm sóc khách tiềm năng.",
     },
   ];
 

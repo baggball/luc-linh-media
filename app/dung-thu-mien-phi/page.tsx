@@ -103,7 +103,7 @@ export default function DungThuMienPhiPage() {
         <section className="section trial-section">
           <a className="community-box community-box-wide" href={ZALO_COMMUNITY_URL} target="_blank" rel="noopener">
             <b>Vào cộng đồng Zalo Lục Linh</b>
-            <span>Nơi gom khách hàng, cập nhật chatbot/prompt mới, chia sẻ output và hỏi đáp cách làm video AI bán hàng.</span>
+            <span>Cộng đồng để nhận cập nhật chatbot/prompt mới, chia sẻ output và hỏi đáp cách làm video AI bán hàng cùng Lục Linh.</span>
           </a>
         </section>
 
