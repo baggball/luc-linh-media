@@ -53,7 +53,267 @@ Lưu ý an toàn: ${constraints}
 Sau khi tạo ảnh, hãy viết thêm 3 caption ngắn và 3 CTA bán hàng phù hợp với sản phẩm.`;
 }
 
+function fashionPrompt(product: string, scene: string, style: string, note: string) {
+  return `Tạo ảnh quảng cáo thời trang chuyên nghiệp cho: ${product}.
+
+Bối cảnh: ${scene}
+Phong cách hình ảnh: ${style}
+
+Yêu cầu bố cục:
+- Sản phẩm phải là nhân vật chính, nhìn rõ form dáng, chất liệu, màu sắc và chi tiết bán hàng.
+- Nếu có người mẫu, tạo dáng tự nhiên, tay/chân/khuôn mặt đúng giải phẫu, outfit mặc vừa vặn.
+- Bố cục dọc 4:5 hoặc 9:16, phù hợp đăng TikTok Shop, Facebook, Reels, Shopee/Lazada.
+- Ánh sáng đẹp, có chiều sâu, premium advertising, realistic, high detail, clean composition.
+- Chừa khoảng trống hợp lý để thêm chữ: tên sản phẩm, giá, ưu đãi hoặc CTA.
+
+Không được:
+- Không tự thêm logo thương hiệu nổi tiếng nếu sản phẩm không có logo đó.
+- Không làm sai màu, sai form, sai họa tiết chính của sản phẩm.
+- Không chữ lỗi, watermark, hình méo, tay/chân dị dạng.
+
+Lưu ý ngành hàng: ${note}
+
+Sau khi tạo ảnh, hãy viết thêm:
+1. 3 caption bán hàng ngắn.
+2. 3 hook mở đầu video.
+3. 3 CTA phù hợp để chốt đơn.`;
+}
+
 export const FREE_PROMPT_SEEDS: FreePrompt[] = [
+  {
+    id: "seed-fashion-sneaker-studio-float",
+    title: "Tạo ảnh giày sneaker bay trên khối 3D phong cách thể thao hiện đại",
+    crumb: "Sneaker studio 3D",
+    tag: "GPT Image",
+    hashtag: "#sneaker #giayTheThao #fashionAI",
+    images: [cover("Sneaker 3D", "Studio • Floating", "#ff6b5e")],
+    prompt_text: fashionPrompt("giày sneaker, giày chạy bộ hoặc giày thể thao nam/nữ", "studio tối màu hiện đại, sneaker bay nhẹ trên các khối hình học, có ánh sáng viền đỏ/xanh, bóng đổ mềm và hiệu ứng chuyển động nhẹ", "sport luxury, 3D commercial, mạnh mẽ, sạch, giống poster quảng cáo giày cao cấp", "giữ rõ đế giày, chất liệu upper, dây giày và logo nếu có; không nhái thương hiệu nổi tiếng."),
+    created_by: null,
+    created_at: "2026-07-24T09:20:00.000Z",
+  },
+  {
+    id: "seed-fashion-sandal-summer-beach",
+    title: "Tạo ảnh sandal/dép mùa hè trên nền biển sáng sạch dễ bán",
+    crumb: "Sandal mùa hè",
+    tag: "GPT Image",
+    hashtag: "#sandal #depNu #muaHe",
+    images: [cover("Sandal", "Summer • Beach", "#2fb1ff")],
+    prompt_text: fashionPrompt("sandal, dép nữ, dép nam, dép đi biển hoặc dép quai ngang", "bãi biển sáng, cát mịn, nước biển xanh nhẹ, sản phẩm đặt trên đá trắng hoặc cát sạch, có nắng hè trong trẻo", "fresh summer commercial, tối giản, sáng, sạch, tạo cảm giác thoải mái và dễ đi", "không làm sản phẩm bị ướt quá mức nếu không phù hợp; giữ rõ quai dép, đế dép và màu thật."),
+    created_by: null,
+    created_at: "2026-07-24T09:19:00.000Z",
+  },
+  {
+    id: "seed-fashion-white-dress-editorial",
+    title: "Tạo ảnh váy trắng thanh lịch kiểu editorial cao cấp",
+    crumb: "Váy nữ editorial",
+    tag: "GPT Image",
+    hashtag: "#vayNu #lookbook #editorial",
+    images: [cover("Váy nữ", "Editorial • Thanh lịch", "#f2d4b7")],
+    prompt_text: fashionPrompt("váy trắng, đầm nữ, set váy công sở hoặc váy đi tiệc tối giản", "studio màu be, ghế gỗ, rèm mỏng, ánh sáng cửa sổ mềm, người mẫu nữ đứng thanh lịch như lookbook", "minimal editorial, sang, nữ tính, cao cấp, giống ảnh lookbook thương hiệu thời trang", "nhấn rõ form váy, độ rũ vải, cổ áo, tay áo và chiều dài váy; không tạo dáng phản cảm."),
+    created_by: null,
+    created_at: "2026-07-24T09:18:00.000Z",
+  },
+  {
+    id: "seed-fashion-men-street-set-night",
+    title: "Tạo ảnh set đồ nam streetwear ban đêm có hiệu ứng ánh sáng cinematic",
+    crumb: "Set đồ nam streetwear",
+    tag: "GPT Image",
+    hashtag: "#streetwear #doNam #KOC",
+    images: [cover("Street Set", "Nam • Đêm phố", "#a78bfa")],
+    prompt_text: fashionPrompt("set đồ nam, áo thun oversize, quần short, quần jogger hoặc outfit streetwear", "đường phố ban đêm sau mưa, ánh đèn neon phản chiếu trên mặt đường, người mẫu nam đứng tự tin, outfit nổi bật", "urban cinematic, cá tính, trẻ, phù hợp TikTok/Reels bán thời trang nam", "giữ đúng họa tiết áo/quần; tránh tự thêm chữ lạ hoặc logo không có thật."),
+    created_by: null,
+    created_at: "2026-07-24T09:17:00.000Z",
+  },
+  {
+    id: "seed-fashion-tshirt-mockup-gradient",
+    title: "Tạo ảnh mockup áo thun nền gradient nổi bật cho shop in áo",
+    crumb: "Mockup áo thun",
+    tag: "GPT Image",
+    hashtag: "#aoThun #mockup #printOnDemand",
+    images: [cover("Mockup Tee", "Gradient • Poster", "#9b5cff")],
+    prompt_text: fashionPrompt("áo thun in hình, áo local brand, áo oversize hoặc áo POD", "áo thun treo/lơ lửng trên nền gradient tím xanh, có sticker graphic nhẹ, ánh sáng studio rõ texture vải", "youthful poster, hiện đại, nổi bật, phù hợp bán áo local brand", "giữ họa tiết in đúng vị trí; không làm chữ trên áo bị méo nếu có file mẫu."),
+    created_by: null,
+    created_at: "2026-07-24T09:16:00.000Z",
+  },
+  {
+    id: "seed-fashion-hoodie-winter-lookbook",
+    title: "Tạo ảnh hoodie mùa lạnh phong cách lookbook đường phố",
+    crumb: "Hoodie lookbook",
+    tag: "GPT Image",
+    hashtag: "#hoodie #localbrand #winter",
+    images: [cover("Hoodie", "Winter • Lookbook", "#33c48d")],
+    prompt_text: fashionPrompt("hoodie, áo khoác nỉ, sweater hoặc áo local brand mùa lạnh", "con phố mùa đông, tường xi măng tối giản, người mẫu mặc hoodie tạo dáng tự nhiên, có ánh sáng chiều nhẹ", "street lookbook, trẻ, ấm, đời thường nhưng vẫn cao cấp", "nhấn rõ độ dày vải, form oversize/regular, bo tay, mũ áo và họa tiết trước ngực."),
+    created_by: null,
+    created_at: "2026-07-24T09:15:00.000Z",
+  },
+  {
+    id: "seed-fashion-handbag-luxury-product",
+    title: "Tạo ảnh túi xách nữ luxury trên bục studio ánh sáng mềm",
+    crumb: "Túi xách luxury",
+    tag: "GPT Image",
+    hashtag: "#tuiXach #phuKienNu #luxury",
+    images: [cover("Túi xách", "Luxury • Studio", "#f2b544")],
+    prompt_text: fashionPrompt("túi xách nữ, túi đeo chéo, clutch hoặc túi công sở", "studio màu kem, bục trưng bày trắng, vải lụa mềm, ánh sáng vàng nhẹ, sản phẩm đặt chính giữa như catalogue cao cấp", "luxury product photography, tinh tế, nữ tính, sạch và đắt tiền", "giữ rõ chất liệu da/vải, khóa, dây đeo và form túi; không tự thêm logo hãng lớn."),
+    created_by: null,
+    created_at: "2026-07-24T09:14:00.000Z",
+  },
+  {
+    id: "seed-fashion-backpack-urban-commute",
+    title: "Tạo ảnh balo đi học/đi làm phong cách urban tiện dụng",
+    crumb: "Balo urban",
+    tag: "GPT Image",
+    hashtag: "#balo #phuKien #urban",
+    images: [cover("Balo", "Urban • Daily", "#2fb1ff")],
+    prompt_text: fashionPrompt("balo laptop, balo đi học, túi đeo chéo hoặc balo du lịch ngắn ngày", "ga tàu/cafe thành phố, người mẫu đeo balo đi làm, laptop và bình nước phụ họa nhẹ, ánh sáng buổi sáng", "urban lifestyle, năng động, thực tế, phù hợp khách học sinh/sinh viên/văn phòng", "nhấn ngăn chứa, quai đeo, khóa kéo, khả năng phối đồ; không phóng đại chống nước nếu sản phẩm không có."),
+    created_by: null,
+    created_at: "2026-07-24T09:13:00.000Z",
+  },
+  {
+    id: "seed-fashion-watch-macro-premium",
+    title: "Tạo ảnh đồng hồ đeo tay cận cảnh sang trọng với ánh sáng kim loại",
+    crumb: "Đồng hồ cận cảnh",
+    tag: "GPT Image",
+    hashtag: "#dongHo #phuKienNam #premium",
+    images: [cover("Đồng hồ", "Macro • Premium", "#d7b56d")],
+    prompt_text: fashionPrompt("đồng hồ nam/nữ, vòng tay đồng hồ hoặc phụ kiện kim loại", "nền đá đen, ánh sáng viền vàng, cận cảnh mặt đồng hồ và dây, có phản chiếu nhẹ như quảng cáo luxury", "macro premium, sắc nét, sang trọng, nam tính/nữ tính tùy sản phẩm", "giữ đúng số kim, màu mặt, chất liệu dây; tránh làm méo mặt đồng hồ hoặc chữ nhỏ."),
+    created_by: null,
+    created_at: "2026-07-24T09:12:00.000Z",
+  },
+  {
+    id: "seed-fashion-sunglasses-summer",
+    title: "Tạo ảnh kính mát mùa hè phản chiếu biển trời cực bắt mắt",
+    crumb: "Kính mát summer",
+    tag: "GPT Image",
+    hashtag: "#kinhMat #phuKien #summer",
+    images: [cover("Kính mát", "Summer • Reflection", "#ffb347")],
+    prompt_text: fashionPrompt("kính mát, kính thời trang, gọng kính hoặc phụ kiện mắt kính", "nền biển trời mùa hè, kính đặt trên vải lanh trắng, tròng kính phản chiếu ánh nắng và nước biển", "summer lifestyle, sáng, cao cấp, phù hợp bán phụ kiện du lịch", "giữ đúng form gọng, màu tròng, chất liệu; không tự thêm logo thương hiệu lớn."),
+    created_by: null,
+    created_at: "2026-07-24T09:11:00.000Z",
+  },
+  {
+    id: "seed-fashion-jewelry-soft-glow",
+    title: "Tạo ảnh trang sức nữ ánh sáng mềm lấp lánh tinh tế",
+    crumb: "Trang sức nữ",
+    tag: "GPT Image",
+    hashtag: "#trangSuc #phuKienNu #jewelry",
+    images: [cover("Trang sức", "Soft Glow • Nữ tính", "#ffd6e7")],
+    prompt_text: fashionPrompt("dây chuyền, vòng tay, nhẫn, bông tai hoặc phụ kiện trang sức nữ", "nền vải satin màu champagne, hộp trang sức mở nhẹ, ánh sáng mềm tạo điểm lấp lánh tinh tế", "elegant jewelry photography, nữ tính, sạch, sang, không quá lòe loẹt", "giữ đúng màu kim loại/đá; không phóng đại thành kim cương/vàng thật nếu không đúng mô tả."),
+    created_by: null,
+    created_at: "2026-07-24T09:10:00.000Z",
+  },
+  {
+    id: "seed-fashion-cap-hat-street",
+    title: "Tạo ảnh mũ lưỡi trai/nón bucket phong cách street casual",
+    crumb: "Mũ nón street",
+    tag: "GPT Image",
+    hashtag: "#muNon #streetwear #phuKien",
+    images: [cover("Mũ nón", "Street • Casual", "#7dd3fc")],
+    prompt_text: fashionPrompt("mũ lưỡi trai, nón bucket, mũ len hoặc phụ kiện đội đầu", "tường graffiti nhẹ, người mẫu mặc outfit basic, mũ là điểm nhấn chính, ánh sáng ngoài trời buổi chiều", "street casual, trẻ trung, dễ phối đồ, phù hợp bán trên TikTok Shop", "nhấn rõ logo/họa tiết trên mũ nếu có; không làm méo vành mũ hoặc sai form."),
+    created_by: null,
+    created_at: "2026-07-24T09:09:00.000Z",
+  },
+  {
+    id: "seed-fashion-women-office-outfit",
+    title: "Tạo ảnh set đồ công sở nữ thanh lịch cho dân văn phòng",
+    crumb: "Outfit công sở nữ",
+    tag: "GPT Image",
+    hashtag: "#congSoNu #officewear #fashion",
+    images: [cover("Office Wear", "Nữ • Thanh lịch", "#c4b5fd")],
+    prompt_text: fashionPrompt("áo sơ mi nữ, quần tây, chân váy, blazer hoặc set công sở", "văn phòng hiện đại, cửa kính, ánh sáng sáng sạch, người mẫu nữ đứng tự tin cầm laptop/sổ tay", "office chic, chuyên nghiệp, thanh lịch, dễ ứng dụng", "giữ outfit kín đáo, lịch sự; nhấn form quần áo và chất liệu vải."),
+    created_by: null,
+    created_at: "2026-07-24T09:08:00.000Z",
+  },
+  {
+    id: "seed-fashion-men-office-smart",
+    title: "Tạo ảnh outfit nam công sở smart casual lịch lãm",
+    crumb: "Outfit nam công sở",
+    tag: "GPT Image",
+    hashtag: "#doNam #smartCasual #office",
+    images: [cover("Smart Casual", "Nam • Office", "#94a3b8")],
+    prompt_text: fashionPrompt("áo sơ mi nam, quần tây, blazer, polo hoặc set smart casual", "sảnh văn phòng/cafe business, người mẫu nam chỉnh tay áo, ánh sáng tự nhiên, outfit gọn và lịch sự", "smart casual, nam tính, trưởng thành, dễ chốt khách văn phòng", "giữ rõ cổ áo, vai áo, nếp quần; tránh tạo dáng quá cứng hoặc quá bóng bẩy."),
+    created_by: null,
+    created_at: "2026-07-24T09:07:00.000Z",
+  },
+  {
+    id: "seed-fashion-athleisure-gym",
+    title: "Tạo ảnh đồ tập athleisure năng động cho nữ/nam",
+    crumb: "Đồ tập athleisure",
+    tag: "GPT Image",
+    hashtag: "#doTap #athleisure #gymwear",
+    images: [cover("Athleisure", "Gym • Năng động", "#33c48d")],
+    prompt_text: fashionPrompt("đồ tập gym, áo bra thể thao, quần legging, set thể thao hoặc áo khoác thể thao", "phòng gym sáng, người mẫu chuẩn bị tập, bình nước và thảm yoga phụ họa, sản phẩm rõ form", "active lifestyle, khỏe khoắn, sạch, có năng lượng nhưng không phản cảm", "không cam kết giảm cân/tăng cơ; chỉ thể hiện cảm giác thoải mái, co giãn, dễ vận động."),
+    created_by: null,
+    created_at: "2026-07-24T09:06:00.000Z",
+  },
+  {
+    id: "seed-fashion-kids-outfit-pastel",
+    title: "Tạo ảnh quần áo trẻ em pastel dễ thương cho shop mẹ bé",
+    crumb: "Quần áo trẻ em",
+    tag: "GPT Image",
+    hashtag: "#thoiTrangTreEm #meBe #kidswear",
+    images: [cover("Kidswear", "Pastel • Dễ thương", "#ffb6c8")],
+    prompt_text: fashionPrompt("quần áo trẻ em, váy bé gái, set bé trai hoặc phụ kiện trẻ em", "phòng trẻ em pastel, gấu bông và kệ gỗ nhỏ, outfit được treo/đặt gọn hoặc người mẫu trẻ em tạo dáng an toàn", "cute kidswear, mềm mại, gia đình, sạch và đáng tin", "ưu tiên tư thế an toàn, không tạo hình nguy hiểm; giữ màu vải dịu và đúng sản phẩm."),
+    created_by: null,
+    created_at: "2026-07-24T09:05:00.000Z",
+  },
+  {
+    id: "seed-fashion-bag-flatlay-accessory",
+    title: "Tạo ảnh flatlay phụ kiện thời trang gồm túi, ví, kính, đồng hồ",
+    crumb: "Flatlay phụ kiện",
+    tag: "GPT Image",
+    hashtag: "#flatlay #phuKien #fashion",
+    images: [cover("Flatlay", "Phụ kiện • Mix đồ", "#f2b544")],
+    prompt_text: fashionPrompt("combo phụ kiện thời trang: túi, ví, kính, đồng hồ, khăn, trang sức", "mặt bàn đá sáng, phụ kiện sắp xếp flatlay gọn, có hoa khô/tạp chí/vải lụa làm nền, ánh sáng mềm", "premium flatlay, sạch, dễ nhìn, phù hợp ảnh banner và bài đăng bán hàng", "không để đạo cụ lấn át sản phẩm; mỗi món nên nhìn rõ hình dáng và màu."),
+    created_by: null,
+    created_at: "2026-07-24T09:04:00.000Z",
+  },
+  {
+    id: "seed-fashion-denim-jeans-casual",
+    title: "Tạo ảnh quần jeans/denim casual nổi rõ form dáng",
+    crumb: "Jeans denim",
+    tag: "GPT Image",
+    hashtag: "#jeans #denim #casual",
+    images: [cover("Denim", "Jeans • Casual", "#60a5fa")],
+    prompt_text: fashionPrompt("quần jeans, áo khoác denim, chân váy denim hoặc set denim casual", "studio nền xi măng sáng, người mẫu tạo dáng đi bộ nhẹ, ánh sáng rõ texture vải denim", "casual fashion, đời thường, trẻ, dễ phối đồ", "nhấn rõ form ống quần, lưng quần, túi, wash màu; tránh làm méo chân hoặc sai tỉ lệ cơ thể."),
+    created_by: null,
+    created_at: "2026-07-24T09:03:00.000Z",
+  },
+  {
+    id: "seed-fashion-raincoat-utility",
+    title: "Tạo ảnh áo mưa/phụ kiện đi mưa thực dụng nhưng vẫn đẹp",
+    crumb: "Áo mưa phụ kiện",
+    tag: "GPT Image",
+    hashtag: "#aoMua #phuKienDiMua #utility",
+    images: [cover("Rainwear", "Utility • Daily", "#38bdf8")],
+    prompt_text: fashionPrompt("áo mưa, ô dù, túi chống nước, bọc giày đi mưa hoặc phụ kiện mùa mưa", "đường phố sau mưa, ánh đèn phản chiếu, người mẫu cầm ô hoặc mặc áo mưa, sản phẩm rõ chi tiết", "urban utility, thực dụng, sạch, có cảm giác bảo vệ và tiện lợi", "không khẳng định chống nước tuyệt đối nếu chưa có thông số; mô tả theo hướng hỗ trợ đi mưa tiện hơn."),
+    created_by: null,
+    created_at: "2026-07-24T09:02:00.000Z",
+  },
+  {
+    id: "seed-fashion-video-5-shots-outfit",
+    title: "Tạo 5 prompt video 10 giây cho một outfit thời trang bán hàng",
+    crumb: "Video outfit 5 cảnh",
+    tag: "Veo / Flow",
+    hashtag: "#videoAI #fashionKOC #outfit",
+    images: [cover("Video Outfit", "5 cảnh • 10 giây", "#9b5cff")],
+    prompt_text: `Từ một ảnh outfit hoặc ảnh sản phẩm thời trang [đính kèm ảnh/mô tả], hãy tạo 5 prompt video ngắn, mỗi prompt 8-10 giây, tỉ lệ 9:16 để đăng TikTok/Reels/Shorts.
+
+Yêu cầu chung:
+- Giữ cùng một người mẫu, cùng outfit, cùng màu sắc và form sản phẩm trong cả 5 clip.
+- Mỗi clip có một chuyển động rõ: xoay người, bước đi, cận chất liệu, phối phụ kiện, chốt đơn.
+- Phong cách realistic, cinematic, ánh sáng đẹp, không làm sai logo/họa tiết.
+
+Output cần trả về:
+1. Clip hook: người mẫu bước vào khung hình, outfit nổi bật trong 3 giây đầu.
+2. Clip cận chất liệu: máy quay lia gần vào vải, đường may, form dáng.
+3. Clip phối đồ: thêm túi/kính/giày để khách thấy cách mặc.
+4. Clip lifestyle: người mẫu đi ngoài phố/cafe/văn phòng đúng ngữ cảnh sản phẩm.
+5. Clip CTA: người mẫu nhìn camera, chỉ nhẹ vào sản phẩm, có khoảng trống đặt chữ giá/ưu đãi.
+
+Với mỗi clip hãy viết: prompt video, text overlay, lời thoại ngắn, gợi ý nhạc/nhịp dựng.`,
+    created_by: null,
+    created_at: "2026-07-24T09:01:00.000Z",
+  },
   {
     id: "seed-binh-nuoc-giai-nhiet",
     title: "Tạo ảnh thương mại bình nước giải nhiệt giữa thiên nhiên",
