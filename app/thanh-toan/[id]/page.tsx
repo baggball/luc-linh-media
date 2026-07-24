@@ -24,12 +24,21 @@ export default async function ThanhToanPage({ params }: { params: Promise<{ id: 
 
   if (!purchase) notFound();
 
-  const product = purchase.products as unknown as { title: string; type: ProductType };
+  const product = purchase.products as unknown as { title: string; type: ProductType } | null;
+  const { data: itemData } = await supabase
+    .from("purchase_items")
+    .select("products(title, type)")
+    .eq("purchase_id", purchase.id);
+  const purchaseItems = (itemData ?? []) as unknown as { products: { title: string; type: ProductType } | null }[];
+  const isCombo = purchaseItems.length > 1;
+  const displayTitle = isCombo
+    ? `Combo tự chọn ${purchaseItems.length} Chatbot KOC AI`
+    : product?.title || "Đơn hàng";
   const bankAccount = process.env.SEPAY_BANK_ACCOUNT;
   const bankName = process.env.SEPAY_BANK_NAME;
   const bankAccountName = process.env.SEPAY_BANK_ACCOUNT_NAME;
   const qrUrl = `https://qr.sepay.vn/img?acc=${encodeURIComponent(bankAccount || "")}&bank=${encodeURIComponent(bankName || "")}&amount=${purchase.amount}&des=${encodeURIComponent(purchase.order_code)}`;
-  const productHref = product ? `/${PRODUCT_TYPE_ROUTE[product.type]}/${purchase.product_id}` : "/";
+  const productHref = isCombo || !product ? "/tai-khoan/san-pham" : `/${PRODUCT_TYPE_ROUTE[product.type]}/${purchase.product_id}`;
 
   return (
     <div style={{ minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", padding: "40px 20px" }}>
@@ -56,8 +65,17 @@ export default async function ThanhToanPage({ params }: { params: Promise<{ id: 
 
         <h1 style={{ fontSize: 21, marginBottom: 6 }}>Thanh toán đơn hàng</h1>
         <p style={{ color: "var(--mute)", fontSize: 14, marginBottom: 22 }}>
-          {product?.title} — <b style={{ color: "var(--paper)" }}>{formatVND(purchase.amount)}</b>
+          {displayTitle} — <b style={{ color: "var(--paper)" }}>{formatVND(purchase.amount)}</b>
         </p>
+        {isCombo && purchaseItems.length > 0 && (
+          <div style={{ display: "grid", gap: 6, margin: "-10px 0 18px", padding: "12px 14px", borderRadius: 12, border: "1px solid var(--line)", background: "rgba(255,255,255,.025)" }}>
+            {purchaseItems.map((item, index) => (
+              <span key={`${item.products?.title}-${index}`} style={{ color: "var(--mute)", fontSize: 12.5 }}>
+                ✓ {item.products?.title ?? "Chatbot trong combo"}
+              </span>
+            ))}
+          </div>
+        )}
 
         {!bankAccount || !bankName || !bankAccountName ? (
           <p style={{ color: "var(--coral)", fontSize: 13.5 }}>
@@ -70,6 +88,7 @@ export default async function ThanhToanPage({ params }: { params: Promise<{ id: 
             qrUrl={qrUrl}
             orderCode={purchase.order_code}
             productHref={productHref}
+            successCtaLabel={isCombo ? "Xem 3 chatbot đã mở khóa" : "Xem sản phẩm ngay"}
             bankName={bankName}
             bankAccount={bankAccount}
             bankAccountName={bankAccountName}

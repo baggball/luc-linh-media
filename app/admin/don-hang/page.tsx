@@ -49,6 +49,11 @@ type AdminPurchase = {
   profiles: { full_name: string | null } | null;
 };
 
+type AdminPurchaseItem = {
+  purchase_id: string;
+  products: { title: string } | null;
+};
+
 export default async function AdminOrdersPage() {
   const supabase = await createClient();
   const { data } = await supabase
@@ -57,6 +62,17 @@ export default async function AdminOrdersPage() {
     .order("created_at", { ascending: false })
     .limit(200);
   const orders = (data ?? []) as unknown as AdminPurchase[];
+  const orderIds = orders.map((order) => order.id);
+  const { data: itemData } = orderIds.length
+    ? await supabase.from("purchase_items").select("purchase_id, products(title)").in("purchase_id", orderIds)
+    : { data: [] };
+  const itemsByOrder = new Map<string, string[]>();
+  for (const item of ((itemData ?? []) as unknown as AdminPurchaseItem[])) {
+    if (!item.products?.title) continue;
+    const current = itemsByOrder.get(item.purchase_id) ?? [];
+    current.push(item.products.title);
+    itemsByOrder.set(item.purchase_id, current);
+  }
   const revenue = orders.filter((x) => x.status === "paid").reduce((sum, x) => sum + x.amount, 0);
 
   return (
@@ -74,7 +90,7 @@ export default async function AdminOrdersPage() {
           <tbody>
             {orders.map((order) => (
               <tr key={order.id}>
-                <td><b>{order.order_code}</b></td><td>{order.products?.title ?? "—"}</td><td>{order.profiles?.full_name ?? "—"}</td>
+                <td><b>{order.order_code}</b></td><td>{(itemsByOrder.get(order.id)?.length ?? 0) > 1 ? `Combo: ${itemsByOrder.get(order.id)?.join(" · ")}` : order.products?.title ?? "—"}</td><td>{order.profiles?.full_name ?? "—"}</td>
                 <td>{formatVND(order.amount)}</td>
                 <td style={{ color: order.status === "paid" ? "var(--success)" : order.status === "pending" ? "var(--amber)" : "var(--mute-dim)" }}>{order.status}</td>
                 <td>{new Date(order.paid_at ?? order.created_at).toLocaleString("vi-VN")}</td><td>{order.sepay_reference_code ?? "—"}</td>

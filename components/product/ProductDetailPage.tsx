@@ -274,7 +274,19 @@ export default async function ProductDetailPage({ type, id }: { type: ProductTyp
         .eq("product_id", product.id)
         .eq("status", "paid")
         .maybeSingle();
-      hasPurchased = !!purchase;
+      if (purchase) {
+        hasPurchased = true;
+      } else {
+        const { data: comboItem } = await supabase
+          .from("purchase_items")
+          .select("id, purchases!inner(id)")
+          .eq("product_id", product.id)
+          .eq("purchases.user_id", user.id)
+          .eq("purchases.status", "paid")
+          .limit(1)
+          .maybeSingle();
+        hasPurchased = !!comboItem;
+      }
     }
   }
 

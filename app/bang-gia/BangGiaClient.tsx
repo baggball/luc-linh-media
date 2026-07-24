@@ -27,21 +27,21 @@ const plans = [
     ],
   },
   {
-    name: "Combo 3 chatbot mũi nhọn",
+    name: "Combo tự chọn 3 chatbot",
     tag: "KHUYÊN DÙNG",
     monthlyPrice: "399K",
     yearlyPrice: "3.830K",
     yearlyNote: "Tương đương 319K/tháng khi mua năm",
     old: "Tiết kiệm hơn mua lẻ từng sản phẩm",
-    desc: "Combo cố định gồm 3 ngách dễ bán nhất: mỹ phẩm, gia dụng và thời trang/phố. Hợp cho người làm affiliate, TikTok Shop, Reels.",
-    href: "/chatbot",
+    desc: "Khách tự chọn 3 chatbot phù hợp với ngách đang bán, thanh toán một lần và tự mở khóa cả 3 sau khi hệ thống xác nhận.",
+    href: "/chatbot#combo-tu-chon",
     cta: "Chọn combo 3 chatbot",
     featured: true,
     features: [
-      "KOC Mỹ phẩm AI: review đẹp, chốt đơn",
-      "KOC Gia dụng AI: demo đồ dùng thành video",
-      "KOC Phố AI: thời trang, phụ kiện, outfit",
-      "Ưu tiên hỗ trợ setup và hướng dẫn dùng",
+      "Tự chọn 3 chatbot bất kỳ trong kho Chatbot AI",
+      "Một đơn thanh toán combo, không phải trả từng sản phẩm",
+      "Tự động mở khóa cả 3 chatbot sau khi SePay xác nhận",
+      "Ưu tiên hỗ trợ setup và hướng dẫn dùng trong cộng đồng Zalo",
     ],
   },
   {
@@ -142,7 +142,7 @@ export default function BangGiaClient() {
           <h2>Nên chọn gói nào?</h2>
           <div className={styles.pickGrid}>
             <div><b>Người mới</b><span>Mua 1 chatbot lẻ để hiểu quy trình.</span></div>
-            <div><b>Muốn bán thật</b><span>Chọn combo 3 chatbot mũi nhọn.</span></div>
+            <div><b>Muốn bán thật</b><span>Chọn combo tự chọn 3 chatbot theo đúng ngách của khách.</span></div>
             <div><b>Làm nhiều ngách</b><span>Chọn full bộ để phủ nhiều sản phẩm.</span></div>
           </div>
         </div>

@@ -5,7 +5,7 @@ import BangGiaClient from "./BangGiaClient";
 export const metadata = {
   title: "Bảng giá combo chatbot KOC AI",
   description:
-    "Xem giá mua lẻ, combo 3 chatbot mũi nhọn và full bộ chatbot KOC AI dành cho affiliate, TikTok Shop và người bán hàng.",
+    "Xem giá mua lẻ, combo tự chọn 3 chatbot và full bộ chatbot KOC AI dành cho affiliate, TikTok Shop và người bán hàng.",
   alternates: { canonical: "/bang-gia" },
 };
 

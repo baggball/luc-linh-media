@@ -13,6 +13,7 @@ export default function CheckoutStatus({
   qrUrl,
   orderCode,
   productHref,
+  successCtaLabel = "Xem sản phẩm ngay",
   bankName,
   bankAccount,
   bankAccountName,
@@ -23,6 +24,7 @@ export default function CheckoutStatus({
   qrUrl: string;
   orderCode: string;
   productHref: string;
+  successCtaLabel?: string;
   bankName: string;
   bankAccount: string;
   bankAccountName: string;
@@ -79,7 +81,7 @@ export default function CheckoutStatus({
         <h2 style={{ fontSize: 19, marginBottom: 10 }}>Thanh toán thành công!</h2>
         <p style={{ color: "var(--mute)", fontSize: 14, marginBottom: 20 }}>Đơn hàng của bạn đã được xác nhận. Nội dung trả phí đã được mở khoá.</p>
         <Link className="btn btn-primary" href={productHref} style={{ display: "block", textAlign: "center" }}>
-          Xem sản phẩm ngay
+          {successCtaLabel}
         </Link>
         <a className="community-box community-box-success" href={ZALO_COMMUNITY_URL} target="_blank" rel="noopener">
           <b>Vào nhóm Zalo cộng đồng</b>
