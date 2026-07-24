@@ -42,6 +42,16 @@ type InquiryRow = {
   created_at: string;
 };
 
+type ProfileContact = { id: string; full_name: string | null; email?: string | null };
+
+async function getProfileContacts(supabase: ReturnType<typeof createAdminClient>) {
+  const withEmail = await supabase.from("profiles").select("id, full_name, email").limit(1000);
+  if (!withEmail.error) return (withEmail.data ?? []) as ProfileContact[];
+
+  const withoutEmail = await supabase.from("profiles").select("id, full_name").limit(1000);
+  return (withoutEmail.data ?? []) as ProfileContact[];
+}
+
 function startOfDay(date: Date) {
   return new Date(date.getFullYear(), date.getMonth(), date.getDate());
 }
@@ -83,7 +93,7 @@ function barWidth(value: number, max: number) {
 
 export default async function AdminDashboardPage() {
   const supabase = createAdminClient();
-  const [{ data: purchasesData }, { data: productsData }, { data: inquiriesData }, usersResult] = await Promise.all([
+  const [{ data: purchasesData }, { data: productsData }, { data: inquiriesData }, usersResult, profileContacts] = await Promise.all([
     supabase
       .from("purchases")
       .select("id, user_id, product_id, order_code, amount, status, created_at, paid_at, sepay_reference_code, products(id, slug, title, type, price, is_published, created_at), profiles(full_name)")
@@ -100,12 +110,16 @@ export default async function AdminDashboardPage() {
       .order("created_at", { ascending: false })
       .limit(300),
     supabase.auth.admin.listUsers({ page: 1, perPage: 1000 }),
+    getProfileContacts(supabase),
   ]);
 
   const purchases = (purchasesData ?? []) as unknown as PurchaseRow[];
   const products = (productsData ?? []) as ProductLite[];
   const inquiries = (inquiriesData ?? []) as InquiryRow[];
   const emailByUser = new Map((usersResult.data?.users ?? []).map((user) => [user.id, user.email ?? ""]));
+  for (const profile of profileContacts) {
+    if (profile.email) emailByUser.set(profile.id, profile.email);
+  }
   const paid = purchases.filter((row) => row.status === "paid");
   const pending = purchases.filter((row) => row.status === "pending");
   const cancelled = purchases.filter((row) => row.status === "cancelled");
