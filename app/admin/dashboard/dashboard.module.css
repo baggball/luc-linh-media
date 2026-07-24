@@ -33,6 +33,38 @@
   font-variant-numeric:tabular-nums;
 }
 .statSub{color:var(--mute);font-size:13.5px;margin-top:12px;}
+.chartsGrid{display:grid;grid-template-columns:1.45fr .9fr .75fr;gap:18px;margin-bottom:18px;}
+.revenueChartCard{min-height:360px;}
+.lineChart{height:176px;border:1px solid rgba(156,236,255,.12);border-radius:18px;background:linear-gradient(180deg,rgba(47,177,255,.045),rgba(255,255,255,.015));padding:14px;margin-bottom:14px;}
+.lineChart svg{width:100%;height:100%;display:block;overflow:visible;}
+.gridLine{stroke:rgba(156,236,255,.14);stroke-width:1;}
+.areaShape{fill:url(#revenueArea);}
+.lineShape{fill:none;stroke:var(--electric-bright);stroke-width:4;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 8px 16px rgba(47,177,255,.34));}
+.dayBars{display:grid;grid-template-columns:repeat(14,1fr);gap:6px;align-items:end;}
+.dayBar{display:flex;flex-direction:column;align-items:center;gap:7px;min-width:0;}
+.dayBarTrack{height:64px;width:100%;border-radius:999px;background:rgba(255,255,255,.04);border:1px solid rgba(156,236,255,.1);display:flex;align-items:flex-end;overflow:hidden;}
+.dayBarTrack span{display:block;width:100%;border-radius:999px;background:linear-gradient(180deg,var(--amber),var(--electric-bright));min-height:3px;}
+.dayBar small{color:var(--mute-dim);font-size:10.5px;white-space:nowrap;}
+.funnel{display:flex;flex-direction:column;gap:16px;}
+.funnelRow{display:grid;grid-template-columns:minmax(120px,1fr) 1.2fr auto;gap:12px;align-items:center;}
+.funnelRow b{display:block;color:var(--paper);font-size:13.5px;margin-bottom:4px;}
+.funnelRow span{display:block;color:var(--mute-dim);font-size:12px;line-height:1.45;}
+.funnelTrack{height:12px;border-radius:999px;background:rgba(255,255,255,.055);border:1px solid rgba(156,236,255,.1);overflow:hidden;}
+.funnelTrack i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--electric-bright),var(--violet));}
+.funnelRow strong{font-family:var(--font-sans),Arial,sans-serif;color:var(--paper);font-size:20px;font-weight:850;font-variant-numeric:tabular-nums;}
+.statusChart{display:flex;flex-direction:column;align-items:center;gap:20px;}
+.donut{width:168px;height:168px;border-radius:50%;display:grid;place-items:center;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08),0 24px 55px -35px rgba(47,177,255,.9);}
+.donut>div{width:104px;height:104px;border-radius:50%;display:grid;place-items:center;background:var(--ink-card);border:1px solid rgba(156,236,255,.16);}
+.donut b{font-family:var(--font-sans),Arial,sans-serif;font-size:30px;line-height:1;font-weight:900;color:var(--paper);}
+.donut span{display:block;color:var(--mute-dim);font-size:12px;margin-top:-18px;}
+.legend{width:100%;display:flex;flex-direction:column;gap:10px;}
+.legend div{display:grid;grid-template-columns:auto 1fr auto;gap:9px;align-items:center;color:var(--mute);font-size:13px;}
+.legend span{width:10px;height:10px;border-radius:50%;}
+.paidDot{background:var(--success);box-shadow:0 0 0 4px rgba(51,196,141,.12);}
+.pendingDot{background:var(--amber);box-shadow:0 0 0 4px rgba(242,181,68,.12);}
+.cancelledDot{background:rgba(148,163,184,.8);box-shadow:0 0 0 4px rgba(148,163,184,.12);}
+.legend b{color:var(--paper);font-weight:750;}
+.legend em{font-style:normal;color:var(--mute-dim);font-variant-numeric:tabular-nums;}
 .grid{display:grid;grid-template-columns:1.05fr .95fr;gap:18px;margin-bottom:18px;}
 .card{padding:22px;min-width:0;}
 .cardHead{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:18px;}
@@ -79,5 +111,7 @@
 .actionCard h3{font-size:15px;margin-bottom:8px;}
 .actionCard p{color:var(--mute);font-size:13px;line-height:1.55;}
 .empty{color:var(--mute-dim);font-size:13.5px;padding:22px;text-align:center;border:1px dashed rgba(156,236,255,.18);border-radius:14px;}
+@media(max-width:1180px){.chartsGrid{grid-template-columns:1fr 1fr}.revenueChartCard{grid-column:1/-1}}
 @media(max-width:1100px){.hero,.grid,.twoCol{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.actions{grid-template-columns:1fr}}
+@media(max-width:720px){.chartsGrid{grid-template-columns:1fr}.dayBars{gap:3px}.dayBar small{font-size:9px}.funnelRow{grid-template-columns:1fr}.statusChart{align-items:stretch}.donut{margin:0 auto}}
 @media(max-width:620px){.wrap{padding:20px}.stats{grid-template-columns:1fr}.barRow{grid-template-columns:1fr}.barVal{text-align:left}}

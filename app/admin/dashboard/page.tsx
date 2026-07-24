@@ -91,6 +91,37 @@ function barWidth(value: number, max: number) {
   return `${Math.max(4, Math.round((value / max) * 100))}%`;
 }
 
+function formatShortDate(date: Date) {
+  return date.toLocaleDateString("vi-VN", { day: "2-digit", month: "2-digit" });
+}
+
+function sameDay(left: Date, right: Date) {
+  return left.getFullYear() === right.getFullYear() && left.getMonth() === right.getMonth() && left.getDate() === right.getDate();
+}
+
+function buildDailyRevenue(rows: PurchaseRow[], days: number) {
+  return Array.from({ length: days }, (_, index) => {
+    const date = daysAgo(days - 1 - index);
+    const dayRows = rows.filter((row) => sameDay(new Date(row.paid_at ?? row.created_at), date));
+    return {
+      label: formatShortDate(date),
+      revenue: sum(dayRows),
+      orders: dayRows.length,
+    };
+  });
+}
+
+function lineChartPoints(values: number[], max: number) {
+  if (values.length <= 1) return "0,130 720,130";
+  return values
+    .map((value, index) => {
+      const x = (index / (values.length - 1)) * 720;
+      const y = 130 - (max ? (value / max) * 108 : 0);
+      return `${x.toFixed(1)},${y.toFixed(1)}`;
+    })
+    .join(" ");
+}
+
 export default async function AdminDashboardPage() {
   const supabase = createAdminClient();
   const [{ data: purchasesData }, { data: productsData }, { data: inquiriesData }, usersResult, profileContacts] = await Promise.all([
@@ -174,6 +205,22 @@ export default async function AdminDashboardPage() {
   const abandonedValue = sum(pending);
   const publishedProducts = products.filter((item) => item.is_published).length;
   const lead7 = inquiries.filter((item) => isAfter(item.created_at, daysAgo(7))).length;
+  const dailyRevenue = buildDailyRevenue(paid, 14);
+  const maxDailyRevenue = Math.max(...dailyRevenue.map((item) => item.revenue), 0);
+  const revenuePoints = lineChartPoints(dailyRevenue.map((item) => item.revenue), maxDailyRevenue);
+  const revenueAreaPoints = `0,140 ${revenuePoints} 720,140`;
+  const funnelRows = [
+    { label: "Tổng đơn tạo", value: purchases.length, sub: "Khách đã bấm mua / tạo đơn" },
+    { label: "Đã thanh toán", value: paid.length, sub: `${conversion} chuyển đổi thành công` },
+    { label: "Đang chờ", value: pending.length, sub: `${formatVND(abandonedValue)} có thể thu hồi` },
+    { label: "Lead tư vấn", value: inquiries.length, sub: `${lead7} lead trong 7 ngày` },
+  ];
+  const maxFunnelValue = Math.max(...funnelRows.map((item) => item.value), 1);
+  const statusRows = [
+    { label: "Đã thanh toán", value: paid.length, className: styles.paidDot },
+    { label: "Chờ thanh toán", value: pending.length, className: styles.pendingDot },
+    { label: "Đã hủy", value: cancelled.length, className: styles.cancelledDot },
+  ];
 
   const actions = [
     {
@@ -223,6 +270,85 @@ export default async function AdminDashboardPage() {
         <div className={styles.statCard}><div className={styles.statLabel}>Tháng này</div><div className={styles.statValue}>{formatVND(sum(monthPaid))}</div><div className={styles.statSub}>{monthPaid.length} đơn paid</div></div>
         <div className={styles.statCard}><div className={styles.statLabel}>7 ngày gần nhất</div><div className={styles.statValue}>{formatVND(sum(last7Paid))}</div><div className={styles.statSub}>Hôm nay: {formatVND(sum(todayPaid))}</div></div>
         <div className={styles.statCard}><div className={styles.statLabel}>Tỷ lệ thanh toán</div><div className={styles.statValue}>{conversion}</div><div className={styles.statSub}>AOV: {formatVND(avgOrder)} · Hủy: {cancelled.length}</div></div>
+      </section>
+
+      <section className={styles.chartsGrid}>
+        <div className={`${styles.card} ${styles.revenueChartCard}`}>
+          <div className={styles.cardHead}>
+            <div><h2>Biểu đồ doanh thu 14 ngày</h2><p>Theo các đơn đã thanh toán thành công.</p></div>
+            <span className={styles.pill}>Cao nhất: {formatVND(maxDailyRevenue)}</span>
+          </div>
+          <div className={styles.lineChart}>
+            <svg viewBox="0 0 720 150" preserveAspectRatio="none" aria-label="Biểu đồ doanh thu 14 ngày">
+              <defs>
+                <linearGradient id="revenueArea" x1="0" x2="0" y1="0" y2="1">
+                  <stop offset="0%" stopColor="rgba(47,177,255,.42)" />
+                  <stop offset="100%" stopColor="rgba(47,177,255,0)" />
+                </linearGradient>
+              </defs>
+              <line x1="0" y1="22" x2="720" y2="22" className={styles.gridLine} />
+              <line x1="0" y1="76" x2="720" y2="76" className={styles.gridLine} />
+              <line x1="0" y1="130" x2="720" y2="130" className={styles.gridLine} />
+              <polygon points={revenueAreaPoints} className={styles.areaShape} />
+              <polyline points={revenuePoints} className={styles.lineShape} />
+            </svg>
+          </div>
+          <div className={styles.dayBars}>
+            {dailyRevenue.map((item) => (
+              <div className={styles.dayBar} key={item.label} title={`${item.label}: ${formatVND(item.revenue)} · ${item.orders} đơn`}>
+                <div className={styles.dayBarTrack}>
+                  <span style={{ height: barWidth(item.revenue, maxDailyRevenue) }} />
+                </div>
+                <small>{item.label}</small>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className={styles.card}>
+          <div className={styles.cardHead}>
+            <div><h2>Phễu đơn hàng</h2><p>Nhìn nhanh điểm rơi của tiền và lead.</p></div>
+          </div>
+          <div className={styles.funnel}>
+            {funnelRows.map((item) => (
+              <div className={styles.funnelRow} key={item.label}>
+                <div>
+                  <b>{item.label}</b>
+                  <span>{item.sub}</span>
+                </div>
+                <div className={styles.funnelTrack}>
+                  <i style={{ width: barWidth(item.value, maxFunnelValue) }} />
+                </div>
+                <strong>{item.value}</strong>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className={styles.card}>
+          <div className={styles.cardHead}>
+            <div><h2>Trạng thái đơn</h2><p>Tỷ trọng paid / pending / cancelled.</p></div>
+          </div>
+          <div className={styles.statusChart}>
+            <div
+              className={styles.donut}
+              style={{
+                background: `conic-gradient(var(--success) 0 ${pct(paid.length, purchases.length)}, var(--amber) ${pct(paid.length, purchases.length)} ${pct(paid.length + pending.length, purchases.length)}, rgba(148,163,184,.42) ${pct(paid.length + pending.length, purchases.length)} 100%)`,
+              }}
+            >
+              <div><b>{purchases.length}</b><span>đơn</span></div>
+            </div>
+            <div className={styles.legend}>
+              {statusRows.map((item) => (
+                <div key={item.label}>
+                  <span className={item.className} />
+                  <b>{item.label}</b>
+                  <em>{item.value} · {pct(item.value, purchases.length)}</em>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </section>
 
       <section className={styles.grid}>
