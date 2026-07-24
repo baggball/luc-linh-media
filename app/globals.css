@@ -281,8 +281,8 @@ footer{border-top:1px solid var(--line); padding:44px 0 26px;}
 @media (max-width:860px){ .grid{grid-template-columns:repeat(2,1fr);} }
 @media (max-width:520px){ .grid{grid-template-columns:1fr;} }
 
-.card{display:block; background:var(--ink-card); border:1px solid var(--line); border-radius:14px; overflow:hidden; cursor:pointer; transition:transform .18s ease, border-color .18s ease, box-shadow .18s ease;}
-.card:hover{transform:translateY(-4px); border-color:rgba(47,177,255,0.45); box-shadow:0 20px 40px -22px rgba(47,177,255,0.35);}
+.card{display:block; background:linear-gradient(180deg,rgba(19,35,66,.98),rgba(12,21,40,.98)); border:1px solid rgba(156,236,255,.15); border-radius:18px; overflow:hidden; cursor:pointer; transition:transform .18s ease, border-color .18s ease, box-shadow .18s ease; box-shadow:0 18px 44px -34px rgba(0,0,0,.88), inset 0 1px rgba(255,255,255,.04);}
+.card:hover{transform:translateY(-5px); border-color:rgba(47,177,255,0.58); box-shadow:0 26px 58px -34px rgba(47,177,255,0.55), inset 0 1px rgba(255,255,255,.08);}
 
 .thumb{position:relative; aspect-ratio:4/5; padding:18px; display:flex; flex-direction:column; justify-content:space-between; overflow:hidden;}
 .thumb::after{content:""; position:absolute; inset:0; background:repeating-linear-gradient(115deg, rgba(255,255,255,0.05) 0 2px, transparent 2px 34px); mix-blend-mode:overlay; pointer-events:none;}
@@ -296,6 +296,9 @@ footer{border-top:1px solid var(--line); padding:44px 0 26px;}
 .badges{display:flex; gap:6px; position:relative; z-index:1; flex-wrap:wrap;}
 .badge{font-family:var(--font-mono); font-size:10.5px; font-weight:700; padding:3px 8px; border-radius:5px; letter-spacing:.02em;}
 .badge.sale{background:var(--coral); color:#210805;}
+.badge.hot{background:linear-gradient(135deg,#ff6b5e,#f2b544); color:#240b05;}
+.badge.affiliate{background:linear-gradient(135deg,#7c5cf0,#2fb1ff); color:#fff;}
+.badge.updated{background:rgba(51,196,141,.95); color:#04150e;}
 .badge.new{background:var(--amber); color:#231604;}
 .badge.premium{background:var(--electric-bright); color:#04101a;}
 .badge.free{background:var(--success); color:#04150e;}
@@ -305,13 +308,13 @@ footer{border-top:1px solid var(--line); padding:44px 0 26px;}
 .thumb-illus svg{width:64%; max-width:104px; height:auto; filter:drop-shadow(0 10px 18px rgba(0,0,0,0.4));}
 .thumb-title{position:relative; z-index:1; font-weight:800; font-size:17px; line-height:1.28; color:var(--paper); text-shadow:0 2px 12px rgba(0,0,0,0.4);}
 
-.card-body{padding:16px 16px 18px;}
+.card-body{padding:17px 17px 18px;}
 .card-name{font-weight:700; font-size:15.5px; margin-bottom:7px; color:var(--paper); line-height:1.35; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;}
 .card-desc{color:var(--mute-dim); font-size:13.5px; line-height:1.5; margin-bottom:13px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;}
 .card-meta{display:flex; align-items:center; gap:10px; font-size:12.5px; color:var(--mute); margin-bottom:12px;}
 .rating{display:flex; align-items:center; gap:4px; color:var(--amber);}
 .new-product-label{color:var(--electric-bright);font-weight:700;}
-.card-price{display:flex; align-items:baseline; justify-content:space-between; gap:12px;}
+.card-price{display:flex; align-items:baseline; justify-content:space-between; gap:12px; padding-top:12px; border-top:1px solid rgba(156,236,255,.1);}
 .price-now{font-family:var(--font-mono); font-weight:700; font-size:16px; color:var(--electric-bright);}
 .card-link{font-size:12.5px; font-weight:700; color:var(--mute); white-space:nowrap; transition:color .18s ease;}
 .card:hover .card-link{color:var(--electric-bright);}
@@ -346,6 +349,32 @@ footer{border-top:1px solid var(--line); padding:44px 0 26px;}
 .tools-search input::placeholder{color:var(--mute-dim);}
 .sort-select{background:var(--ink-card); border:1px solid var(--line-strong); border-radius:10px; padding:10px 14px; color:var(--paper); font-size:13.5px; font-weight:600; cursor:pointer;}
 .result-count{margin-left:auto; font-size:13px; color:var(--mute-dim); white-space:nowrap;}
+.category-rail{
+  display:flex;
+  gap:10px;
+  overflow-x:auto;
+  padding:2px 2px 14px;
+  margin:-8px 0 18px;
+}
+.category-chip{
+  flex:none;
+  border:1px solid rgba(156,236,255,.16);
+  border-radius:999px;
+  background:linear-gradient(145deg,rgba(255,255,255,.04),rgba(255,255,255,.018));
+  color:var(--mute);
+  padding:10px 15px;
+  font-size:13px;
+  font-weight:850;
+  cursor:pointer;
+  box-shadow:inset 0 1px rgba(255,255,255,.04);
+}
+.category-chip:hover{color:var(--paper);border-color:rgba(127,224,255,.45);}
+.category-chip.active{
+  border-color:transparent;
+  color:#04101a;
+  background:linear-gradient(155deg,var(--electric-bright),var(--electric));
+  box-shadow:0 16px 34px -24px rgba(47,177,255,.9), inset 0 1px rgba(255,255,255,.75);
+}
 
 .cta-band{
   border-radius:18px; border:1px solid rgba(47,177,255,0.3);
@@ -688,17 +717,17 @@ footer{border-top:1px solid var(--line); padding:44px 0 26px;}
 .catalog-card-wrap.in-cart .card{border-color:rgba(51,196,141,.62);box-shadow:0 26px 58px -34px rgba(51,196,141,.85);}
 .add-cart-btn{
   width:100%;
-  border:1px solid rgba(127,224,255,.28);
-  border-radius:12px;
-  background:linear-gradient(145deg,rgba(47,177,255,.13),rgba(255,255,255,.025));
-  color:var(--paper);
-  padding:11px 13px;
-  font-size:13px;
+  border:1px solid rgba(127,224,255,.65);
+  border-radius:14px;
+  background:linear-gradient(155deg,var(--electric-bright),var(--electric));
+  color:#04101a;
+  padding:13px 14px;
+  font-size:13.5px;
   font-weight:850;
   cursor:pointer;
-  box-shadow:inset 0 1px rgba(255,255,255,.05);
+  box-shadow:0 18px 36px -24px rgba(47,177,255,.95),inset 0 1px rgba(255,255,255,.72);
 }
-.add-cart-btn:hover{border-color:rgba(127,224,255,.62);background:linear-gradient(155deg,var(--electric-bright),var(--electric));color:#04101a;}
+.add-cart-btn:hover{filter:brightness(1.06);transform:translateY(-1px);}
 .catalog-card-wrap.in-cart .add-cart-btn{border-color:rgba(51,196,141,.55);background:rgba(51,196,141,.14);color:#b7ffe1;}
 .catalog-cart-open{
   margin-left:auto;
@@ -733,6 +762,21 @@ footer{border-top:1px solid var(--line); padding:44px 0 26px;}
   font-weight:900;
   cursor:pointer;
   box-shadow:0 20px 45px -20px rgba(242,181,68,.9);
+}
+.floating-cart-btn::before{
+  content:"Combo: chọn đủ 3 chatbot để áp giá tốt";
+  position:absolute;
+  right:0;
+  bottom:calc(100% + 9px);
+  min-width:260px;
+  padding:10px 12px;
+  border:1px solid rgba(242,181,68,.34);
+  border-radius:13px;
+  background:rgba(12,21,40,.94);
+  color:var(--paper);
+  font-size:12.5px;
+  font-weight:800;
+  box-shadow:0 18px 40px -26px rgba(0,0,0,.9);
 }
 .cart-overlay{position:fixed;inset:0;z-index:120;pointer-events:none;}
 .cart-backdrop{position:absolute;inset:0;border:0;background:rgba(0,0,0,.58);backdrop-filter:blur(6px);pointer-events:auto;cursor:pointer;}

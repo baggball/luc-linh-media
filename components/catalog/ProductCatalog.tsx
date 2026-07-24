@@ -11,10 +11,27 @@ import type { Product } from "@/lib/types";
 
 type SortMode = "new" | "sold" | "price-asc" | "price-desc";
 type BillingCycle = "monthly" | "yearly";
+type CategoryKey = "all" | "my-pham" | "gia-dung" | "thoi-trang" | "me-be" | "thu-cung" | "noi-that" | "cong-nghe";
 
 const COMBO_MONTHLY_PRICE = 399000;
 const COMBO_YEARLY_PRICE = 3830000;
 const CART_KEY = "llm_chatbot_cart_ids";
+const FLAGSHIP_SLUGS = new Set([
+  "koc-my-pham-ai-review-dep-chot-don",
+  "koc-gia-dung-ai-anh-thanh-video-chot-don",
+  "koc-pho-ai-thu-do-video-affiliate",
+]);
+
+const CATEGORIES: { key: CategoryKey; label: string; keywords: string[] }[] = [
+  { key: "all", label: "Tất cả", keywords: [] },
+  { key: "my-pham", label: "Mỹ phẩm", keywords: ["my pham", "beauty", "skincare", "lam dep"] },
+  { key: "gia-dung", label: "Gia dụng", keywords: ["gia dung", "do dung", "home", "bep"] },
+  { key: "thoi-trang", label: "Thời trang", keywords: ["pho", "thoi trang", "tui", "giay", "trang suc", "phu kien"] },
+  { key: "me-be", label: "Mẹ bé", keywords: ["me be", "em be", "an toan"] },
+  { key: "thu-cung", label: "Thú cưng", keywords: ["thu cung", "pet"] },
+  { key: "noi-that", label: "Nội thất", keywords: ["noi that", "khong gian"] },
+  { key: "cong-nghe", label: "Công nghệ", keywords: ["cong nghe", "unbox", "xe", "van phong"] },
+];
 
 function normalize(s: string) {
   return s
@@ -25,6 +42,24 @@ function normalize(s: string) {
 
 function isComboTest(product: Product) {
   return product.slug.includes("combo-test") || product.title.toLowerCase().includes("combo test");
+}
+
+function productSearchText(product: Product) {
+  return normalize(`${product.slug} ${product.title} ${product.description ?? ""}`);
+}
+
+function productCategory(product: Product): CategoryKey {
+  const text = productSearchText(product);
+  return CATEGORIES.find((category) => category.key !== "all" && category.keywords.some((keyword) => text.includes(keyword)))?.key ?? "cong-nghe";
+}
+
+function productBadges(product: Product) {
+  const badges: string[] = [];
+  if (FLAGSHIP_SLUGS.has(product.slug) || product.sold_count >= 2) badges.push("Bán chạy");
+  if (product.type === "chatbot" && productSearchText(product).includes("koc")) badges.push("Phù hợp affiliate");
+  const updatedAt = new Date(product.updated_at).getTime();
+  if (!Number.isNaN(updatedAt) && Date.now() - updatedAt < 1000 * 60 * 60 * 24 * 30) badges.push("Mới cập nhật");
+  return badges.slice(0, 3);
 }
 
 export default function ProductCatalog({
@@ -41,6 +76,7 @@ export default function ProductCatalog({
   const router = useRouter();
   const [query, setQuery] = useState("");
   const [sort, setSort] = useState<SortMode>("new");
+  const [category, setCategory] = useState<CategoryKey>("all");
   const [cartIds, setCartIds] = useState<string[]>([]);
   const [cartOpen, setCartOpen] = useState(false);
   const [billingCycle, setBillingCycle] = useState<BillingCycle>("monthly");
@@ -66,14 +102,18 @@ export default function ProductCatalog({
 
   const filtered = useMemo(() => {
     const q = normalize(query.trim());
-    let list = products.filter((p) => !q || normalize(p.title).includes(q));
+    let list = products.filter((p) => {
+      const matchesQuery = !q || productSearchText(p).includes(q);
+      const matchesCategory = category === "all" || productCategory(p) === category;
+      return matchesQuery && matchesCategory;
+    });
     list = list.slice();
     if (sort === "sold") list.sort((a, b) => b.sold_count - a.sold_count);
     else if (sort === "price-asc") list.sort((a, b) => a.price - b.price);
     else if (sort === "price-desc") list.sort((a, b) => b.price - a.price);
     else list.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
     return list;
-  }, [products, query, sort]);
+  }, [category, products, query, sort]);
 
   const cartProducts = useMemo(() => products.filter((product) => cartIds.includes(product.id)), [cartIds, products]);
   const subtotal = cartProducts.reduce((sum, product) => sum + product.price, 0);
@@ -173,6 +213,21 @@ export default function ProductCatalog({
         )}
       </div>
 
+      {enableCart && (
+        <div className="category-rail" aria-label="Lọc sản phẩm theo ngành">
+          {CATEGORIES.map((item) => (
+            <button
+              className={`category-chip${category === item.key ? " active" : ""}`}
+              type="button"
+              key={item.key}
+              onClick={() => setCategory(item.key)}
+            >
+              {item.label}
+            </button>
+          ))}
+        </div>
+      )}
+
       {filtered.length > 0 ? (
         <div className="grid">
           {filtered.map((p) => {
@@ -180,7 +235,7 @@ export default function ProductCatalog({
             const allowCart = canAddToCart(p);
             return (
               <div className={`catalog-card-wrap${inCart ? " in-cart" : ""}`} key={p.id}>
-                <ProductCard product={p} />
+                <ProductCard product={p} badgeLabels={productBadges(p)} />
                 {allowCart && (
                   <button className="add-cart-btn" type="button" onClick={() => toggleCart(p)}>
                     {inCart ? "✓ Đã trong giỏ" : "Thêm vào giỏ"}

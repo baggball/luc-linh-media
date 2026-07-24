@@ -5,6 +5,12 @@ import { publicProductSlug } from "@/lib/product-url";
 
 const TONES = ["blue", "amber", "coral", "mixed"] as const;
 
+const BADGE_CLASS: Record<string, string> = {
+  "Bán chạy": "hot",
+  "Phù hợp affiliate": "affiliate",
+  "Mới cập nhật": "updated",
+};
+
 function toneFor(id: string) {
   let sum = 0;
   for (let i = 0; i < id.length; i++) sum += id.charCodeAt(i);
@@ -18,7 +24,15 @@ function excerpt(text: string | null, maxLength = 150) {
   return `${normalized.slice(0, maxLength).replace(/\s+\S*$/, "")}…`;
 }
 
-export default function ProductCard({ product, badge }: { product: Product; badge?: "new" | "premium" }) {
+export default function ProductCard({
+  product,
+  badge,
+  badgeLabels = [],
+}: {
+  product: Product;
+  badge?: "new" | "premium";
+  badgeLabels?: string[];
+}) {
   const href = `/${PRODUCT_TYPE_ROUTE[product.type]}/${publicProductSlug(product)}`;
   const cover = product.images?.[0];
   const summary = excerpt(product.description);
@@ -33,6 +47,11 @@ export default function ProductCard({ product, badge }: { product: Product; badg
           {product.is_free && <span className="badge free">Miễn phí</span>}
           {badge === "new" && <span className="badge new">Mới</span>}
           {badge === "premium" && <span className="badge premium">Premium</span>}
+          {badgeLabels.map((label) => (
+            <span className={`badge ${BADGE_CLASS[label] ?? "premium"}`} key={label}>
+              {label}
+            </span>
+          ))}
           <span className="badge kind">{PRODUCT_TYPE_LABEL[product.type]}</span>
         </div>
         {!cover && (
