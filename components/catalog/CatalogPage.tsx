@@ -6,6 +6,11 @@ import ProductCatalog from "@/components/catalog/ProductCatalog";
 import { createClient } from "@/lib/supabase/server";
 import { PRODUCT_TYPE_LABEL, type Product, type ProductType } from "@/lib/types";
 
+function isPublicCatalogHidden(product: Product) {
+  const text = `${product.slug} ${product.title}`.toLowerCase();
+  return text.includes("combo-test") || text.includes("san-pham-test") || text.includes("sản phẩm test");
+}
+
 export default async function CatalogPage({
   type,
   heading,
@@ -27,7 +32,7 @@ export default async function CatalogPage({
     .eq("type", type)
     .order("created_at", { ascending: false });
 
-  const products = (data ?? []) as Product[];
+  const products = ((data ?? []) as Product[]).filter((product) => type !== "chatbot" || !isPublicCatalogHidden(product));
 
   return (
     <AppShell>
