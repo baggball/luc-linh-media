@@ -467,12 +467,35 @@ footer{border-top:1px solid var(--line); padding:44px 0 26px;}
 .section-head-row .value-note{color:var(--amber);font-weight:900;}
 .access-caption a{color:var(--electric-bright);text-decoration:underline;text-underline-offset:2px;}
 @media(max-width:760px){.product-value-grid{grid-template-columns:1fr;}}
+.detail-cta-stack{display:grid;gap:10px;}
 .section-head-row{display:flex; align-items:center; gap:10px; margin-bottom:16px;}
 .section-head-row .ico{width:34px; height:34px; border-radius:9px; background:rgba(124,92,240,0.16); color:var(--violet); display:flex; align-items:center; justify-content:center; flex:none;}
 .section-head-row h2{font-size:16.5px;}
 .section-head-row .sub{font-size:12.5px; color:var(--mute-dim); margin-top:2px;}
 .divider-line{height:1px; background:var(--line); margin-bottom:16px;}
 .desc-text{color:var(--mute); font-size:14.5px; line-height:1.8; white-space:pre-line;}
+
+.buyer-fit-card{
+  position:relative;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 12% 0%,rgba(51,196,141,.15),transparent 34%),
+    linear-gradient(145deg,rgba(51,196,141,.06),rgba(47,177,255,.035)),
+    var(--ink-card);
+}
+.buyer-fit-card::before{
+  content:"";
+  position:absolute;
+  inset:0 0 auto;
+  height:3px;
+  background:linear-gradient(90deg,var(--success),var(--electric-bright));
+  opacity:.85;
+}
+.buyer-fit-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:18px;}
+.buyer-fit-item{display:flex;gap:10px;align-items:flex-start;padding:14px;border:1px solid rgba(156,236,255,.14);border-radius:14px;background:rgba(255,255,255,.028);}
+.buyer-fit-item span{flex:none;width:22px;height:22px;border-radius:8px;background:rgba(51,196,141,.14);color:var(--success);display:grid;place-items:center;font-weight:900;}
+.buyer-fit-item p{color:var(--mute);font-size:13.5px;line-height:1.6;}
+@media(max-width:760px){.buyer-fit-grid{grid-template-columns:1fr;}}
 
 .sales-workflow-card{
   position:relative;

@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { track } from "@vercel/analytics";
@@ -14,6 +14,7 @@ type BillingCycle = "monthly" | "yearly";
 
 const COMBO_MONTHLY_PRICE = 399000;
 const COMBO_YEARLY_PRICE = 3830000;
+const CART_KEY = "llm_chatbot_cart_ids";
 
 function normalize(s: string) {
   return s
@@ -46,6 +47,23 @@ export default function ProductCatalog({
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  useEffect(() => {
+    if (!enableCart) return;
+    const timer = window.setTimeout(() => {
+      try {
+        const saved = JSON.parse(window.localStorage.getItem(CART_KEY) || "[]") as string[];
+        const validIds = new Set(products.filter((product) => canAddToCart(product)).map((product) => product.id));
+        const next = saved.filter((id) => validIds.has(id)).slice(0, 3);
+        if (next.length > 0) setCartIds(next);
+        if (new URLSearchParams(window.location.search).get("cart") === "1" || next.length > 0) setCartOpen(true);
+      } catch {
+        // Ignore malformed local cart.
+      }
+    }, 0);
+    return () => window.clearTimeout(timer);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [enableCart, products]);
+
   const filtered = useMemo(() => {
     const q = normalize(query.trim());
     let list = products.filter((p) => !q || normalize(p.title).includes(q));
@@ -71,14 +89,20 @@ export default function ProductCatalog({
   function toggleCart(product: Product) {
     setError("");
     setCartIds((current) => {
-      if (current.includes(product.id)) return current.filter((id) => id !== product.id);
+      if (current.includes(product.id)) {
+        const next = current.filter((id) => id !== product.id);
+        window.localStorage.setItem(CART_KEY, JSON.stringify(next));
+        return next;
+      }
       if (current.length >= 3) {
         setCartOpen(true);
         setError("Giỏ hàng combo hiện hỗ trợ tối đa 3 chatbot. Hãy bỏ bớt một chatbot nếu muốn chọn sản phẩm khác.");
         return current;
       }
       setCartOpen(true);
-      return [...current, product.id];
+      const next = [...current, product.id];
+      window.localStorage.setItem(CART_KEY, JSON.stringify(next));
+      return next;
     });
   }
 
@@ -116,6 +140,7 @@ export default function ProductCatalog({
       billing: isCombo ? billingCycle : "single",
       value: checkoutTotal,
     });
+    window.localStorage.removeItem(CART_KEY);
     router.push(`/thanh-toan/${data}`);
   }
 

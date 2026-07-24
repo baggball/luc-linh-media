@@ -7,6 +7,7 @@ import FaqAccordion from "@/components/product/FaqAccordion";
 import CopyLinkButton from "@/components/product/CopyLinkButton";
 import SaveButton from "@/components/product/SaveButton";
 import BuyButton from "@/components/product/BuyButton";
+import AddToCartButton from "@/components/product/AddToCartButton";
 import ProductViewTracker from "@/components/product/ProductViewTracker";
 import { createClient } from "@/lib/supabase/server";
 import { getPublishedProduct } from "@/lib/products";
@@ -76,15 +77,22 @@ function defaultFaq(type: ProductType) {
 type SalesProfile = {
   audience: string;
   promise: string;
+  buyers: string[];
   outcomes: string[];
   steps: { title: string; body: string }[];
   demos: { label: string; body: string }[];
   proof: string;
+  faqs?: { question: string; answer: string }[];
 };
 
 const GENERIC_CHATBOT_PROFILE: SalesProfile = {
   audience: "Người làm nội dung, KOC, affiliate và shop nhỏ muốn tạo video AI nhanh hơn mà không phải tự nghĩ prompt từ đầu.",
   promise: "Nhận một trợ lý Gemini/AI đã được đóng gói sẵn để dẫn bạn từ ảnh sản phẩm đến concept, kịch bản và prompt video có thể đem đi chạy trên công cụ tạo video.",
+  buyers: [
+    "Người bán hàng online cần ra video đều nhưng thiếu ý tưởng",
+    "Affiliate/KOC muốn tạo nhiều concept theo từng sản phẩm",
+    "Shop nhỏ muốn thử video AI trước khi thuê đội content riêng",
+  ],
   outcomes: [
     "Link chatbot AI theo ngách sản phẩm, mở được ngay sau khi thanh toán",
     "Bộ câu hỏi dẫn dắt để nhập đúng ảnh KOC, ảnh sản phẩm và thông tin bán hàng",
@@ -115,12 +123,18 @@ function getSalesProfile(slug: string, title: string, type: ProductType): SalesP
     return {
       audience: "KOC mỹ phẩm, spa, shop skincare và affiliate làm video review đẹp, rõ công dụng và có lời chốt tự nhiên.",
       promise: "Biến ảnh sản phẩm mỹ phẩm thành concept review, ảnh KOC tham chiếu, kịch bản nói chuyện và prompt video giữ đúng visual sản phẩm.",
+      buyers: [
+        "Shop mỹ phẩm/skincare muốn có video review đẹp mà không thuê mẫu thật mỗi ngày",
+        "Affiliate TikTok Shop cần nhiều hook, nhiều góc review cho cùng một sản phẩm",
+        "Spa, beauty seller cần kịch bản nói tự nhiên, tránh thổi phồng công dụng",
+        "Người mới làm video AI muốn có quy trình hỏi - đáp sẵn, không tự viết prompt từ đầu",
+      ],
       outcomes: [
-        "Link KOC Beauty Director AI trên Gemini",
-        "3 concept review: mở hộp, cảm nhận khi dùng, before/after trung thực",
-        "Prompt ảnh KOC đẹp da, ánh sáng studio, giữ đúng chai/lọ/logo sản phẩm",
-        "5 prompt video review ngắn có hook 3 giây đầu, lời thoại và CTA",
-        "Checklist tránh nói quá công dụng, tránh cam kết y khoa hoặc kết quả không kiểm chứng",
+        "Link Gem KOC Mỹ phẩm AI dùng riêng sau khi thanh toán",
+        "Bộ câu hỏi dẫn nhập để lấy đúng: loại sản phẩm, công dụng, tệp khách, tone review",
+        "Prompt tạo ảnh KOC beauty có ánh sáng sạch, giữ rõ chai/lọ/logo và cảm giác cao cấp",
+        "5 prompt video review 15-30 giây có hook, hành động apply, cảm nhận và lời chốt",
+        "Gợi ý caption, CTA và checklist tránh nói quá công dụng/y khoa",
       ],
       steps: [
         { title: "Chuẩn bị ảnh", body: "Ảnh sản phẩm rõ nhãn, ảnh KOC hoặc mô tả gương mặt/phong cách muốn dùng." },
@@ -131,11 +145,16 @@ function getSalesProfile(slug: string, title: string, type: ProductType): SalesP
         { title: "Lấy 5 video", body: "Copy từng prompt video sang Veo/Flow, rồi edit caption, giá và CTA." },
       ],
       demos: [
-        { label: "Hook", body: "“Da nhìn mệt nhưng vẫn muốn nền mịn? Test nhanh sản phẩm này trong 15 giây.”" },
-        { label: "Ảnh KOC", body: "Cận mặt, ánh sáng clean beauty, tay cầm sản phẩm đúng nhãn, không bóp méo bao bì." },
-        { label: "Video output", body: "5 cảnh: mở đầu vấn đề, apply sản phẩm, texture, cảm nhận thật, CTA mua hàng." },
+        { label: "Hook mở đầu", body: "“Da nhìn mệt nhưng vẫn muốn nền mịn? Mình test nhanh sản phẩm này trong 15 giây cho bạn xem.”" },
+        { label: "Prompt ảnh KOC", body: "Cận mặt clean beauty, da khỏe tự nhiên, tay cầm đúng sản phẩm, nhãn rõ, ánh sáng studio mềm, nền tối giản cao cấp." },
+        { label: "Video output", body: "5 cảnh: nêu vấn đề da, cận texture, apply sản phẩm, biểu cảm sau khi dùng, CTA mua hàng tự nhiên." },
       ],
       proof: "Trang này nên dùng để bán các sản phẩm skincare, makeup, body care và dụng cụ làm đẹp cần video review nhanh.",
+      faqs: [
+        { question: "Chatbot này có tự tạo video luôn không?", answer: "Không tạo video trực tiếp trên website. Chatbot tạo concept, ảnh tham chiếu, kịch bản và prompt video để bạn đưa sang Gemini/Veo/Flow hoặc công cụ video AI đang dùng." },
+        { question: "Có phù hợp cho sản phẩm mỹ phẩm nhạy cảm như trị mụn, nám không?", answer: "Có thể dùng để làm nội dung, nhưng chatbot sẽ hướng dẫn viết theo hướng trải nghiệm và lợi ích hợp lý, tránh cam kết y khoa hoặc phóng đại kết quả." },
+        { question: "Tôi chưa biết viết prompt có dùng được không?", answer: "Có. Bạn chỉ cần gõ START, trả lời câu hỏi của chatbot và copy output sang công cụ AI theo từng bước." },
+      ],
     };
   }
 
@@ -143,12 +162,18 @@ function getSalesProfile(slug: string, title: string, type: ProductType): SalesP
     return {
       audience: "Người bán đồ gia dụng, TikTok Shop, affiliate và shop muốn demo sản phẩm theo kiểu vấn đề - giải pháp.",
       promise: "Từ ảnh sản phẩm gia dụng, Gem dựng quy trình demo dễ hiểu: tình huống đau đầu, cách dùng, kết quả nhìn thấy và lời chốt mua.",
+      buyers: [
+        "Shop đồ gia dụng/đồ tiện ích cần video demo dễ hiểu, dễ chốt",
+        "Affiliate TikTok Shop bán đồ bếp, đồ vệ sinh, hộp đựng, máy mini",
+        "Người muốn biến ảnh sản phẩm tĩnh thành nhiều cảnh demo có hành động",
+        "Team content cần ra nhiều kịch bản video theo vấn đề - giải pháp",
+      ],
       outcomes: [
-        "Link KOC Home Demo AI trên Gemini",
-        "Concept demo theo bếp, phòng khách, phòng ngủ hoặc góc làm việc",
-        "Prompt ảnh KOC đang cầm/dùng sản phẩm đúng bối cảnh",
-        "Kịch bản 15-30 giây, chia cảnh rõ để dễ đưa vào Veo/Flow",
-        "Caption, CTA và checklist quay lại output cho gọn, dễ bán",
+        "Link Gem KOC Gia dụng AI mở khóa trong tài khoản",
+        "3 concept demo theo bối cảnh: bếp, phòng khách, nhà tắm, góc làm việc",
+        "Prompt ảnh KOC đang cầm/dùng sản phẩm trong bối cảnh đời thật",
+        "5 prompt video chia cảnh rõ: vấn đề, thao tác, kết quả, lợi ích, CTA",
+        "Caption, checklist góc quay và lời chốt phù hợp đồ gia dụng",
       ],
       steps: [
         { title: "Gửi ảnh sản phẩm", body: "Ảnh chính diện, ảnh chi tiết và thông tin công dụng thật." },
@@ -159,11 +184,16 @@ function getSalesProfile(slug: string, title: string, type: ProductType): SalesP
         { title: "Chốt đơn", body: "Thêm chữ, giá, mã giảm và CTA trước khi đăng." },
       ],
       demos: [
-        { label: "Concept", body: "“Góc bếp bừa bộn thành gọn gàng trong 20 giây nhờ một món nhỏ.”" },
-        { label: "Prompt ảnh", body: "KOC đứng trong bếp sáng sạch, tay cầm sản phẩm, bao bì đúng màu và logo." },
-        { label: "Video output", body: "5 cảnh: vấn đề, giới thiệu sản phẩm, thao tác dùng, kết quả, CTA." },
+        { label: "Concept", body: "“Góc bếp bừa bộn thành gọn gàng trong 20 giây nhờ một món nhỏ ai cũng dùng được.”" },
+        { label: "Prompt ảnh", body: "KOC đứng trong bếp sáng sạch, tay cầm sản phẩm đúng logo, mặt bàn có before/after rõ ràng." },
+        { label: "Video output", body: "5 cảnh: nêu vấn đề, đưa sản phẩm vào khung hình, thao tác dùng, kết quả thấy ngay, CTA mua thử." },
       ],
       proof: "Rất hợp với đồ bếp, đồ vệ sinh, hộp đựng, máy mini, đồ tiện ích và sản phẩm giải quyết vấn đề hằng ngày.",
+      faqs: [
+        { question: "Tôi chỉ có ảnh sản phẩm từ sàn TMĐT, dùng được không?", answer: "Dùng được nếu ảnh rõ sản phẩm. Chatbot sẽ hướng dẫn tạo thêm ảnh KOC/bối cảnh trước khi lấy prompt video." },
+        { question: "Sản phẩm không có người mẫu thì sao?", answer: "Chatbot có bước tạo KOC tham chiếu đang sử dụng sản phẩm, sau đó dùng ảnh đó để tạo prompt video nhất quán hơn." },
+        { question: "Video tạo ra có bán hàng được ngay không?", answer: "Bạn vẫn nên thêm chữ, giá, logo shop, nhạc và CTA trong CapCut hoặc công cụ edit trước khi đăng." },
+      ],
     };
   }
 
@@ -171,12 +201,18 @@ function getSalesProfile(slug: string, title: string, type: ProductType): SalesP
     return {
       audience: "Shop thời trang, phụ kiện, KOC thử đồ và affiliate cần video street style nhanh cho TikTok/Reels.",
       promise: "Tạo concept phối đồ, ảnh KOC mặc sản phẩm và prompt video chuyển động đường phố giữ đúng outfit, màu sắc và form dáng.",
+      buyers: [
+        "Shop thời trang/phụ kiện muốn tạo video thử đồ nhanh mà không thuê mẫu liên tục",
+        "Affiliate bán túi, giày, outfit, đồng hồ, phụ kiện lifestyle",
+        "Người làm TikTok/Reels cần nhiều concept street style, lookbook, outfit check",
+        "Brand nhỏ muốn thử nhiều visual trước khi sản xuất video thật",
+      ],
       outcomes: [
-        "Link KOC Street Style AI trên Gemini",
-        "Prompt thử đồ AI theo casual, luxury street, Gen Z hoặc công sở trẻ",
-        "Kịch bản video outfit check, chuyển dáng, close-up chi tiết và CTA",
-        "5 prompt video có chuyển động rõ, giữ cùng nhân vật và trang phục",
-        "Gợi ý caption, hashtag và lời chốt cho affiliate thời trang",
+        "Link Gem KOC Phố/Thời trang AI dùng sau khi thanh toán",
+        "Prompt thử đồ theo casual, luxury street, Gen Z, công sở trẻ hoặc đi chơi",
+        "Kịch bản outfit check, chuyển dáng, close-up chất liệu và lời chốt",
+        "5 prompt video có chuyển động rõ, giữ cùng nhân vật, outfit và màu sắc",
+        "Caption, hashtag và CTA phù hợp affiliate thời trang/phụ kiện",
       ],
       steps: [
         { title: "Gửi ảnh đồ", body: "Ảnh áo, quần, túi, giày hoặc phụ kiện cần thử." },
@@ -187,11 +223,16 @@ function getSalesProfile(slug: string, title: string, type: ProductType): SalesP
         { title: "Đăng bán", body: "Thêm nhạc, chữ, giá và link sản phẩm trước khi đăng." },
       ],
       demos: [
-        { label: "Hook", body: "“Một outfit đi cà phê nhưng lên hình như lookbook brand lớn.”" },
-        { label: "Ảnh KOC", body: "Người mẫu phố đêm, ánh sáng fashion, outfit đúng màu, túi/giày rõ form." },
-        { label: "Video output", body: "5 cảnh: outfit reveal, bước đi, close-up chất liệu, đổi pose, CTA." },
+        { label: "Hook", body: "“Một outfit đi cà phê nhưng lên hình như lookbook brand lớn — đây là cách phối nhanh.”" },
+        { label: "Prompt ảnh KOC", body: "Người mẫu street style ở phố đêm, outfit đúng màu/form, phụ kiện rõ chi tiết, ánh sáng fashion editorial." },
+        { label: "Video output", body: "5 cảnh: outfit reveal, bước đi qua phố, close-up chất liệu, đổi pose, CTA xem link sản phẩm." },
       ],
       proof: "Dùng tốt cho quần áo, túi, giày, phụ kiện, đồng hồ và sản phẩm cần hình ảnh lifestyle bắt mắt.",
+      faqs: [
+        { question: "AI có giữ đúng màu/form sản phẩm không?", answer: "Chatbot sẽ đưa prompt nhấn mạnh màu, form, logo và chi tiết sản phẩm. Tuy vậy output AI vẫn cần kiểm tra lại, nếu sai chatbot có hướng dẫn prompt sửa." },
+        { question: "Có dùng được cho túi, giày, đồng hồ không?", answer: "Có. Nhóm sản phẩm phụ kiện/lifestyle rất hợp vì cần visual đẹp, chuyển động rõ và nhiều góc cận chi tiết." },
+        { question: "Tôi có thể dùng cho TikTok Shop không?", answer: "Có. Chatbot có gợi ý hook, caption, hashtag và CTA để bạn chỉnh lại theo sản phẩm/thương hiệu trước khi đăng." },
+      ],
     };
   }
 
@@ -210,8 +251,9 @@ export default async function ProductDetailPage({ type, id }: { type: ProductTyp
   }
 
   const supabase = await createClient();
+  const salesProfile = getSalesProfile(canonicalSlug, product.title, type);
   const productFaq = product.faq ?? [];
-  const faq = productFaq.length > 0 ? productFaq : defaultFaq(type);
+  const faq = productFaq.length > 0 ? productFaq : [...(salesProfile?.faqs ?? []), ...defaultFaq(type)];
   const listHref = `/${PRODUCT_TYPE_ROUTE[type]}`;
   const kindLabel = PRODUCT_TYPE_LABEL[type];
   const productUrl = absoluteUrl(`${listHref}/${canonicalSlug}`);
@@ -303,7 +345,6 @@ export default async function ProductDetailPage({ type, id }: { type: ProductTyp
 
   const workflowLink = privateContent?.workflow_link ?? null;
   const videoUrl = privateContent?.video_url ?? null;
-  const salesProfile = getSalesProfile(canonicalSlug, product.title, type);
 
   return (
     <AppShell>
@@ -464,7 +505,10 @@ export default async function ProductDetailPage({ type, id }: { type: ProductTyp
                 </div>
                 <div className="paid-price-line">{formatVND(product.price)}</div>
                 {user ? (
-                  <BuyButton productId={product.id} productSlug={canonicalSlug} />
+                  <div className="detail-cta-stack">
+                    <BuyButton productId={product.id} productSlug={canonicalSlug} />
+                    {type === "chatbot" && <AddToCartButton productId={product.id} productSlug={canonicalSlug} />}
+                  </div>
                 ) : (
                   <Link className="btn btn-primary" href="/dang-nhap">
                     Đăng nhập để mua
@@ -507,10 +551,14 @@ export default async function ProductDetailPage({ type, id }: { type: ProductTyp
               </div>
             </div>
             <ul className="product-value-list">
-              <li>Liên kết sản phẩm được mở khóa trong tài khoản của bạn</li>
-              <li>Hướng dẫn và video đi kèm nếu sản phẩm có cung cấp</li>
-              <li>Nhận các cập nhật được phát hành trên cùng sản phẩm</li>
-              <li>Hỗ trợ lỗi truy cập qua Zalo trong thời hạn niêm yết</li>
+              {(salesProfile?.outcomes ?? [
+                "Liên kết sản phẩm được mở khóa trong tài khoản của bạn",
+                "Hướng dẫn và video đi kèm nếu sản phẩm có cung cấp",
+                "Nhận các cập nhật được phát hành trên cùng sản phẩm",
+                "Hỗ trợ lỗi truy cập qua Zalo trong thời hạn niêm yết",
+              ]).map((outcome) => (
+                <li key={outcome}>{outcome}</li>
+              ))}
             </ul>
           </div>
 
@@ -533,6 +581,26 @@ export default async function ProductDetailPage({ type, id }: { type: ProductTyp
 
         {salesProfile && (
           <>
+            <div className="detail-section">
+              <div className="section-card buyer-fit-card">
+                <div className="section-head-row">
+                  <span className="ico value-ok">★</span>
+                  <div>
+                    <h2>Ai nên mua?</h2>
+                    <div className="sub">Nhóm khách phù hợp nhất với chatbot này</div>
+                  </div>
+                </div>
+                <div className="buyer-fit-grid">
+                  {salesProfile.buyers.map((buyer) => (
+                    <div className="buyer-fit-item" key={buyer}>
+                      <span>✓</span>
+                      <p>{buyer}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
             <div className="detail-section">
               <div className="section-card sales-workflow-card">
                 <div className="section-head-row">
@@ -586,6 +654,7 @@ export default async function ProductDetailPage({ type, id }: { type: ProductTyp
                 <div className="demo-proof">{salesProfile.proof}</div>
                 <div className="demo-cta-row">
                   <Link className="btn btn-ghost" href="/dung-thu-mien-phi">Dùng thử miễn phí</Link>
+                  {type === "chatbot" && !hasAccess && <AddToCartButton productId={product.id} productSlug={canonicalSlug} />}
                   {!hasAccess &&
                     (user ? (
                       <BuyButton productId={product.id} productSlug={canonicalSlug} />
