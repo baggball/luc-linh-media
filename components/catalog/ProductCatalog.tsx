@@ -44,6 +44,11 @@ function isComboTest(product: Product) {
   return product.slug.includes("combo-test") || product.title.toLowerCase().includes("combo test");
 }
 
+function isPublicCatalogHidden(product: Product) {
+  const text = `${product.slug} ${product.title}`.toLowerCase();
+  return text.includes("combo-test") || text.includes("san-pham-test") || text.includes("sản phẩm test");
+}
+
 function productSearchText(product: Product) {
   return normalize(`${product.slug} ${product.title} ${product.description ?? ""}`);
 }
@@ -103,6 +108,7 @@ export default function ProductCatalog({
   const filtered = useMemo(() => {
     const q = normalize(query.trim());
     let list = products.filter((p) => {
+      if (isPublicCatalogHidden(p)) return false;
       const matchesQuery = !q || productSearchText(p).includes(q);
       const matchesCategory = category === "all" || productCategory(p) === category;
       return matchesQuery && matchesCategory;
