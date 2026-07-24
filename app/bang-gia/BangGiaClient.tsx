@@ -1,5 +1,6 @@
 import Link from "next/link";
 import styles from "./bang-gia.module.css";
+import { ZALO_COMMUNITY_URL } from "@/lib/community";
 
 const CHECK = (
   <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
@@ -28,7 +29,7 @@ const plans = [
     tag: "KHUYÊN DÙNG",
     price: "399K",
     old: "Tiết kiệm hơn mua lẻ từng sản phẩm",
-    desc: "Gồm 3 ngách dễ bán nhất: mỹ phẩm, gia dụng và thời trang/phố. Hợp cho người làm affiliate, TikTok Shop, Reels.",
+    desc: "Combo cố định gồm 3 ngách dễ bán nhất: mỹ phẩm, gia dụng và thời trang/phố. Hợp cho người làm affiliate, TikTok Shop, Reels.",
     href: "/chatbot",
     cta: "Chọn combo 3 chatbot",
     featured: true,
@@ -85,6 +86,17 @@ export default function BangGiaClient() {
         <Link className="btn btn-primary" href="/chatbot/combo-test-sepay-15-000d">
           Mua thử combo 15K
         </Link>
+      </div>
+
+      <div className={styles.communityBand}>
+        <div>
+          <span>Cộng đồng khách hàng</span>
+          <h2>Sau khi mua, khách được mời vào nhóm Zalo để được chăm sóc và thảo luận</h2>
+          <p>Đây là nơi gom khách đã mua, hướng dẫn dùng chatbot, chia sẻ output, cập nhật prompt mới và chăm sóc khách hàng lâu dài.</p>
+        </div>
+        <a className="btn btn-primary" href={ZALO_COMMUNITY_URL} target="_blank" rel="noopener">
+          Vào cộng đồng Zalo
+        </a>
       </div>
 
       <div className={styles.plans}>

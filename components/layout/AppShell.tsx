@@ -1,5 +1,6 @@
 import Sidebar from "./Sidebar";
 import Topbar from "./Topbar";
+import { ZALO_COMMUNITY_URL } from "@/lib/community";
 
 export default function AppShell({ children }: { children: React.ReactNode }) {
   return (
@@ -11,13 +12,13 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
       </div>
       <a
         className="floating-zalo"
-        href="https://zalo.me/0379062594"
+        href={ZALO_COMMUNITY_URL}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label="Chat với Lục Linh Video AI qua Zalo"
+        aria-label="Vào cộng đồng Zalo Lục Linh Video AI"
       >
         <span className="floating-zalo-dot" />
-        <span>Tư vấn Zalo</span>
+        <span>Cộng đồng Zalo</span>
       </a>
     </div>
   );

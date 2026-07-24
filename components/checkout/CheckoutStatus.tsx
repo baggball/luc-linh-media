@@ -5,6 +5,7 @@ import Link from "next/link";
 import { track } from "@vercel/analytics";
 import { createClient } from "@/lib/supabase/client";
 import { formatVND } from "@/lib/format";
+import { ZALO_COMMUNITY_URL } from "@/lib/community";
 
 export default function CheckoutStatus({
   purchaseId,
@@ -80,6 +81,10 @@ export default function CheckoutStatus({
         <Link className="btn btn-primary" href={productHref} style={{ display: "block", textAlign: "center" }}>
           Xem sản phẩm ngay
         </Link>
+        <a className="community-box community-box-success" href={ZALO_COMMUNITY_URL} target="_blank" rel="noopener">
+          <b>Vào nhóm Zalo cộng đồng</b>
+          <span>Nhận hướng dẫn, cập nhật prompt mới và trao đổi cách dùng với Lục Linh.</span>
+        </a>
       </div>
     );
   }
@@ -121,6 +126,10 @@ export default function CheckoutStatus({
         <span className="caret" style={{ width: 7, height: 15, background: "var(--electric-bright)", display: "inline-block" }}></span>
         Đang chờ thanh toán — trang sẽ tự cập nhật khi nhận được tiền
       </p>
+      <a className="community-box" href={ZALO_COMMUNITY_URL} target="_blank" rel="noopener">
+        <b>Sau khi thanh toán, hãy vào cộng đồng Zalo</b>
+        <span>Nơi nhận hỗ trợ, cập nhật và trao đổi cách triển khai video AI bán hàng.</span>
+      </a>
     </div>
   );
 }

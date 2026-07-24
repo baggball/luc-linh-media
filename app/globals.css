@@ -429,6 +429,30 @@ footer{border-top:1px solid var(--line); padding:44px 0 26px;}
 .contact-box a{color:var(--electric-bright); font-weight:700; font-size:14.5px;}
 .contact-box a:hover{text-decoration:underline;}
 .contact-box span{display:block; font-size:12px; color:var(--mute-dim); margin-top:2px;}
+.community-box{
+  display:block;
+  margin-top:14px;
+  padding:14px 16px;
+  border-radius:14px;
+  border:1px solid rgba(51,196,141,.34);
+  background:
+    radial-gradient(circle at 12% 20%,rgba(51,196,141,.16),transparent 42%),
+    linear-gradient(135deg,rgba(51,196,141,.12),rgba(47,177,255,.07));
+  color:var(--paper);
+  text-align:left;
+  box-shadow:0 18px 42px -32px rgba(51,196,141,.7), inset 0 1px rgba(255,255,255,.05);
+  transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease;
+}
+.community-box:hover{
+  border-color:rgba(51,196,141,.56);
+  transform:translateY(-1px);
+  box-shadow:0 22px 48px -32px rgba(51,196,141,.9), inset 0 1px rgba(255,255,255,.08);
+}
+.community-box b{display:block; font-size:14.5px; margin-bottom:4px; color:var(--paper);}
+.community-box span{display:block; font-size:12.5px; line-height:1.55; color:var(--mute);}
+.community-box-success{margin-top:14px;}
+.community-box-wide{margin:0 0 24px;}
+.community-box-compact{margin-top:12px;}
 
 .detail-section{padding:26px 0;}
 .section-card{background:var(--ink-card); border:1px solid var(--line); border-radius:16px; padding:26px;}

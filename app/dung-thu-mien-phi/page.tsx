@@ -1,6 +1,7 @@
 import Link from "next/link";
 import AppShell from "@/components/layout/AppShell";
 import Footer from "@/components/layout/Footer";
+import { ZALO_COMMUNITY_URL } from "@/lib/community";
 
 export const metadata = {
   title: "Dùng thử miễn phí prompt tạo video AI",
@@ -61,8 +62,8 @@ export default function DungThuMienPhiPage() {
           </p>
           <div className="trial-hero-actions">
             <a className="btn btn-primary" href="#free-prompts">Lấy prompt miễn phí</a>
-            <a className="btn btn-ghost" href="https://zalo.me/0379062594" target="_blank" rel="noopener">
-              Nhờ tư vấn Zalo
+            <a className="btn btn-ghost" href={ZALO_COMMUNITY_URL} target="_blank" rel="noopener">
+              Vào cộng đồng Zalo
             </a>
           </div>
         </section>
@@ -97,6 +98,13 @@ export default function DungThuMienPhiPage() {
             </div>
             <Link className="btn btn-primary" href="/chatbot">Xem chatbot đang bán</Link>
           </div>
+        </section>
+
+        <section className="section trial-section">
+          <a className="community-box community-box-wide" href={ZALO_COMMUNITY_URL} target="_blank" rel="noopener">
+            <b>Vào cộng đồng Zalo Lục Linh</b>
+            <span>Nơi gom khách hàng, cập nhật chatbot/prompt mới, chia sẻ output và hỏi đáp cách làm video AI bán hàng.</span>
+          </a>
         </section>
 
         <section className="section trial-section">

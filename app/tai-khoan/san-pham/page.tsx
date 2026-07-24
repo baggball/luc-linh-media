@@ -5,6 +5,7 @@ import Footer from "@/components/layout/Footer";
 import { createClient } from "@/lib/supabase/server";
 import { formatVND } from "@/lib/format";
 import { PRODUCT_TYPE_ROUTE, type ProductType } from "@/lib/types";
+import { ZALO_COMMUNITY_URL } from "@/lib/community";
 
 export const revalidate = 0;
 export const metadata = { title: "Sản phẩm của tôi" };
@@ -37,6 +38,11 @@ export default async function MyProductsPage() {
         <div className="eyebrow">Tài khoản</div>
         <h1 style={{ fontSize: 30, margin: "12px 0 8px" }}>Sản phẩm và đơn hàng của tôi</h1>
         <p style={{ color: "var(--mute)", marginBottom: 28 }}>Xem lại sản phẩm đã mua và tiếp tục các đơn đang chờ thanh toán.</p>
+
+        <a className="community-box community-box-wide" href={ZALO_COMMUNITY_URL} target="_blank" rel="noopener">
+          <b>Vào cộng đồng Zalo sau khi mua</b>
+          <span>Đây là nơi Lục Linh chăm sóc khách hàng, cập nhật prompt/chatbot mới và thảo luận cách làm video AI bán hàng.</span>
+        </a>
 
         {purchases.length === 0 ? (
           <div className="empty-added">

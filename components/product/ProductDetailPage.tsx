@@ -13,6 +13,7 @@ import { getPublishedProduct } from "@/lib/products";
 import { publicProductSlug } from "@/lib/product-url";
 import { formatVND } from "@/lib/format";
 import { absoluteUrl, SITE_NAME } from "@/lib/site";
+import { ZALO_COMMUNITY_URL } from "@/lib/community";
 import { PRODUCT_TYPE_LABEL, PRODUCT_TYPE_ROUTE, type ProductType } from "@/lib/types";
 
 const KIND_ICON: Record<ProductType, React.ReactNode> = {
@@ -402,6 +403,10 @@ export default async function ProductDetailPage({ type, id }: { type: ProductTyp
                   </>
                 )}
                 <div className="access-caption">Copy link để sử dụng</div>
+                <a className="community-box" href={ZALO_COMMUNITY_URL} target="_blank" rel="noopener">
+                  <b>Vào cộng đồng Zalo sau khi mở khóa</b>
+                  <span>Nhận hỗ trợ, cập nhật prompt/chatbot mới và trao đổi cách triển khai thực tế.</span>
+                </a>
               </div>
             ) : hasAccess ? (
               <div className="access-box unlocked">
@@ -431,6 +436,10 @@ export default async function ProductDetailPage({ type, id }: { type: ProductTyp
                   </>
                 )}
                 <div className="access-caption">Copy link để sử dụng</div>
+                <a className="community-box" href={ZALO_COMMUNITY_URL} target="_blank" rel="noopener">
+                  <b>Vào cộng đồng Zalo sau khi mua</b>
+                  <span>Nơi nhận hướng dẫn, cập nhật và trao đổi cùng cộng đồng khách hàng Lục Linh.</span>
+                </a>
               </div>
             ) : (
               <div className="access-box locked">
@@ -469,6 +478,10 @@ export default async function ProductDetailPage({ type, id }: { type: ProductTyp
                 <span>Người tạo: Đội ngũ {SITE_NAME}</span>
               </div>
             </div>
+            <a className="community-box community-box-compact" href={ZALO_COMMUNITY_URL} target="_blank" rel="noopener">
+              <b>Tham gia cộng đồng Zalo</b>
+              <span>Vào nhóm để được chăm sóc sau mua và xem các cập nhật mới.</span>
+            </a>
           </div>
         </div>
 

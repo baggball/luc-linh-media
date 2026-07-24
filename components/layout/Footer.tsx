@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { SITE_NAME } from "@/lib/site";
+import { ZALO_COMMUNITY_URL } from "@/lib/community";
 
 export default function Footer() {
   return (
@@ -37,6 +38,9 @@ export default function Footer() {
             <a href="https://luclinhonlineshop.io.vn/" target="_blank" rel="noopener noreferrer">
               Voice AI ↗
             </a>
+            <a href={ZALO_COMMUNITY_URL} target="_blank" rel="noopener noreferrer">
+              Cộng đồng Zalo ↗
+            </a>
           </div>
           <div>
             <h4>Công ty</h4>
@@ -51,6 +55,9 @@ export default function Footer() {
             <Link href="/chinh-sach-bao-mat">Chính sách bảo mật</Link>
             <Link href="/chinh-sach-hoan-tien">Chính sách hoàn tiền</Link>
             <Link href="/dieu-khoan-dich-vu">Điều khoản dịch vụ</Link>
+            <a href={ZALO_COMMUNITY_URL} target="_blank" rel="noopener noreferrer">
+              Vào nhóm khách hàng ↗
+            </a>
           </div>
         </div>
         <div className="foot-bottom">
