@@ -3,9 +3,9 @@ import Footer from "@/components/layout/Footer";
 import BangGiaClient from "./BangGiaClient";
 
 export const metadata = {
-  title: "Bảng giá chatbot & workflow AI",
+  title: "Bảng giá combo chatbot KOC AI",
   description:
-    "Xem giá chatbot GPT, workflow video AI và dịch vụ tùy chỉnh dành cho KOC, affiliate và người bán hàng.",
+    "Xem giá mua lẻ, combo 3 chatbot mũi nhọn và full bộ chatbot KOC AI dành cho affiliate, TikTok Shop và người bán hàng.",
   alternates: { canonical: "/bang-gia" },
 };
 
