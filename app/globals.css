@@ -1001,6 +1001,34 @@ footer{border-top:1px solid var(--line); padding:44px 0 26px;}
 }
 
 /* ---------- Shared: free prompt viewer ---------- */
+.free-prompt-hero{
+  position:relative;
+  overflow:hidden;
+  margin:34px 0 28px;
+  padding:34px;
+  border:1px solid rgba(156,236,255,.18);
+  border-radius:22px;
+  background:
+    radial-gradient(circle at 20% 15%,rgba(47,177,255,.24),transparent 36%),
+    radial-gradient(circle at 78% 6%,rgba(242,181,68,.20),transparent 34%),
+    linear-gradient(145deg,rgba(19,35,66,.96),rgba(8,15,30,.98));
+  box-shadow:0 30px 70px -46px rgba(47,177,255,.8), inset 0 1px rgba(255,255,255,.07);
+}
+.free-prompt-hero span{
+  display:inline-flex;
+  margin-bottom:12px;
+  padding:5px 12px;
+  border-radius:999px;
+  border:1px solid rgba(242,181,68,.35);
+  background:rgba(242,181,68,.10);
+  color:var(--amber);
+  font-family:var(--font-mono);
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.08em;
+}
+.free-prompt-hero h1{font-size:clamp(26px,4vw,42px);max-width:18ch;margin-bottom:12px;line-height:1.12;}
+.free-prompt-hero p{max-width:68ch;color:var(--mute);font-size:15px;line-height:1.7;}
 .picker{background:var(--ink-card); border:1px solid var(--line); border-radius:16px; padding:16px; position:sticky; top:100px;}
 .picker h2{font-size:13px; text-transform:uppercase; letter-spacing:.08em; color:var(--mute-dim); font-weight:700; margin-bottom:4px;}
 .picker-sub{font-size:12.5px; color:var(--mute-dim); margin-bottom:14px;}

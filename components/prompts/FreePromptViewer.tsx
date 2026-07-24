@@ -22,7 +22,13 @@ export default function FreePromptViewer({ prompts }: { prompts: FreePrompt[] })
   }
 
   return (
-    <div className="layout-2col">
+    <>
+      <div className="free-prompt-hero">
+        <span>FREE PROMPT LIBRARY</span>
+        <h1>Kho prompt miễn phí cho ảnh sản phẩm, KOC & video AI bán hàng</h1>
+        <p>Chọn một mẫu bên dưới, sao chép prompt và thay phần trong dấu [ ] bằng sản phẩm thật của bạn.</p>
+      </div>
+      <div className="layout-2col">
       <aside className="picker">
         <h2>{prompts.length} Prompt mẫu miễn phí</h2>
         <p className="picker-sub">Bấm để xem toàn bộ nội dung prompt — sao chép dùng ngay, không mất phí.</p>
@@ -97,6 +103,7 @@ export default function FreePromptViewer({ prompts }: { prompts: FreePrompt[] })
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 }
