@@ -33,6 +33,16 @@ const kham_pha: NavItem[] = [
       </svg>
     ),
   },
+  {
+    href: "/dung-thu-mien-phi",
+    label: "Dùng thử miễn phí",
+    badge: { text: "FREE", kind: "free" },
+    icon: (
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+        <path d="M12 2l2.9 6.6 7.1.6-5.4 4.7L18.2 21 12 17.3 5.8 21l1.6-7.1L2 9.2l7.1-.6z" />
+      </svg>
+    ),
+  },
 ];
 
 const san_pham: NavItem[] = [
