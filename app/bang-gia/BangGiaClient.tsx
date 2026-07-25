@@ -115,17 +115,6 @@ export default function BangGiaClient() {
         ))}
       </div>
 
-      <div className={styles.comboBand}>
-        <div>
-          <span className={styles.comboKicker}>Đang test thanh toán combo</span>
-          <h2>Combo test SePay 15.000đ</h2>
-          <p>Dùng riêng để anh kiểm tra QR, webhook SePay, tự động duyệt đơn và mở khóa sau thanh toán.</p>
-        </div>
-        <Link className="btn btn-primary" href="/chatbot/combo-test-sepay-15-000d">
-          Mua thử combo 15K
-        </Link>
-      </div>
-
       <div className={styles.communityBand}>
         <div>
           <span>Cộng đồng khách hàng</span>
@@ -157,7 +146,7 @@ export default function BangGiaClient() {
       </div>
 
       <div className={styles.below}>
-        <p>Gợi ý: sau khi test combo 15K thành công, anh có thể đổi combo thật thành sản phẩm riêng để khách mua trực tiếp.</p>
+        <p>Chưa chắc nên chọn gói nào? Gửi nhu cầu sản phẩm đang bán, Lục Linh sẽ gợi ý combo phù hợp hơn.</p>
         <Link className="btn" href="/lien-he">
           Cần tư vấn chọn combo
         </Link>
