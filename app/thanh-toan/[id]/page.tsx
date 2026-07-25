@@ -68,7 +68,7 @@ export default async function ThanhToanPage({ params }: { params: Promise<{ id: 
 
         <h1 style={{ fontSize: 21, marginBottom: 6 }}>Thanh toán đơn hàng</h1>
         <p style={{ color: "var(--mute)", fontSize: 14, marginBottom: 22 }}>
-          {displayTitle} — <b style={{ color: "var(--paper)" }}>{formatVND(purchase.amount)}</b>
+          {displayTitle} — <b style={{ color: "var(--price-bright)", fontWeight: 900 }}>{formatVND(purchase.amount)}</b>
         </p>
         {isMultiItem && purchaseItems.length > 0 && (
           <div style={{ display: "grid", gap: 6, margin: "-10px 0 18px", padding: "12px 14px", borderRadius: 12, border: "1px solid var(--line)", background: "rgba(255,255,255,.025)" }}>

@@ -27,10 +27,11 @@
   font-family:var(--font-sans), Arial, sans-serif;
   font-size:32px;
   font-weight:850;
-  color:var(--paper);
+  color:var(--price-bright);
   letter-spacing:-.01em;
   line-height:1.08;
   font-variant-numeric:tabular-nums;
+  text-shadow:0 0 20px rgba(255,209,102,.32);
 }
 .statSub{color:var(--mute);font-size:13.5px;margin-top:12px;}
 .chartsGrid{display:grid;grid-template-columns:1.45fr .9fr .75fr;gap:18px;margin-bottom:18px;}
@@ -79,9 +80,10 @@
 .barVal{
   font-family:var(--font-sans), Arial, sans-serif;
   font-weight:800;
-  color:var(--paper);
+  color:var(--price-bright);
   white-space:nowrap;
   font-variant-numeric:tabular-nums;
+  text-shadow:0 0 14px rgba(255,209,102,.22);
 }
 .tableWrap{overflow:auto;border:1px solid rgba(156,236,255,.12);border-radius:16px;}
 .table{width:100%;border-collapse:collapse;min-width:920px;font-size:13px;}
@@ -101,10 +103,11 @@
 .miniItem span{display:block;color:var(--mute);font-size:12.5px;margin-top:4px;}
 .score{
   font-family:var(--font-sans), Arial, sans-serif;
-  color:var(--paper);
+  color:var(--price-bright);
   font-weight:850;
   white-space:nowrap;
   font-variant-numeric:tabular-nums;
+  text-shadow:0 0 14px rgba(255,209,102,.22);
 }
 .actions{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
 .actionCard{padding:18px;border-radius:16px;border:1px solid rgba(156,236,255,.13);background:rgba(255,255,255,.025);}

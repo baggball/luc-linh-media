@@ -118,7 +118,7 @@ export default function CheckoutStatus({
           <span>Ngân hàng</span><b style={{ color: "var(--paper)" }}>{bankName}</b>
           <span>Số tài khoản</span><b style={{ color: "var(--paper)" }}>{bankAccount}</b>
           <span>Chủ tài khoản</span><b style={{ color: "var(--paper)" }}>{bankAccountName}</b>
-          <span>Số tiền</span><b style={{ color: "var(--paper)" }}>{formatVND(amount)}</b>
+          <span>Số tiền</span><b style={{ color: "var(--price-bright)", fontWeight: 900 }}>{formatVND(amount)}</b>
           <span>Nội dung</span><b style={{ color: "var(--paper)" }}>{orderCode}</b>
         </div>
       </div>
