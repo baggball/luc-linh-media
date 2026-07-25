@@ -148,7 +148,7 @@ export default function GioiThieuPage() {
             <div className={styles.tItem}>
               <div className={styles.tWhen}>Quý 4 · 2025</div>
               <h3>Vượt mốc 1.000 người dùng</h3>
-              <p>Ra mắt dòng sản phẩm Chatbot GPT dựng sẵn theo ngành hàng, mở rộng sang mỹ phẩm và thời trang.</p>
+              <p>Ra mắt dòng sản phẩm Chatbot AI dựng sẵn theo ngành hàng, mở rộng sang mỹ phẩm và thời trang.</p>
             </div>
             <div className={styles.tItem}>
               <div className={styles.tWhen}>Quý 1 · 2026</div>

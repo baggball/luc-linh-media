@@ -21,7 +21,7 @@ export default function DieuKhoanDichVuPage() {
         <div className="doc">
           <h2>1. Phạm vi dịch vụ</h2>
           <p>
-            Lục Linh Video AI cung cấp kho prompt, chatbot GPT, workflow tự động hoá và các dịch vụ tuỳ chỉnh (Custom
+            Lục Linh Video AI cung cấp kho prompt, chatbot AI, workflow tự động hoá và các dịch vụ tuỳ chỉnh (Custom
             Chatbot, Yêu cầu Video AI) phục vụ mục đích sáng tạo nội dung và bán hàng. Bằng việc truy cập hoặc sử
             dụng website, bạn đồng ý tuân thủ các điều khoản dưới đây.
           </p>

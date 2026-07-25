@@ -29,8 +29,8 @@ const GROUPS: { title: string; items: { q: string; a: string }[] }[] = [
         a: "Bạn được quyền tiếp tục sử dụng sản phẩm số đã mua theo điều khoản tại thời điểm mua. Không được chia sẻ công khai, bán lại hoặc phân phối lại nội dung gốc.",
       },
       {
-        q: "Chatbot GPT hoạt động trên nền tảng nào?",
-        a: "Chatbot dựng sẵn chạy trên ChatGPT (GPTs). Nếu cần triển khai trên Zalo OA, website riêng hoặc Facebook Messenger, bạn có thể đặt qua dịch vụ Custom Chatbot.",
+        q: "Chatbot AI hoạt động trên nền tảng nào?",
+        a: "Chatbot dựng sẵn có thể được bàn giao bằng link Gemini/Gem, ChatGPT/GPTs hoặc nền tảng AI phù hợp với từng sản phẩm. Nếu cần triển khai trên Zalo OA, website riêng hoặc Facebook Messenger, bạn có thể đặt qua dịch vụ Custom Chatbot.",
       },
       {
         q: "Tôi không rành kỹ thuật thì có dùng được Workflow không?",

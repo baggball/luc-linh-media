@@ -7,7 +7,7 @@ import styles from "./faq.module.css";
 export const metadata = {
   title: "Câu hỏi thường gặp",
   description:
-    "Giải đáp về thanh toán, nhận sản phẩm, sử dụng chatbot GPT, bảo hành và hoàn tiền tại Lục Linh Video AI.",
+    "Giải đáp về thanh toán, nhận sản phẩm, sử dụng chatbot AI, bảo hành và hoàn tiền tại Lục Linh Video AI.",
   alternates: { canonical: "/faq" },
 };
 

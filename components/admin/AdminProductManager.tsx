@@ -220,7 +220,7 @@ export default function AdminProductManager({ initialProducts }: { initialProduc
               <input
                 id="pr-title"
                 type="text"
-                placeholder="Vd: Chatbot GPT — Tư vấn chọn size quần áo"
+                placeholder="Vd: Chatbot AI — Tư vấn chọn size quần áo"
                 required
                 value={form.title}
                 onChange={(e) => setForm((f) => ({ ...f, title: e.target.value }))}

@@ -45,7 +45,7 @@ export default function OpenGraphImage() {
         <div style={{ fontSize: 28, lineHeight: 1.35, color: "#b8c8da" }}>{SITE_DESCRIPTION}</div>
       </div>
       <div style={{ display: "flex", gap: 16, fontSize: 22, color: "#72ddff" }}>
-        Chatbot GPT <span>•</span> Prompt Veo 3 <span>•</span> Workflow Affiliate
+        Chatbot AI <span>•</span> Prompt Video <span>•</span> Workflow Affiliate
       </div>
     </div>,
     size,

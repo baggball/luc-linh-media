@@ -6,7 +6,7 @@ import styles from "./huong-dan.module.css";
 export const metadata = {
   title: "Hướng dẫn sử dụng chatbot & workflow AI",
   description:
-    "Hướng dẫn từng bước để dùng chatbot GPT, prompt Veo 3 và workflow tạo video bán hàng tại Lục Linh Video AI.",
+    "Hướng dẫn từng bước để dùng chatbot AI, prompt video và workflow tạo video bán hàng tại Lục Linh Video AI.",
   alternates: { canonical: "/huong-dan" },
 };
 
@@ -75,8 +75,8 @@ export default function HuongDanPage() {
                   <path d="M21 11.5a8.38 8.38 0 0 1-9 8.4A8.5 8.5 0 1 1 21 11.5z" />
                 </svg>
               </div>
-              <h3>Cách dùng Chatbot GPT</h3>
-              <p>Kích hoạt chatbot đã mua, thiết lập lần đầu và mẹo khai thác tối đa từng chatbot theo ngành hàng.</p>
+              <h3>Cách dùng Chatbot AI</h3>
+              <p>Mở link chatbot đã mua, làm theo hướng dẫn lần đầu và khai thác tối đa từng chatbot theo ngành hàng.</p>
               <Link className={styles.guideLink} href="/chatbot">
                 Khám phá Chatbot →
               </Link>
