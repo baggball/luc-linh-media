@@ -97,9 +97,9 @@ export default async function Home() {
       <section className={styles.funnelStrip}>
         <div className={`content-wrap ${styles.funnelGrid}`}>
           {[
-            ["01", "Lấy khách vào phễu", "Tool miễn phí + prompt mẫu để khách thử ngay trước khi mua."],
-            ["02", "Bán sản phẩm mũi nhọn", "Chatbot theo ngành giúp khách tạo concept, ảnh, lời thoại và prompt video."],
-            ["03", "Chăm sóc lâu dài", "Sau mua, khách vào Zalo để nhận hướng dẫn, cập nhật và chia sẻ output."],
+            ["01", "Thử miễn phí trước", "Dùng prompt và tool mẫu để xem cách tạo ảnh, lời thoại và prompt video cho sản phẩm của bạn."],
+            ["02", "Chọn đúng ngành đang bán", "Mỗi chatbot được thiết kế theo từng nhóm sản phẩm như mỹ phẩm, gia dụng, thời trang, mẹ bé, thú cưng…"],
+            ["03", "Nhận hướng dẫn sau mua", "Sau khi mở khóa, bạn có link sử dụng, hướng dẫn và cộng đồng Zalo để hỏi khi cần."],
           ].map(([num, title, body]) => (
             <div className={styles.funnelItem} key={num}>
               <span>{num}</span>
@@ -134,11 +134,11 @@ export default async function Home() {
         <div className="content-wrap">
           <div className={styles.salesBand}>
             <div>
-              <span className={styles.bandKicker}>Miễn phí để kéo khách</span>
+              <span className={styles.bandKicker}>Dùng thử miễn phí</span>
               <h2>Đại Sứ Sản Phẩm AI</h2>
               <p>
-                Tool miễn phí giúp khách nhập ngành hàng, tên sản phẩm, mẫu sản phẩm và lợi ích chính để nhận prompt tạo ảnh
-                người Việt bán hàng + prompt video tiếng Việt. Đây là cửa vào phễu tốt nhất trước khi bán combo trả phí.
+                Nhập ngành hàng, tên sản phẩm, mẫu sản phẩm và lợi ích chính để nhận ngay prompt tạo ảnh người Việt bán hàng,
+                lời thoại tiếng Việt và prompt video ngắn. Phù hợp để bạn thử ý tưởng trước khi chọn chatbot hoặc workflow nâng cao.
               </p>
             </div>
             <div className={styles.bandActions}>
@@ -157,8 +157,8 @@ export default async function Home() {
         <div className="content-wrap">
           <div className="sec-head">
             <div>
-              <h2>3 sản phẩm mũi nhọn dễ bán nhất</h2>
-              <p className="sub">Tập trung vào các ngành nhiều người làm affiliate: mỹ phẩm, gia dụng và thời trang.</p>
+              <h2>3 chatbot được nhiều người bán hàng cần nhất</h2>
+              <p className="sub">Dành cho các ngành dễ làm video ngắn: mỹ phẩm, gia dụng và thời trang.</p>
             </div>
             <Link className="see-all" href="/chatbot">
               Xem tất cả chatbot →
@@ -176,7 +176,7 @@ export default async function Home() {
                 />
               ))
             ) : (
-              <div className="empty-state">Chưa có chatbot mũi nhọn nào được đăng.</div>
+              <div className="empty-state">Chưa có chatbot phù hợp nào được đăng.</div>
             )}
           </div>
         </div>
@@ -187,19 +187,19 @@ export default async function Home() {
           <div className={styles.comboPanel} id="combo-tu-chon-home">
             <div className={styles.comboCopy}>
               <span className={styles.bandKicker}>Combo tự chọn</span>
-              <h2>Khách chọn 3 chatbot bất kỳ, thanh toán một lần</h2>
+              <h2>Chọn 3 chatbot bất kỳ, thanh toán một lần</h2>
               <p>
-                Phù hợp người mới bắt đầu làm video AI bán hàng: chọn đúng 3 ngành đang bán, hệ thống tự áp combo trong giỏ
-                hàng và mở khóa sau thanh toán.
+                Nếu bạn đang bán nhiều ngành hàng, hãy chọn 3 chatbot phù hợp nhất với sản phẩm của mình. Hệ thống sẽ tự áp
+                giá combo trong giỏ hàng và mở khóa sau khi thanh toán thành công.
               </p>
               <ul>
                 <li>Giá combo rõ ràng, không phải mua từng chatbot lẻ.</li>
-                <li>Gói năm giảm 20% để dễ chốt khách dùng lâu dài.</li>
-                <li>Sau mua mời vào cộng đồng Zalo để được hướng dẫn và cập nhật.</li>
+                <li>Gói năm giảm 20% cho người muốn dùng lâu dài.</li>
+                <li>Sau mua có cộng đồng Zalo để nhận hướng dẫn và cập nhật mới.</li>
               </ul>
             </div>
             <div className={styles.comboCard}>
-              <b>Gợi ý combo dễ bán</b>
+              <b>Gợi ý combo dễ dùng</b>
               <span>Mỹ phẩm + Gia dụng + Thời trang</span>
               <p>Đủ 3 nhóm sản phẩm hot cho TikTok Shop, Reels và affiliate.</p>
               <Link className="btn btn-primary" href="/chatbot#combo-tu-chon">
@@ -215,7 +215,7 @@ export default async function Home() {
           <div className="sec-head">
             <div>
               <h2>Workflow giúp tạo output nhanh hơn</h2>
-              <p className="sub">Dùng khi khách đã có ảnh sản phẩm và muốn đi nhanh sang ảnh/video bán hàng.</p>
+              <p className="sub">Dùng khi bạn đã có ảnh sản phẩm và muốn tạo nhanh ảnh/video bán hàng.</p>
             </div>
             <Link className="see-all" href="/workflow">
               Xem workflow →
@@ -237,14 +237,14 @@ export default async function Home() {
           <div className="sec-head">
             <div>
               <h2>Bắt đầu chỉ trong 3 bước</h2>
-              <p className="sub">Thiết kế để khách không biết prompt vẫn dùng được.</p>
+              <p className="sub">Không cần biết prompt từ đầu, chỉ cần đi theo từng bước.</p>
             </div>
           </div>
           <div className={styles.steps}>
             <div className={styles.step}>
               <div className="cmd">01 · Chọn ngành</div>
               <h3>Chọn chatbot hoặc workflow phù hợp</h3>
-              <p>Khách chọn theo ngành đang bán: mỹ phẩm, gia dụng, thời trang, mẹ bé, thú cưng, nông nghiệp…</p>
+              <p>Chọn theo ngành bạn đang bán: mỹ phẩm, gia dụng, thời trang, mẹ bé, thú cưng, nông nghiệp…</p>
             </div>
             <div className={styles.step}>
               <div className="cmd">02 · Nhập sản phẩm</div>
@@ -267,7 +267,7 @@ export default async function Home() {
               ["Ảnh đại sứ sản phẩm", "Người Việt, bối cảnh Việt Nam, sản phẩm rõ, dễ dùng làm video ngắn."],
               ["Lời thoại tiếng Việt", "Kịch bản nói tự nhiên, không quá quảng cáo, phù hợp TikTok/Reels/Shorts."],
               ["Prompt video 5 cảnh", "Hook, cận sản phẩm, demo, lợi ích và CTA được chia rõ để copy nhanh."],
-              ["Cộng đồng sau mua", "Khách nhận hướng dẫn, cập nhật prompt/chatbot mới và chia sẻ output thực tế."],
+              ["Cộng đồng sau mua", "Nhận hướng dẫn, cập nhật prompt/chatbot mới và chia sẻ output thực tế cùng người dùng khác."],
             ].map(([title, body]) => (
               <div className={styles.demoItem} key={title}>
                 <span>✦</span>
@@ -306,7 +306,7 @@ export default async function Home() {
             <div className="sec-head">
               <div>
                 <h2>Dùng thử miễn phí</h2>
-                <p className="sub">Cho khách trải nghiệm trước khi mua chatbot/workflow trả phí.</p>
+                <p className="sub">Trải nghiệm prompt và tool mẫu trước khi chọn sản phẩm nâng cao.</p>
               </div>
               <Link className="see-all" href="/dung-thu-mien-phi">
                 Vào trang dùng thử →
@@ -326,7 +326,7 @@ export default async function Home() {
         <div className="content-wrap">
           <div className={styles.ctaBand}>
             <div>
-              <h3>Sẵn sàng biến website thành phễu bán AI?</h3>
+              <h3>Sẵn sàng tạo video AI bán hàng nhanh hơn?</h3>
               <p>Nhận prompt mới, ý tưởng demo output và ưu đãi combo từ {SITE_NAME}.</p>
             </div>
             <NewsletterForm />
