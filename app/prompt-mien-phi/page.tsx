@@ -6,7 +6,7 @@ import { createClient } from "@/lib/supabase/server";
 import { FREE_PROMPT_SEEDS } from "@/lib/free-prompt-seeds";
 import type { FreePrompt } from "@/lib/types";
 
-export const revalidate = 0;
+export const revalidate = 300;
 export const metadata = {
   title: "Prompt AI miễn phí cho ảnh, video & bán hàng",
   description:

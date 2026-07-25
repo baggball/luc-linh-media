@@ -11,7 +11,7 @@ export default function ProductGallery({ images, title }: { images: string[]; ti
       <div className={`gallery-main${hasImages ? " has-photo" : ""}`}>
         {hasImages ? (
           <>
-            <img src={images[active]} alt={title} />
+            <img src={images[active]} alt={title} decoding="async" fetchPriority="high" />
             <span className="gallery-counter">
               {active + 1} / {images.length}
             </span>
@@ -28,7 +28,7 @@ export default function ProductGallery({ images, title }: { images: string[]; ti
               className={`g-thumb${i === active ? " active" : ""}`}
               onClick={() => setActive(i)}
             >
-              <img src={src} alt="" />
+              <img src={src} alt="" loading="lazy" decoding="async" />
             </div>
           ))}
         </div>

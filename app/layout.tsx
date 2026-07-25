@@ -17,9 +17,12 @@ export const metadata: Metadata = {
     "chatbot tạo video AI",
     "KOC AI",
     "video affiliate",
+    "prompt video AI",
     "prompt Veo 3",
     "workflow video AI",
     "kịch bản video bán hàng",
+    "prompt bán hàng TikTok",
+    "chatbot affiliate",
   ],
   authors: [{ name: SITE_NAME, url: SITE_URL }],
   creator: SITE_NAME,
@@ -39,11 +42,13 @@ export const metadata: Metadata = {
     siteName: SITE_NAME,
     title: "Lục Linh Video AI — Chatbot & Workflow tạo video bán hàng",
     description: SITE_DESCRIPTION,
+    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: SITE_NAME }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Lục Linh Video AI — Chatbot & Workflow tạo video bán hàng",
     description: SITE_DESCRIPTION,
+    images: ["/opengraph-image"],
   },
 };
 
@@ -54,6 +59,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="vi">
+      <head>
+        <link rel="preconnect" href="https://xyezaxkktghzthzbhiwd.supabase.co" />
+        <link rel="dns-prefetch" href="https://xyezaxkktghzthzbhiwd.supabase.co" />
+      </head>
       <body>
         <script
           type="application/ld+json"
@@ -71,6 +80,23 @@ export default function RootLayout({
                 telephone: "+84-379-062-594",
                 contactType: "customer support",
                 availableLanguage: "Vietnamese",
+              },
+            }).replace(/</g, "\\u003c"),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: SITE_NAME,
+              url: SITE_URL,
+              inLanguage: "vi-VN",
+              potentialAction: {
+                "@type": "SearchAction",
+                target: `${SITE_URL}/tim-kiem?q={search_term_string}`,
+                "query-input": "required name=search_term_string",
               },
             }).replace(/</g, "\\u003c"),
           }}

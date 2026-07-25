@@ -308,7 +308,7 @@ export default function ProductCatalog({
                   <div className="cart-items">
                     {cartProducts.map((product) => (
                       <div className="cart-item" key={product.id}>
-                        {product.images?.[0] ? <img src={product.images[0]} alt={product.title} /> : <div className="cart-thumb-fallback" />}
+                        {product.images?.[0] ? <img src={product.images[0]} alt={product.title} loading="lazy" decoding="async" /> : <div className="cart-thumb-fallback" />}
                         <div>
                           <b>{product.title}</b>
                           <span>{formatVND(product.price)}</span>

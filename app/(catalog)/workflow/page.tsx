@@ -1,6 +1,6 @@
 import CatalogPage from "@/components/catalog/CatalogPage";
 
-export const revalidate = 0;
+export const revalidate = 300;
 export const metadata = {
   title: "Workflow AI tạo video & nội dung tự động",
   description:

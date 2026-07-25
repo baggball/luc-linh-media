@@ -48,6 +48,10 @@ function safeJsonLd(data: unknown) {
   return JSON.stringify(data).replace(/</g, "\\u003c");
 }
 
+function absoluteImageUrl(image: string) {
+  return image.startsWith("http://") || image.startsWith("https://") ? image : absoluteUrl(image);
+}
+
 function defaultFaq(type: ProductType) {
   const isChatbot = type === "chatbot";
   return [
@@ -259,12 +263,13 @@ export default async function ProductDetailPage({ type, id }: { type: ProductTyp
   const listHref = `/${PRODUCT_TYPE_ROUTE[type]}`;
   const kindLabel = PRODUCT_TYPE_LABEL[type];
   const productUrl = absoluteUrl(`${listHref}/${canonicalSlug}`);
+  const imageUrls = product.images?.map(absoluteImageUrl) ?? [];
   const productJsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
     name: product.title,
     description: product.description || undefined,
-    image: product.images ?? [],
+    image: imageUrls,
     category: kindLabel,
     brand: { "@type": "Brand", name: SITE_NAME },
     offers: {
@@ -295,6 +300,30 @@ export default async function ProductDetailPage({ type, id }: { type: ProductTyp
         })),
       }
     : null;
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Trang chủ",
+        item: absoluteUrl("/"),
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: kindLabel,
+        item: absoluteUrl(listHref),
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: product.title,
+        item: productUrl,
+      },
+    ],
+  };
 
   const {
     data: { user },
@@ -353,6 +382,7 @@ export default async function ProductDetailPage({ type, id }: { type: ProductTyp
       <ProductViewTracker product={canonicalSlug} category={type} price={product.is_free ? 0 : product.price} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(productJsonLd) }} />
       {faqJsonLd && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(faqJsonLd) }} />}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumbJsonLd) }} />
       <div className="content-wrap">
         <div className="crumb" style={{ padding: "24px 0 0" }}>
           <Link href="/">Trang chủ</Link>

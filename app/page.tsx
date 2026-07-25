@@ -10,7 +10,7 @@ import { SITE_NAME } from "@/lib/site";
 import type { Product } from "@/lib/types";
 import styles from "./home.module.css";
 
-export const revalidate = 0;
+export const revalidate = 300;
 export const metadata = {
   title: "Lục Linh Video AI — Chatbot, Workflow & Prompt bán hàng",
   description:

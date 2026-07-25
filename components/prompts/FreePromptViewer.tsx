@@ -36,7 +36,7 @@ export default function FreePromptViewer({ prompts }: { prompts: FreePrompt[] })
         {prompts.map((p, i) => (
           <button key={p.id} className="prompt-tile" type="button" onClick={() => selectPrompt(i)}>
             <div className="prompt-tile-img">
-              {p.images[0] && <img src={p.images[0]} alt={p.title} />}
+              {p.images[0] && <img src={p.images[0]} alt={p.title} loading="lazy" decoding="async" />}
               <span className="prompt-count-badge">⌘ 6</span>
             </div>
             <div className="prompt-tile-body">
@@ -70,7 +70,7 @@ export default function FreePromptViewer({ prompts }: { prompts: FreePrompt[] })
                 {active.images.length > 0 && (
                   <div style={{ marginBottom: 18 }}>
                     <div className="prompt-gallery-main">
-                      <img src={active.images[activeImgIndex]} alt={active.title} />
+                      <img src={active.images[activeImgIndex]} alt={active.title} decoding="async" fetchPriority="high" />
                     </div>
                     {active.images.length > 1 && (
                       <div className="prompt-gallery-thumbs">
@@ -80,7 +80,7 @@ export default function FreePromptViewer({ prompts }: { prompts: FreePrompt[] })
                             className={`prompt-g-thumb${i === activeImgIndex ? " active" : ""}`}
                             onClick={() => setActiveImgIndex(i)}
                           >
-                            <img src={src} alt="" />
+                            <img src={src} alt="" loading="lazy" decoding="async" />
                           </div>
                         ))}
                       </div>

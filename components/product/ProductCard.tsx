@@ -42,7 +42,7 @@ export default function ProductCard({
   return (
     <Link className="card" href={href} aria-label={`${product.title} – ${priceLabel}`}>
       <div className={`thumb ${toneFor(product.id)}${cover ? " has-image" : ""}`}>
-        {cover && <img src={cover} alt={product.title} />}
+        {cover && <img src={cover} alt={product.title} loading="lazy" decoding="async" />}
         <div className="badges">
           {product.is_free && <span className="badge free">Miễn phí</span>}
           {badge === "new" && <span className="badge new">Mới</span>}
