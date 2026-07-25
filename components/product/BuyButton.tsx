@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { track } from "@vercel/analytics";
+import { trackBusinessEvent } from "@/lib/analytics-client";
 import { createClient } from "@/lib/supabase/client";
 
 export default function BuyButton({ productId, productSlug, price = 0 }: { productId: string; productSlug: string; price?: number }) {
@@ -32,7 +32,7 @@ export default function BuyButton({ productId, productSlug, price = 0 }: { produ
       setError(insertError?.message || "Không thể tạo đơn hàng, thử lại sau.");
       return;
     }
-    track("begin_checkout", {
+    trackBusinessEvent("begin_checkout", {
       checkout_type: "single",
       product_id: productId,
       product: productSlug,

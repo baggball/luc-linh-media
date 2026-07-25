@@ -21,6 +21,9 @@
 .quickItem b{color:var(--paper);}
 .dot{width:9px;height:9px;border-radius:50%;background:var(--success);margin-top:5px;box-shadow:0 0 0 5px rgba(51,196,141,.12);flex:none;}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:22px;}
+.sectionIntro{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;margin:30px 0 16px;}
+.sectionIntro h2{font-size:25px;margin:0;}
+.sectionIntro .kicker{margin-bottom:6px;}
 .statCard{padding:20px;border-radius:18px;border:1px solid rgba(156,236,255,.14);background:rgba(255,255,255,.028);}
 .statLabel{color:var(--mute-dim);font-size:12px;text-transform:uppercase;letter-spacing:.08em;font-weight:800;margin-bottom:10px;}
 .statValue{
@@ -35,16 +38,20 @@
 }
 .statSub{color:var(--mute);font-size:13.5px;margin-top:12px;}
 .chartsGrid{display:grid;grid-template-columns:1.45fr .9fr .75fr;gap:18px;margin-bottom:18px;}
+.trafficGrid{display:grid;grid-template-columns:1.35fr 1fr;gap:18px;margin-bottom:18px;}
 .revenueChartCard{min-height:360px;}
 .lineChart{height:176px;border:1px solid rgba(156,236,255,.12);border-radius:18px;background:linear-gradient(180deg,rgba(47,177,255,.045),rgba(255,255,255,.015));padding:14px;margin-bottom:14px;}
 .lineChart svg{width:100%;height:100%;display:block;overflow:visible;}
 .gridLine{stroke:rgba(156,236,255,.14);stroke-width:1;}
 .areaShape{fill:url(#revenueArea);}
 .lineShape{fill:none;stroke:var(--electric-bright);stroke-width:4;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 8px 16px rgba(47,177,255,.34));}
+.visitorAreaShape{fill:url(#visitorArea);}
+.visitorLineShape{fill:none;stroke:var(--success);stroke-width:4;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 8px 16px rgba(51,196,141,.34));}
 .dayBars{display:grid;grid-template-columns:repeat(14,1fr);gap:6px;align-items:end;}
 .dayBar{display:flex;flex-direction:column;align-items:center;gap:7px;min-width:0;}
 .dayBarTrack{height:64px;width:100%;border-radius:999px;background:rgba(255,255,255,.04);border:1px solid rgba(156,236,255,.1);display:flex;align-items:flex-end;overflow:hidden;}
 .dayBarTrack span{display:block;width:100%;border-radius:999px;background:linear-gradient(180deg,var(--amber),var(--electric-bright));min-height:3px;}
+.dayBarTrack .visitorDayBar{background:linear-gradient(180deg,var(--success),var(--electric-bright));}
 .dayBar small{color:var(--mute-dim);font-size:10.5px;white-space:nowrap;}
 .funnel{display:flex;flex-direction:column;gap:16px;}
 .funnelRow{display:grid;grid-template-columns:minmax(120px,1fr) 1.2fr auto;gap:12px;align-items:center;}
@@ -67,6 +74,18 @@
 .legend b{color:var(--paper);font-weight:750;}
 .legend em{font-style:normal;color:var(--mute-dim);font-variant-numeric:tabular-nums;}
 .grid{display:grid;grid-template-columns:1.05fr .95fr;gap:18px;margin-bottom:18px;}
+.deviceGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
+.deviceCard{padding:18px;border-radius:16px;border:1px solid rgba(156,236,255,.12);background:rgba(255,255,255,.025);}
+.deviceCard b{display:block;font-size:28px;color:var(--price-bright);font-variant-numeric:tabular-nums;}
+.deviceCard span{display:block;color:var(--paper);font-weight:750;margin-top:3px;}
+.deviceCard small{display:block;color:var(--mute-dim);margin-top:6px;}
+.topPages{display:flex;flex-direction:column;}
+.topPage{display:grid;grid-template-columns:34px minmax(160px,1fr) auto auto;align-items:center;gap:14px;padding:13px 8px;border-bottom:1px solid rgba(156,236,255,.1);color:var(--mute);}
+.topPage:last-child{border-bottom:none;}
+.topPage:hover{background:rgba(47,177,255,.05);}
+.topPage b{color:var(--paper);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.topPage strong{color:var(--price-bright);font-variant-numeric:tabular-nums;}
+.rank{display:grid;place-items:center;width:28px;height:28px;border-radius:9px;background:rgba(47,177,255,.12);color:var(--electric-bright);font-weight:850;}
 .card{padding:22px;min-width:0;}
 .cardHead{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:18px;}
 .cardHead h2{font-size:20px;margin:0 0 5px;}
@@ -114,7 +133,7 @@
 .actionCard h3{font-size:15px;margin-bottom:8px;}
 .actionCard p{color:var(--mute);font-size:13px;line-height:1.55;}
 .empty{color:var(--mute-dim);font-size:13.5px;padding:22px;text-align:center;border:1px dashed rgba(156,236,255,.18);border-radius:14px;}
-@media(max-width:1180px){.chartsGrid{grid-template-columns:1fr 1fr}.revenueChartCard{grid-column:1/-1}}
+@media(max-width:1180px){.chartsGrid{grid-template-columns:1fr 1fr}.revenueChartCard{grid-column:1/-1}.trafficGrid{grid-template-columns:1fr}}
 @media(max-width:1100px){.hero,.grid,.twoCol{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,1fr)}.actions{grid-template-columns:1fr}}
 @media(max-width:720px){.chartsGrid{grid-template-columns:1fr}.dayBars{gap:3px}.dayBar small{font-size:9px}.funnelRow{grid-template-columns:1fr}.statusChart{align-items:stretch}.donut{margin:0 auto}}
-@media(max-width:620px){.wrap{padding:20px}.stats{grid-template-columns:1fr}.barRow{grid-template-columns:1fr}.barVal{text-align:left}}
+@media(max-width:620px){.wrap{padding:20px}.stats{grid-template-columns:1fr}.barRow{grid-template-columns:1fr}.barVal{text-align:left}.sectionIntro{align-items:flex-start;flex-direction:column}.topPage{grid-template-columns:30px minmax(0,1fr) auto}.topPage>span:not(.rank){display:none}.deviceGrid{grid-template-columns:1fr 1fr}}

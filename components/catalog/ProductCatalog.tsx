@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { track } from "@vercel/analytics";
+import { trackBusinessEvent } from "@/lib/analytics-client";
 import ProductCard from "@/components/product/ProductCard";
 import { createClient } from "@/lib/supabase/client";
 import { formatVND } from "@/lib/format";
@@ -148,7 +148,7 @@ export default function ProductCatalog({
       setCartOpen(true);
       const next = [...current, product.id];
       window.localStorage.setItem(CART_KEY, JSON.stringify(next));
-      track("add_to_cart", {
+      trackBusinessEvent("add_to_cart", {
         source: "catalog",
         product_id: product.id,
         product: product.slug,
@@ -189,7 +189,7 @@ export default function ProductCatalog({
       return;
     }
 
-    track("begin_checkout", {
+    trackBusinessEvent("begin_checkout", {
       checkout_type: isCombo ? "combo" : "cart",
       item_count: cartIds.length,
       billing: isCombo ? billingCycle : "single",

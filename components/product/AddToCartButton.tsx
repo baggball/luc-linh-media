@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { track } from "@vercel/analytics";
+import { trackBusinessEvent } from "@/lib/analytics-client";
 
 const CART_KEY = "llm_chatbot_cart_ids";
 
@@ -13,7 +13,7 @@ export default function AddToCartButton({ productId, productSlug }: { productId:
       const current = JSON.parse(window.localStorage.getItem(CART_KEY) || "[]") as string[];
       const next = current.includes(productId) ? current : [...current, productId].slice(0, 3);
       window.localStorage.setItem(CART_KEY, JSON.stringify(next));
-      track("add_to_cart", {
+      trackBusinessEvent("add_to_cart", {
         source: "product_detail",
         product_id: productId,
         product: productSlug,

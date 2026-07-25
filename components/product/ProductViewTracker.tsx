@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { track } from "@vercel/analytics";
+import { trackBusinessEvent } from "@/lib/analytics-client";
 
 export default function ProductViewTracker({
   product,
@@ -17,7 +17,7 @@ export default function ProductViewTracker({
   useEffect(() => {
     if (tracked.current) return;
     tracked.current = true;
-    track("view_product", { product, category, price });
+    trackBusinessEvent("view_product", { product, category, price, value: price });
   }, [category, price, product]);
 
   return null;

@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import { track } from "@vercel/analytics";
+import { trackBusinessEvent } from "@/lib/analytics-client";
 import { createClient } from "@/lib/supabase/client";
 import { formatVND } from "@/lib/format";
 import { ZALO_COMMUNITY_URL } from "@/lib/community";
@@ -53,7 +53,7 @@ export default function CheckoutStatus({
   useEffect(() => {
     if (status === "paid" && !trackedPaid.current) {
       trackedPaid.current = true;
-      track("purchase_completed", {
+      trackBusinessEvent("purchase_completed", {
         purchase_id: purchaseId,
         order_code: orderCode,
         product: productHref,

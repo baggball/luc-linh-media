@@ -3,6 +3,7 @@
 import { useState, type FormEvent } from "react";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
+import { trackBusinessEvent } from "@/lib/analytics-client";
 import styles from "../auth.module.css";
 
 export default function DangKyPage() {
@@ -44,6 +45,7 @@ export default function DangKyPage() {
       setError(signUpError.message);
       return;
     }
+    trackBusinessEvent("sign_up", { method: "email" });
     setSent(true);
   }
 

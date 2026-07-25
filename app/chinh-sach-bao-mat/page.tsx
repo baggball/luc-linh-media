@@ -15,7 +15,7 @@ export default function ChinhSachBaoMatPage() {
       <main className="content-wrap doc-wrap">
         <div className="doc-head">
           <h1>Chính sách bảo mật</h1>
-          <span className="updated">Cập nhật lần cuối: 23/07/2026</span>
+          <span className="updated">Cập nhật lần cuối: 25/07/2026</span>
         </div>
 
         <div className="doc">
@@ -44,6 +44,12 @@ export default function ChinhSachBaoMatPage() {
             Vercel Web Analytics và Speed Insights được dùng để ghi nhận dữ liệu truy cập ẩn danh, nguồn giới thiệu,
             loại thiết bị và chỉ số tốc độ. Công cụ này không dùng cookie theo tài liệu của Vercel; chúng tôi không gửi
             email, số điện thoại hoặc nội dung biểu mẫu vào sự kiện phân tích.
+          </p>
+          <p>
+            Website cũng sử dụng một mã nhận diện ẩn danh và cookie phiên cần thiết để thống kê số khách, trang đã xem
+            và các bước trong quá trình mua hàng. Khi bạn đăng nhập, phiên truy cập có thể được liên kết với tài khoản
+            nhằm hỗ trợ chăm sóc khách hàng và cải thiện trải nghiệm. Dữ liệu phân tích không lưu mật khẩu, thông tin
+            ngân hàng hoặc nội dung riêng tư bạn nhập vào sản phẩm AI.
           </p>
 
           <h2>4. Lưu trữ và bảo vệ</h2>
