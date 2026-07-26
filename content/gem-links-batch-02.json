@@ -1,12 +1,12 @@
 [
   {"name":"Phong Cách Nam AI","id":"f484d1e719a5","url":"https://gemini.google.com/gem/f484d1e719a5","publicShared":true},
   {"name":"Biến Hình Thời Trang AI","id":"ba14a79e72e3","url":"https://gemini.google.com/gem/ba14a79e72e3","publicShared":true},
-  {"name":"Spa Chốt Lịch AI","id":"e6230d2dd948","url":"https://gemini.google.com/gem/e6230d2dd948","publicShared":false},
-  {"name":"Phòng Khám Truyền Thông AI","id":"0b23ab280177","url":"https://gemini.google.com/gem/0b23ab280177","publicShared":false},
-  {"name":"Nông Sản Việt AI","id":"0091d4908ec3","url":"https://gemini.google.com/gem/0091d4908ec3","publicShared":false},
-  {"name":"Thủy Sản Bán Hàng AI","id":"7676c2bcaa12","url":"https://gemini.google.com/gem/7676c2bcaa12","publicShared":false},
-  {"name":"Giảng Bài Dễ Hiểu AI","id":"2ad0f3fec32e","url":"https://gemini.google.com/gem/2ad0f3fec32e","publicShared":false},
-  {"name":"Quán Đông Khách AI","id":"6d5d44eebe9b","url":"https://gemini.google.com/gem/6d5d44eebe9b","publicShared":false},
-  {"name":"Nhà Đẹp Bán Nhanh AI","id":"e6d4649cb70a","url":"https://gemini.google.com/gem/e6d4649cb70a","publicShared":false},
-  {"name":"Điểm Đến Hút Khách AI","id":"12573d482f1c","url":"https://gemini.google.com/gem/12573d482f1c","publicShared":false}
+  {"name":"Spa Chốt Lịch AI","id":"e6230d2dd948","url":"https://gemini.google.com/gem/e6230d2dd948","publicShared":true},
+  {"name":"Phòng Khám Truyền Thông AI","id":"0b23ab280177","url":"https://gemini.google.com/gem/0b23ab280177","publicShared":true},
+  {"name":"Nông Sản Việt AI","id":"0091d4908ec3","url":"https://gemini.google.com/gem/0091d4908ec3","publicShared":true},
+  {"name":"Thủy Sản Bán Hàng AI","id":"7676c2bcaa12","url":"https://gemini.google.com/gem/7676c2bcaa12","publicShared":true},
+  {"name":"Giảng Bài Dễ Hiểu AI","id":"2ad0f3fec32e","url":"https://gemini.google.com/gem/2ad0f3fec32e","publicShared":true},
+  {"name":"Quán Đông Khách AI","id":"6d5d44eebe9b","url":"https://gemini.google.com/gem/6d5d44eebe9b","publicShared":true},
+  {"name":"Nhà Đẹp Bán Nhanh AI","id":"e6d4649cb70a","url":"https://gemini.google.com/gem/e6d4649cb70a","publicShared":true},
+  {"name":"Điểm Đến Hút Khách AI","id":"12573d482f1c","url":"https://gemini.google.com/gem/12573d482f1c","publicShared":true}
 ]
