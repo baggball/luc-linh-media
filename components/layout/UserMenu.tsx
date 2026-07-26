@@ -31,6 +31,7 @@ export default function UserMenu({ name, isAdmin }: { name: string; isAdmin?: bo
           <>
             <div className="user-menu-divider" />
             <Link href="/admin/dashboard">Dashboard kinh doanh</Link>
+            <Link href="/admin/khach-hang">Danh sách khách hàng</Link>
             <Link href="/admin/quan-ly-san-pham">Quản lý sản phẩm</Link>
             <Link href="/admin/them-prompt">Thêm prompt</Link>
             <Link href="/admin/don-hang">Đơn hàng</Link>
