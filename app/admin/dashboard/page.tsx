@@ -387,12 +387,17 @@ export default async function AdminDashboardPage() {
           <p>
             Nhìn nhanh doanh thu, đơn hàng, khách mua, sản phẩm bán chạy và những điểm cần xử lý để định hướng phát triển Lục Linh Video AI.
           </p>
+          <div className={styles.heroActions}>
+            <Link className="btn btn-primary" href="/admin/khach-hang">Danh sách khách hàng</Link>
+            <Link className="btn btn-ghost" href="/admin/don-hang">Quản lý đơn hàng</Link>
+          </div>
         </div>
         <div className={`${styles.heroCard} ${styles.quickList}`}>
           <h2>Việc nên nhìn mỗi ngày</h2>
           <div className={styles.quickItem}><span className={styles.dot} /><span><b>Đơn chờ:</b> {pending.length} đơn — {formatVND(abandonedValue)}</span></div>
           <div className={styles.quickItem}><span className={styles.dot} /><span><b>Lead 7 ngày:</b> {lead7} khách để chăm sóc</span></div>
           <div className={styles.quickItem}><span className={styles.dot} /><span><b>Sản phẩm đang bán:</b> {publishedProducts} sản phẩm hiển thị</span></div>
+          <Link className={styles.quickLink} href="/admin/khach-hang">Mở danh sách email khách hàng →</Link>
         </div>
       </section>
 
