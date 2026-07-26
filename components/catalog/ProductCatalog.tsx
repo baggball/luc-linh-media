@@ -11,7 +11,21 @@ import type { Product } from "@/lib/types";
 
 type SortMode = "new" | "sold" | "price-asc" | "price-desc";
 type BillingCycle = "monthly" | "yearly";
-type CategoryKey = "all" | "my-pham" | "gia-dung" | "thoi-trang" | "me-be" | "thu-cung" | "noi-that" | "cong-nghe";
+type CategoryKey =
+  | "all"
+  | "my-pham"
+  | "gia-dung"
+  | "thoi-trang"
+  | "lam-dep-suc-khoe"
+  | "nong-nghiep"
+  | "am-thuc"
+  | "giao-duc"
+  | "bat-dong-san"
+  | "du-lich"
+  | "me-be"
+  | "thu-cung"
+  | "noi-that"
+  | "cong-nghe";
 
 const COMBO_MONTHLY_PRICE = 399000;
 const COMBO_YEARLY_PRICE = 3830000;
@@ -24,9 +38,15 @@ const FLAGSHIP_SLUGS = new Set([
 
 const CATEGORIES: { key: CategoryKey; label: string; keywords: string[] }[] = [
   { key: "all", label: "Tất cả", keywords: [] },
-  { key: "my-pham", label: "Mỹ phẩm", keywords: ["my pham", "beauty", "skincare", "lam dep"] },
+  { key: "my-pham", label: "Mỹ phẩm", keywords: ["my pham", "beauty", "skincare", "makeup"] },
   { key: "gia-dung", label: "Gia dụng", keywords: ["gia dung", "do dung", "home", "bep"] },
   { key: "thoi-trang", label: "Thời trang", keywords: ["pho", "thoi trang", "tui", "giay", "trang suc", "phu kien"] },
+  { key: "lam-dep-suc-khoe", label: "Spa & Sức khỏe", keywords: ["spa", "phong kham", "suc khoe", "massage", "chot lich"] },
+  { key: "nong-nghiep", label: "Nông nghiệp", keywords: ["nong san", "thuy san", "tom ca", "vuon", "nong nghiep"] },
+  { key: "am-thuc", label: "Ẩm thực", keywords: ["quan dong khach", "mon ngon", "am thuc", "nha hang", "giao hang"] },
+  { key: "giao-duc", label: "Giáo dục", keywords: ["giang bai", "giao duc", "khoa hoc", "kien thuc"] },
+  { key: "bat-dong-san", label: "Bất động sản", keywords: ["bat dong san", "nha dep", "can ho", "nha dat"] },
+  { key: "du-lich", label: "Du lịch", keywords: ["du lich", "homestay", "diem den", "dat phong"] },
   { key: "me-be", label: "Mẹ bé", keywords: ["me be", "em be", "an toan"] },
   { key: "thu-cung", label: "Thú cưng", keywords: ["thu cung", "pet"] },
   { key: "noi-that", label: "Nội thất", keywords: ["noi that", "khong gian"] },
