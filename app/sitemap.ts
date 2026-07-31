@@ -10,6 +10,8 @@ const STATIC_PAGES = [
   { path: "/workflow", priority: 0.8, changeFrequency: "weekly" as const },
   { path: "/prompt-mien-phi", priority: 0.8, changeFrequency: "weekly" as const },
   { path: "/dung-thu-mien-phi", priority: 0.85, changeFrequency: "weekly" as const },
+  { path: "/custom-chatbot", priority: 0.75, changeFrequency: "monthly" as const },
+  { path: "/yeu-cau-video-ai", priority: 0.75, changeFrequency: "monthly" as const },
   { path: "/viral-hooks", priority: 0.7, changeFrequency: "weekly" as const },
   { path: "/huong-dan", priority: 0.7, changeFrequency: "monthly" as const },
   { path: "/bang-gia", priority: 0.6, changeFrequency: "monthly" as const },

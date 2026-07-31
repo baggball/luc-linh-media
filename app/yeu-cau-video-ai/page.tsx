@@ -1,8 +1,20 @@
 import AppShell from "@/components/layout/AppShell";
 import Footer from "@/components/layout/Footer";
 import RequestVideoForm from "@/components/forms/RequestVideoForm";
+import type { Metadata } from "next";
 
-export const metadata = { title: "Yêu cầu Video AI" };
+export const metadata: Metadata = {
+  title: "Dịch vụ làm Video AI theo yêu cầu",
+  description:
+    "Đặt làm video AI theo ý tưởng riêng cho sản phẩm, KOC, quảng cáo và nội dung bán hàng. Nhận tư vấn và báo giá rõ ràng trong 24 giờ.",
+  alternates: { canonical: "/yeu-cau-video-ai" },
+  openGraph: {
+    title: "Dịch vụ làm Video AI theo yêu cầu | Lục Linh Video AI",
+    description:
+      "Gửi ý tưởng, nhận tư vấn và báo giá video AI cho sản phẩm, KOC và chiến dịch bán hàng.",
+    url: "/yeu-cau-video-ai",
+  },
+};
 
 export default function YeuCauVideoAiPage() {
   return (
