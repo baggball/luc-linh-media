@@ -30,6 +30,7 @@ export async function buildProductMetadata(type: ProductType, id: string): Promi
     title: product.title,
     description,
     alternates: { canonical },
+    robots: { index: true, follow: true },
     openGraph: {
       type: "website",
       locale: "vi_VN",

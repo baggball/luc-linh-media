@@ -8,14 +8,31 @@ import { createClient } from "@/lib/supabase/server";
 import { applyProductsOverrides } from "@/lib/product-overrides";
 import { SITE_NAME } from "@/lib/site";
 import type { Product } from "@/lib/types";
+import type { Metadata } from "next";
 import styles from "./home.module.css";
 
 export const revalidate = 300;
-export const metadata = {
-  title: "Lục Linh Video AI — Chatbot, Workflow & Prompt bán hàng",
+export const metadata: Metadata = {
+  title: "Chatbot AI tạo video bán hàng | Lục Linh Video AI",
   description:
-    "Kho chatbot, workflow và prompt AI giúp shop, affiliate và người bán hàng tạo ảnh, video, kịch bản chốt đơn nhanh hơn.",
-  alternates: { canonical: "/" },
+    "Chatbot, workflow và prompt AI giúp shop, KOC và affiliate tạo ảnh sản phẩm, video ngắn, lời thoại tiếng Việt và kịch bản bán hàng nhanh hơn.",
+  alternates: { canonical: "/", languages: { "vi-VN": "/", "x-default": "/" } },
+  robots: { index: true, follow: true },
+  openGraph: {
+    type: "website",
+    locale: "vi_VN",
+    url: "/",
+    siteName: SITE_NAME,
+    title: "Chatbot AI tạo video bán hàng | Lục Linh Video AI",
+    description: "Tạo ảnh sản phẩm, video ngắn, lời thoại tiếng Việt và kịch bản bán hàng bằng chatbot và workflow AI.",
+    images: [{ url: "/opengraph-image", width: 1200, height: 630, alt: "Lục Linh Video AI" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Chatbot AI tạo video bán hàng | Lục Linh Video AI",
+    description: "Chatbot, workflow và prompt AI dành cho shop, KOC và affiliate Việt Nam.",
+    images: ["/opengraph-image"],
+  },
 };
 
 const HERO_PRODUCTS = [
