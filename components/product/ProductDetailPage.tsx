@@ -258,6 +258,7 @@ export default async function ProductDetailPage({ type, id }: { type: ProductTyp
 
   const supabase = await createClient();
   const salesProfile = getSalesProfile(canonicalSlug, product.title, type);
+  const hasPublicVeoDemo = type === "chatbot" && canonicalSlug.includes("koc-my-pham");
   const productFaq = product.faq ?? [];
   const faq = productFaq.length > 0 ? productFaq : [...(salesProfile?.faqs ?? []), ...defaultFaq(type)];
   const listHref = `/${PRODUCT_TYPE_ROUTE[type]}`;
@@ -675,6 +676,27 @@ export default async function ProductDetailPage({ type, id }: { type: ProductTyp
                     <div className="sub">Khách nhìn thấy được đầu ra trước khi mua</div>
                   </div>
                 </div>
+                {hasPublicVeoDemo && (
+                  <figure className="veo-demo">
+                    <div className="veo-demo-player">
+                      <video
+                        controls
+                        playsInline
+                        preload="none"
+                        poster="/videos/demo-serum-veo3-poster.webp"
+                        aria-label="Video demo KOC mỹ phẩm AI tạo bằng Veo 3"
+                      >
+                        <source src="/videos/demo-serum-veo3.mp4" type="video/mp4" />
+                        Trình duyệt của bạn không hỗ trợ phát video.
+                      </video>
+                      <span className="veo-demo-badge">VIDEO THÀNH PHẨM • VEO 3</span>
+                    </div>
+                    <figcaption>
+                      <b>Demo thật từ quy trình chatbot</b>
+                      <span>Ảnh KOC → prompt tiếng Việt → video dọc 8 giây có chuyển động và giọng nói.</span>
+                    </figcaption>
+                  </figure>
+                )}
                 <div className="demo-output-grid">
                   {salesProfile.demos.map((demo) => (
                     <div className="demo-output-item" key={demo.label}>
