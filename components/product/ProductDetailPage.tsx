@@ -247,6 +247,64 @@ function getSalesProfile(slug: string, title: string, type: ProductType): SalesP
   };
 }
 
+const PRODUCT_VIDEO_DEMOS: Record<string, {
+  src: string;
+  poster: string;
+  ariaLabel: string;
+  badge: string;
+  title: string;
+  description: string;
+}> = {
+  "koc-my-pham-ai-review-dep-chot-don": {
+    src: "/videos/demo-serum-veo3.mp4",
+    poster: "/videos/demo-serum-veo3-poster.webp",
+    ariaLabel: "Video demo KOC mỹ phẩm AI",
+    badge: "VIDEO THÀNH PHẨM • VEO 3",
+    title: "Demo thật từ quy trình chatbot",
+    description: "Ảnh KOC → prompt tiếng Việt → video dọc 8 giây có chuyển động và giọng nói.",
+  },
+  "koc-gia-dung-ai-anh-thanh-video-chot-don": {
+    src: "/videos/demo-koc-gia-dung-veo3.mp4",
+    poster: "/videos/demo-koc-gia-dung-veo3-poster.webp",
+    ariaLabel: "Video demo KOC gia dụng AI",
+    badge: "VIDEO THÀNH PHẨM • GIA DỤNG",
+    title: "Demo bán máy xay mini",
+    description: "Ảnh sản phẩm và người mẫu Việt → video quảng cáo dọc có lời đọc tiếng Việt.",
+  },
+  "koc-pho-ai-thu-do-video-affiliate": {
+    src: "/videos/demo-koc-thoi-trang-veo3.mp4",
+    poster: "/videos/demo-koc-thoi-trang-veo3-poster.webp",
+    ariaLabel: "Video demo KOC phố và thời trang AI",
+    badge: "VIDEO THÀNH PHẨM • THỜI TRANG",
+    title: "Demo outfit affiliate đường phố",
+    description: "Một ảnh lookbook → video dọc có chuyển động camera và lời review tiếng Việt.",
+  },
+  "koc-me-be-ai-video-an-toan-de-tin": {
+    src: "/videos/demo-koc-me-be-veo3.mp4",
+    poster: "/videos/demo-koc-me-be-veo3-poster.webp",
+    ariaLabel: "Video demo KOC mẹ và bé AI",
+    badge: "VIDEO THÀNH PHẨM • MẸ & BÉ",
+    title: "Demo sản phẩm chăm sóc mẹ và bé",
+    description: "Ảnh mẹ Việt và sản phẩm → video dọc dịu nhẹ, rõ lợi ích và có lời đọc tiếng Việt.",
+  },
+  "koc-thu-cung-ai-pet-review-viral": {
+    src: "/videos/demo-koc-thu-cung-veo3.mp4",
+    poster: "/videos/demo-koc-thu-cung-veo3-poster.webp",
+    ariaLabel: "Video demo KOC thú cưng AI",
+    badge: "VIDEO THÀNH PHẨM • THÚ CƯNG",
+    title: "Demo snack thưởng cho thú cưng",
+    description: "Ảnh người thật và thú cưng → video dọc gần gũi, có lời review tiếng Việt.",
+  },
+  "thuy-san-ban-hang-ai-review-tom-ca-chuyen-nghiep": {
+    src: "/videos/demo-koc-thuy-san-veo3.mp4",
+    poster: "/videos/demo-koc-thuy-san-veo3-poster.webp",
+    ariaLabel: "Video demo bán hàng thủy sản AI",
+    badge: "VIDEO THÀNH PHẨM • THỦY SẢN",
+    title: "Demo thức ăn thủy sản",
+    description: "Ảnh người bán và bao sản phẩm → video dọc có lời tư vấn tiếng Việt, phù hợp quảng cáo ngành nông nghiệp.",
+  },
+};
+
 export default async function ProductDetailPage({ type, id }: { type: ProductType; id: string }) {
   const publishedProduct = await getPublishedProduct(type, id);
   if (!publishedProduct) notFound();
@@ -258,7 +316,7 @@ export default async function ProductDetailPage({ type, id }: { type: ProductTyp
 
   const supabase = await createClient();
   const salesProfile = getSalesProfile(canonicalSlug, product.title, type);
-  const hasPublicVeoDemo = type === "chatbot" && canonicalSlug.includes("koc-my-pham");
+  const publicVideoDemo = type === "chatbot" ? PRODUCT_VIDEO_DEMOS[canonicalSlug] : undefined;
   const productFaq = product.faq ?? [];
   const faq = productFaq.length > 0 ? productFaq : [...(salesProfile?.faqs ?? []), ...defaultFaq(type)];
   const listHref = `/${PRODUCT_TYPE_ROUTE[type]}`;
@@ -676,24 +734,24 @@ export default async function ProductDetailPage({ type, id }: { type: ProductTyp
                     <div className="sub">Khách nhìn thấy được đầu ra trước khi mua</div>
                   </div>
                 </div>
-                {hasPublicVeoDemo && (
+                {publicVideoDemo && (
                   <figure className="veo-demo">
                     <div className="veo-demo-player">
                       <video
                         controls
                         playsInline
                         preload="none"
-                        poster="/videos/demo-serum-veo3-poster.webp"
-                        aria-label="Video demo KOC mỹ phẩm AI tạo bằng Veo 3"
+                        poster={publicVideoDemo.poster}
+                        aria-label={publicVideoDemo.ariaLabel}
                       >
-                        <source src="/videos/demo-serum-veo3.mp4" type="video/mp4" />
+                        <source src={publicVideoDemo.src} type="video/mp4" />
                         Trình duyệt của bạn không hỗ trợ phát video.
                       </video>
-                      <span className="veo-demo-badge">VIDEO THÀNH PHẨM • VEO 3</span>
+                      <span className="veo-demo-badge">{publicVideoDemo.badge}</span>
                     </div>
                     <figcaption>
-                      <b>Demo thật từ quy trình chatbot</b>
-                      <span>Ảnh KOC → prompt tiếng Việt → video dọc 8 giây có chuyển động và giọng nói.</span>
+                      <b>{publicVideoDemo.title}</b>
+                      <span>{publicVideoDemo.description}</span>
                     </figcaption>
                   </figure>
                 )}
