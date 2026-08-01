@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { versionProductAsset } from "@/lib/asset-url";
 
 export default function ProductGallery({ images, title }: { images: string[]; title: string }) {
   const [active, setActive] = useState(0);
@@ -11,7 +12,7 @@ export default function ProductGallery({ images, title }: { images: string[]; ti
       <div className={`gallery-main${hasImages ? " has-photo" : ""}`}>
         {hasImages ? (
           <>
-            <img src={images[active]} alt={title} decoding="async" fetchPriority="high" />
+            <img src={versionProductAsset(images[active])} alt={title} decoding="async" fetchPriority="high" />
             <span className="gallery-counter">
               {active + 1} / {images.length}
             </span>
@@ -28,7 +29,7 @@ export default function ProductGallery({ images, title }: { images: string[]; ti
               className={`g-thumb${i === active ? " active" : ""}`}
               onClick={() => setActive(i)}
             >
-              <img src={src} alt="" loading="lazy" decoding="async" />
+              <img src={versionProductAsset(src)} alt="" loading="lazy" decoding="async" />
             </div>
           ))}
         </div>

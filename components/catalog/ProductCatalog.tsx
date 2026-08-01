@@ -8,6 +8,7 @@ import ProductCard from "@/components/product/ProductCard";
 import { createClient } from "@/lib/supabase/client";
 import { formatVND } from "@/lib/format";
 import type { Product } from "@/lib/types";
+import { versionProductAsset } from "@/lib/asset-url";
 
 type SortMode = "new" | "sold" | "price-asc" | "price-desc";
 type BillingCycle = "monthly" | "yearly";
@@ -328,7 +329,7 @@ export default function ProductCatalog({
                   <div className="cart-items">
                     {cartProducts.map((product) => (
                       <div className="cart-item" key={product.id}>
-                        {product.images?.[0] ? <img src={product.images[0]} alt={product.title} loading="lazy" decoding="async" /> : <div className="cart-thumb-fallback" />}
+                        {product.images?.[0] ? <img src={versionProductAsset(product.images[0])} alt={product.title} loading="lazy" decoding="async" /> : <div className="cart-thumb-fallback" />}
                         <div>
                           <b>{product.title}</b>
                           <span>{formatVND(product.price)}</span>

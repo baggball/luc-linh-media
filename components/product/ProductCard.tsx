@@ -2,6 +2,7 @@ import Link from "next/link";
 import { PRODUCT_TYPE_LABEL, PRODUCT_TYPE_ROUTE, type Product } from "@/lib/types";
 import { formatVND } from "@/lib/format";
 import { publicProductSlug } from "@/lib/product-url";
+import { versionProductAsset } from "@/lib/asset-url";
 
 const TONES = ["blue", "amber", "coral", "mixed"] as const;
 
@@ -34,7 +35,7 @@ export default function ProductCard({
   badgeLabels?: string[];
 }) {
   const href = `/${PRODUCT_TYPE_ROUTE[product.type]}/${publicProductSlug(product)}`;
-  const cover = product.images?.[0];
+  const cover = product.images?.[0] ? versionProductAsset(product.images[0]) : undefined;
   const summary = excerpt(product.description);
   const priceLabel = product.is_free ? "Miễn phí" : formatVND(product.price);
   const hasSales = product.sold_count > 0;
