@@ -7,6 +7,7 @@ import { versionProductAsset } from "@/lib/asset-url";
 const TONES = ["blue", "amber", "coral", "mixed"] as const;
 
 const BADGE_CLASS: Record<string, string> = {
+  HOT: "hot",
   "Bán chạy": "hot",
   "Phù hợp affiliate": "affiliate",
   "Mới cập nhật": "updated",

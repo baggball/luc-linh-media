@@ -299,7 +299,7 @@ footer{border-top:1px solid var(--line); padding:44px 0 26px;}
 .badges{display:flex; gap:6px; position:relative; z-index:1; flex-wrap:wrap;}
 .badge{font-family:var(--font-mono); font-size:10.5px; font-weight:700; padding:3px 8px; border-radius:5px; letter-spacing:.02em;}
 .badge.sale{background:var(--coral); color:#210805;}
-.badge.hot{background:linear-gradient(135deg,#ff6b5e,#f2b544); color:#240b05;}
+.badge.hot{background:linear-gradient(135deg,#ff365f,#ff9f1c 58%,#ffe066);color:#260507;border:1px solid rgba(255,255,255,.38);box-shadow:0 4px 14px rgba(255,76,76,.48);}
 .badge.affiliate{background:linear-gradient(135deg,#7c5cf0,#2fb1ff); color:#fff;}
 .badge.updated{background:rgba(51,196,141,.95); color:#04150e;}
 .badge.new{background:var(--amber); color:#231604;}

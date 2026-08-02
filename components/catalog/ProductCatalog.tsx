@@ -37,6 +37,17 @@ const FLAGSHIP_SLUGS = new Set([
   "koc-pho-ai-thu-do-video-affiliate",
 ]);
 
+const HOT_PRODUCT_RULES: string[][] = [
+  ["ugc mo hop ai"],
+  ["livestream chot don ai"],
+  ["koc me be ai"],
+  ["koc my pham ai"],
+  ["koc gia dung ai"],
+  ["koc pho ai", "thu do video affiliate"],
+  ["hien triet ke sach ai"],
+  ["chatbot ai nhan hoa thuc pham"],
+];
+
 const CATEGORIES: { key: CategoryKey; label: string; keywords: string[] }[] = [
   { key: "all", label: "Tất cả", keywords: [] },
   { key: "my-pham", label: "Mỹ phẩm", keywords: ["my pham", "beauty", "skincare", "makeup"] },
@@ -74,6 +85,16 @@ function productSearchText(product: Product) {
   return normalize(`${product.slug} ${product.title} ${product.description ?? ""}`);
 }
 
+function hotProductPriority(product: Product) {
+  const text = productSearchText(product);
+  const priority = HOT_PRODUCT_RULES.findIndex((keywords) => keywords.some((keyword) => text.includes(keyword)));
+  return priority === -1 ? Number.MAX_SAFE_INTEGER : priority;
+}
+
+function isHotProduct(product: Product) {
+  return hotProductPriority(product) !== Number.MAX_SAFE_INTEGER;
+}
+
 function productCategory(product: Product): CategoryKey {
   const text = productSearchText(product);
   return CATEGORIES.find((category) => category.key !== "all" && category.keywords.some((keyword) => text.includes(keyword)))?.key ?? "cong-nghe";
@@ -81,6 +102,7 @@ function productCategory(product: Product): CategoryKey {
 
 function productBadges(product: Product) {
   const badges: string[] = [];
+  if (isHotProduct(product)) badges.push("HOT");
   if (FLAGSHIP_SLUGS.has(product.slug) || product.sold_count >= 2) badges.push("Bán chạy");
   if (product.type === "chatbot" && productSearchText(product).includes("koc")) badges.push("Phù hợp affiliate");
   const updatedAt = new Date(product.updated_at).getTime();
@@ -135,10 +157,14 @@ export default function ProductCatalog({
       return matchesQuery && matchesCategory;
     });
     list = list.slice();
-    if (sort === "sold") list.sort((a, b) => b.sold_count - a.sold_count);
-    else if (sort === "price-asc") list.sort((a, b) => a.price - b.price);
-    else if (sort === "price-desc") list.sort((a, b) => b.price - a.price);
-    else list.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
+    list.sort((a, b) => {
+      const hotDifference = hotProductPriority(a) - hotProductPriority(b);
+      if (hotDifference !== 0) return hotDifference;
+      if (sort === "sold") return b.sold_count - a.sold_count;
+      if (sort === "price-asc") return a.price - b.price;
+      if (sort === "price-desc") return b.price - a.price;
+      return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+    });
     return list;
   }, [category, products, query, sort]);
 
