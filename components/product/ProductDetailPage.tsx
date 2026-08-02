@@ -248,8 +248,9 @@ function getSalesProfile(slug: string, title: string, type: ProductType): SalesP
 }
 
 const PRODUCT_VIDEO_DEMOS: Record<string, {
-  src: string;
-  poster: string;
+  src?: string;
+  poster?: string;
+  youtubeId?: string;
   ariaLabel: string;
   badge: string;
   title: string;
@@ -264,12 +265,11 @@ const PRODUCT_VIDEO_DEMOS: Record<string, {
     description: "Ảnh KOC → prompt tiếng Việt → video dọc 8 giây có chuyển động và giọng nói.",
   },
   "koc-gia-dung-ai-anh-thanh-video-chot-don": {
-    src: "/videos/demo-koc-gia-dung-veo3.mp4",
-    poster: "/videos/demo-koc-gia-dung-veo3-poster.webp",
+    youtubeId: "NWcioyALtuU",
     ariaLabel: "Video demo KOC gia dụng AI",
-    badge: "VIDEO THÀNH PHẨM • GIA DỤNG",
+    badge: "VIDEO DEMO THỰC TẾ • GIA DỤNG",
     title: "Demo bán máy xay mini",
-    description: "Ảnh sản phẩm và người mẫu Việt → video quảng cáo dọc có lời đọc tiếng Việt.",
+    description: "Xem video thành phẩm tạo từ quy trình KOC Gia dụng AI, với hình ảnh dọc và lời thoại tiếng Việt.",
   },
   "koc-pho-ai-thu-do-video-affiliate": {
     src: "/videos/demo-koc-thoi-trang-veo3.mp4",
@@ -737,16 +737,27 @@ export default async function ProductDetailPage({ type, id }: { type: ProductTyp
                 {publicVideoDemo && (
                   <figure className="veo-demo">
                     <div className="veo-demo-player">
-                      <video
-                        controls
-                        playsInline
-                        preload="none"
-                        poster={publicVideoDemo.poster}
-                        aria-label={publicVideoDemo.ariaLabel}
-                      >
-                        <source src={publicVideoDemo.src} type="video/mp4" />
-                        Trình duyệt của bạn không hỗ trợ phát video.
-                      </video>
+                      {publicVideoDemo.youtubeId ? (
+                        <iframe
+                          src={`https://www.youtube-nocookie.com/embed/${publicVideoDemo.youtubeId}?rel=0`}
+                          title={publicVideoDemo.ariaLabel}
+                          loading="lazy"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                          referrerPolicy="strict-origin-when-cross-origin"
+                          allowFullScreen
+                        />
+                      ) : (
+                        <video
+                          controls
+                          playsInline
+                          preload="none"
+                          poster={publicVideoDemo.poster}
+                          aria-label={publicVideoDemo.ariaLabel}
+                        >
+                          <source src={publicVideoDemo.src} type="video/mp4" />
+                          Trình duyệt của bạn không hỗ trợ phát video.
+                        </video>
+                      )}
                       <span className="veo-demo-badge">{publicVideoDemo.badge}</span>
                     </div>
                     <figcaption>
