@@ -3,7 +3,6 @@ import AppShell from "@/components/layout/AppShell";
 import Footer from "@/components/layout/Footer";
 import ProductCard from "@/components/product/ProductCard";
 import NewsletterForm from "@/components/home/NewsletterForm";
-import HeroHologram from "@/components/home/HeroHologram";
 import { createClient } from "@/lib/supabase/server";
 import { applyProductsOverrides } from "@/lib/product-overrides";
 import { SITE_NAME } from "@/lib/site";
@@ -35,10 +34,15 @@ export const metadata: Metadata = {
   },
 };
 
-const HERO_PRODUCTS = [
+const FEATURED_CHATBOT_SLUGS = [
+  "ugc-mo-hop-ai-review-san-pham",
+  "livestream-chot-don-ai-kich-ban-ban-hang",
+  "koc-me-be-ai-video-an-toan-de-tin",
   "koc-my-pham-ai-review-dep-chot-don",
   "koc-gia-dung-ai-anh-thanh-video-chot-don",
   "koc-pho-ai-thu-do-video-affiliate",
+  "hien-triet-ke-sach-ai",
+  "chatbot-ai-nhan-hoa-thuc-pham",
 ];
 
 function pickBySlug(products: Product[], slugs: string[], fallbackLimit: number) {
@@ -55,7 +59,7 @@ export default async function Home() {
 
   const [{ data: newest }, { data: chatbots }, { data: workflows }, { data: freeTools }] = await Promise.all([
     supabase.from("products").select("*").eq("is_published", true).order("created_at", { ascending: false }).limit(6),
-    supabase.from("products").select("*").eq("is_published", true).eq("type", "chatbot").order("created_at", { ascending: false }).limit(16),
+    supabase.from("products").select("*").eq("is_published", true).eq("type", "chatbot").order("created_at", { ascending: false }).limit(64),
     supabase.from("products").select("*").eq("is_published", true).eq("type", "workflow").order("created_at", { ascending: false }).limit(8),
     supabase.from("products").select("*").eq("is_published", true).eq("is_free", true).order("created_at", { ascending: false }).limit(4),
   ]);
@@ -64,118 +68,18 @@ export default async function Home() {
   const chatbotProducts = applyProductsOverrides((chatbots ?? []) as Product[]);
   const workflowProducts = applyProductsOverrides((workflows ?? []) as Product[]);
   const freeProducts = applyProductsOverrides((freeTools ?? []) as Product[]);
-  const heroProducts = pickBySlug(chatbotProducts, HERO_PRODUCTS, 3);
+  const featuredChatbots = pickBySlug(chatbotProducts, FEATURED_CHATBOT_SLUGS, 8);
   const featuredWorkflows = workflowProducts.slice(0, 3);
 
   return (
     <AppShell>
-      <section className={styles.hero}>
-        <div className={`content-wrap ${styles.wrap}`}>
-          <div>
-            <span className="eyebrow">Hệ sinh thái AI bán hàng cho người Việt</span>
-            <h1>
-              Tạo ảnh, video & kịch bản chốt đơn <em>nhanh hơn cho shop, KOC và affiliate</em>
-            </h1>
-            <p className={styles.heroSub}>
-              {SITE_NAME} gom sẵn chatbot theo ngành, workflow Google Flow và prompt miễn phí để anh/chị biến một ảnh sản phẩm
-              thành concept, lời thoại, prompt video và nội dung bán hàng có thể triển khai ngay.
-            </p>
-            <div className={styles.heroCtas}>
-              <Link className="btn btn-primary" href="/chatbot#combo-tu-chon">
-                Chọn combo 3 chatbot →
-              </Link>
-              <Link className="btn btn-ghost" href="/workflow/dai-su-san-pham-ai-tao-anh-nguoi-viet-theo-nganh">
-                Dùng tool miễn phí
-              </Link>
-              <Link className="btn btn-ghost" href="/prompt-mien-phi">
-                Xem prompt miễn phí
-              </Link>
-            </div>
-            <div className={styles.heroStats}>
-              <div className={styles.stat}>
-                <b className="font-mono">3</b>
-                <span>Chatbot tự chọn trong combo</span>
-              </div>
-              <div className={styles.stat}>
-                <b className="font-mono">20+</b>
-                <span>Prompt/tool/workflow đang có</span>
-              </div>
-              <div className={styles.stat}>
-                <b className="font-mono">1:1</b>
-                <span>Hỗ trợ qua Zalo cộng đồng</span>
-              </div>
-            </div>
-          </div>
-
-          <HeroHologram />
-        </div>
-      </section>
-
-      <section className={styles.funnelStrip}>
-        <div className={`content-wrap ${styles.funnelGrid}`}>
-          {[
-            ["01", "Thử miễn phí trước", "Dùng prompt và tool mẫu để xem cách tạo ảnh, lời thoại và prompt video cho sản phẩm của bạn."],
-            ["02", "Chọn đúng ngành đang bán", "Mỗi chatbot được thiết kế theo từng nhóm sản phẩm như mỹ phẩm, gia dụng, thời trang, mẹ bé, thú cưng…"],
-            ["03", "Nhận hướng dẫn sau mua", "Sau khi mở khóa, bạn có link sử dụng, hướng dẫn và cộng đồng Zalo để hỏi khi cần."],
-          ].map(([num, title, body]) => (
-            <div className={styles.funnelItem} key={num}>
-              <span>{num}</span>
-              <b>{title}</b>
-              <p>{body}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="section" style={{ paddingBottom: 8 }}>
-        <div className="content-wrap">
-          <div className="rail">
-            <span className="pill active">Nên bắt đầu</span>
-            <Link className="pill" href="/workflow/dai-su-san-pham-ai-tao-anh-nguoi-viet-theo-nganh">
-              Tool miễn phí
-            </Link>
-            <Link className="pill" href="/chatbot#combo-tu-chon">
-              Combo 3 chatbot
-            </Link>
-            <Link className="pill" href="/workflow">
-              Workflow video
-            </Link>
-            <Link className="pill" href="/bang-gia">
-              Bảng giá
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      <section className="section" style={{ paddingTop: 8 }}>
-        <div className="content-wrap">
-          <div className={styles.salesBand}>
-            <div>
-              <span className={styles.bandKicker}>Dùng thử miễn phí</span>
-              <h2>Đại Sứ Sản Phẩm AI</h2>
-              <p>
-                Nhập ngành hàng, tên sản phẩm, mẫu sản phẩm và lợi ích chính để nhận ngay prompt tạo ảnh người Việt bán hàng,
-                lời thoại tiếng Việt và prompt video ngắn. Phù hợp để bạn thử ý tưởng trước khi chọn chatbot hoặc workflow nâng cao.
-              </p>
-            </div>
-            <div className={styles.bandActions}>
-              <Link className="btn btn-primary" href="/workflow/dai-su-san-pham-ai-tao-anh-nguoi-viet-theo-nganh">
-                Dùng miễn phí ngay
-              </Link>
-              <Link className="btn btn-ghost" href="/prompt-mien-phi">
-                Xem thư viện prompt
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="section">
+      <section className="section" style={{ paddingTop: 40 }}>
         <div className="content-wrap">
           <div className="sec-head">
             <div>
-              <h2>3 chatbot được nhiều người bán hàng cần nhất</h2>
-              <p className="sub">Dành cho các ngành dễ làm video ngắn: mỹ phẩm, gia dụng và thời trang.</p>
+              <span className="eyebrow">Chatbot nổi bật</span>
+              <h1 style={{ marginTop: 12 }}>Chatbot AI được quan tâm nhất</h1>
+              <p className="sub">Chọn chatbot phù hợp với ngành hàng để tạo nội dung, hình ảnh và video bán hàng nhanh hơn.</p>
             </div>
             <Link className="see-all" href="/chatbot">
               Xem tất cả chatbot →
@@ -183,15 +87,8 @@ export default async function Home() {
           </div>
 
           <div className="grid">
-            {heroProducts.length > 0 ? (
-              heroProducts.map((product, index) => (
-                <ProductCard
-                  key={product.id}
-                  product={product}
-                  badge={index === 0 ? "premium" : "new"}
-                  badgeLabels={index === 0 ? ["Bán chạy", "Phù hợp affiliate"] : ["Mới cập nhật"]}
-                />
-              ))
+            {featuredChatbots.length > 0 ? (
+              featuredChatbots.map((product) => <ProductCard key={product.id} product={product} badgeLabels={["HOT"]} />)
             ) : (
               <div className="empty-state">Chưa có chatbot phù hợp nào được đăng.</div>
             )}
