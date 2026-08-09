@@ -1,12 +1,13 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import AppShell from "@/components/layout/AppShell";
 import Footer from "@/components/layout/Footer";
 import styles from "./gioi-thieu.module.css";
 
-export const metadata = {
-  title: "Giới thiệu Lục Linh Video AI",
+export const metadata: Metadata = {
+  title: { absolute: "Lục Linh Media – Chatbot & Workflow Video AI" },
   description:
-    "Lục Linh Video AI xây dựng chatbot, prompt và workflow thực chiến cho người sáng tạo nội dung và bán hàng Việt Nam.",
+    "Lục Linh Media phát triển Lục Linh Video AI: chatbot, prompt và workflow thực chiến giúp người Việt tạo video, nội dung bán hàng và affiliate nhanh hơn.",
   alternates: { canonical: "/gioi-thieu" },
 };
 
