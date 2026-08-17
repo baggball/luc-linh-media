@@ -28,6 +28,8 @@ export default function AdminProductManager({ initialProducts }: { initialProduc
   const [images, setImages] = useState<ImageItem[]>([]);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
+  const [bulkPrice, setBulkPrice] = useState("99000");
+  const [bulkSaving, setBulkSaving] = useState(false);
   const [error, setError] = useState("");
   const [toast, setToast] = useState("");
 
@@ -162,6 +164,36 @@ export default function AdminProductManager({ initialProducts }: { initialProduc
     }
     setProducts((prev) => prev.filter((x) => x.id !== p.id));
     if (editingId === p.id) resetForm();
+  }
+
+  async function handleBulkPriceUpdate() {
+    const nextPrice = Number(bulkPrice);
+    if (!Number.isInteger(nextPrice) || nextPrice <= 0) {
+      setError("Vui lòng nhập giá đồng loạt hợp lệ.");
+      return;
+    }
+
+    const targetIds = products
+      .filter((p) => !p.is_free && !/test\s*sepay/i.test(p.title))
+      .map((p) => p.id);
+    if (targetIds.length === 0) return;
+
+    setError("");
+    setBulkSaving(true);
+    const supabase = createClient();
+    const { error: updateError } = await supabase
+      .from("products")
+      .update({ price: nextPrice, updated_at: new Date().toISOString() })
+      .in("id", targetIds);
+
+    if (updateError) {
+      setError(updateError.message);
+    } else {
+      setProducts((prev) => prev.map((p) => (targetIds.includes(p.id) ? { ...p, price: nextPrice } : p)));
+      setToast(`Đã cập nhật ${targetIds.length} sản phẩm trả phí về ${formatVND(nextPrice)}!`);
+      setTimeout(() => setToast(""), 3000);
+    }
+    setBulkSaving(false);
   }
 
   const visibleList = activeTab === "all" ? products : products.filter((p) => p.type === activeTab);
@@ -371,6 +403,24 @@ export default function AdminProductManager({ initialProducts }: { initialProduc
       <div className="section-title">
         <h2>Sản phẩm đã thêm</h2>
         <span>{products.length} sản phẩm</span>
+      </div>
+      <div className="form-card" style={{ marginBottom: 20 }}>
+        <h3 style={{ marginBottom: 8 }}>Cập nhật giá đồng loạt</h3>
+        <p className="sub">Áp dụng cho sản phẩm trả phí; bỏ qua sản phẩm miễn phí và sản phẩm test SePay.</p>
+        <div style={{ display: "flex", gap: 10, alignItems: "center", flexWrap: "wrap" }}>
+          <input
+            type="number"
+            min={1000}
+            step={1000}
+            value={bulkPrice}
+            onChange={(e) => setBulkPrice(e.target.value)}
+            aria-label="Giá đồng loạt"
+            style={{ maxWidth: 220 }}
+          />
+          <button type="button" className="btn btn-primary" disabled={bulkSaving} onClick={handleBulkPriceUpdate}>
+            {bulkSaving ? "Đang cập nhật..." : "Áp dụng giá cho tất cả"}
+          </button>
+        </div>
       </div>
       <div className="type-tabs">
         {(["all", "chatbot", "workflow", "app", "veo3"] as const).map((t) => (
