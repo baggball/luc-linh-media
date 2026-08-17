@@ -28,8 +28,8 @@ type CategoryKey =
   | "noi-that"
   | "cong-nghe";
 
-const COMBO_MONTHLY_PRICE = 399000;
-const COMBO_YEARLY_PRICE = 3830000;
+const COMBO_MONTHLY_PRICE = 249000;
+const COMBO_YEARLY_PRICE = 2390000;
 const CART_KEY = "llm_chatbot_cart_ids";
 const FLAGSHIP_SLUGS = new Set([
   "koc-my-pham-ai-review-dep-chot-don",
@@ -176,7 +176,11 @@ export default function ProductCatalog({
   const isCombo = cartProducts.length === 3;
   const comboPrice = billingCycle === "yearly" ? COMBO_YEARLY_PRICE : COMBO_MONTHLY_PRICE;
   const checkoutTotal = isCombo ? comboPrice : subtotal;
-  const saving = isCombo ? Math.max(subtotal - comboPrice, 0) : 0;
+  const saving = isCombo
+    ? billingCycle === "yearly"
+      ? COMBO_MONTHLY_PRICE * 12 - COMBO_YEARLY_PRICE
+      : Math.max(subtotal - COMBO_MONTHLY_PRICE, 0)
+    : 0;
 
   function canAddToCart(product: Product) {
     return enableCart && product.type === "chatbot" && !product.is_free && !isComboTest(product);
@@ -374,7 +378,7 @@ export default function ProductCatalog({
                 <div className="cart-summary">
                   <div className="cart-row"><span>Tạm tính</span><b>{formatVND(subtotal)}</b></div>
                   {cartProducts.length < 3 && (
-                    <p className="cart-hint">Chọn đủ 3 chatbot để tự động áp giá combo 399.000đ/tháng hoặc gói năm giảm 20%.</p>
+                    <p className="cart-hint">Chọn đủ 3 chatbot để tự động áp giá combo 249.000đ/tháng hoặc gói năm giảm 20%.</p>
                   )}
                   {isCombo && (
                     <>
@@ -382,10 +386,10 @@ export default function ProductCatalog({
                         <span>Đã đủ 3 chatbot — áp giá combo</span>
                         <div className="combo-billing-toggle">
                           <button type="button" className={billingCycle === "monthly" ? "active" : ""} onClick={() => setBillingCycle("monthly")}>
-                            Theo tháng
+                            Theo tháng · 249.000đ
                           </button>
                           <button type="button" className={billingCycle === "yearly" ? "active" : ""} onClick={() => setBillingCycle("yearly")}>
-                            Theo năm -20%
+                            Theo năm · 2.390.000đ (-20%)
                           </button>
                         </div>
                       </div>
