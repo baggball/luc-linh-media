@@ -19,8 +19,8 @@ set site_key = 'video-ai'
 where site_key is null;
 
 alter table public.products
-  alter column site_key set default 'video-ai',
-  alter column site_key set not null;
+  alter column site_key set not null,
+  alter column site_key drop default;
 
 create index if not exists products_site_key_published_type_idx
   on public.products (site_key, is_published, type, created_at desc);
