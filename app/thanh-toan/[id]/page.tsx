@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { formatVND } from "@/lib/format";
 import { PRODUCT_TYPE_ROUTE, type ProductType } from "@/lib/types";
 import CheckoutStatus from "@/components/checkout/CheckoutStatus";
+import { VIDEO_AI_SITE_KEY } from "@/lib/product-scope";
 
 export const revalidate = 0;
 export const metadata = { title: "Thanh toán", robots: { index: false, follow: false } };
@@ -18,8 +19,9 @@ export default async function ThanhToanPage({ params }: { params: Promise<{ id: 
 
   const { data: purchase } = await supabase
     .from("purchases")
-    .select("id, order_code, amount, status, product_id, products(title, type)")
+    .select("id, order_code, amount, status, product_id, products!inner(title, type, site_key)")
     .eq("id", id)
+    .eq("products.site_key", VIDEO_AI_SITE_KEY)
     .maybeSingle();
 
   if (!purchase) notFound();

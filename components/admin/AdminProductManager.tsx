@@ -5,6 +5,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import { PRODUCT_TYPE_LABEL, PRODUCT_TYPE_ROUTE, type Product, type ProductType } from "@/lib/types";
 import { formatVND } from "@/lib/format";
+import { VIDEO_AI_SITE_KEY } from "@/lib/product-scope";
 
 type ImageItem = { key: string; url: string; file?: File };
 
@@ -94,6 +95,7 @@ export default function AdminProductManager({ initialProducts }: { initialProduc
       }
 
       const payload = {
+        site_key: VIDEO_AI_SITE_KEY,
         type: form.type,
         title: form.title.trim(),
         description: form.description.trim(),
@@ -119,6 +121,7 @@ export default function AdminProductManager({ initialProducts }: { initialProduc
           .from("products")
           .update({ ...payload, updated_at: new Date().toISOString() })
           .eq("id", editingId)
+          .eq("site_key", VIDEO_AI_SITE_KEY)
           .select()
           .single();
         if (updateError) throw updateError;
@@ -157,7 +160,11 @@ export default function AdminProductManager({ initialProducts }: { initialProduc
   async function handleDelete(p: Product) {
     if (!confirm(`Xoá sản phẩm "${p.title}"?`)) return;
     const supabase = createClient();
-    const { error: deleteError } = await supabase.from("products").delete().eq("id", p.id);
+    const { error: deleteError } = await supabase
+      .from("products")
+      .delete()
+      .eq("id", p.id)
+      .eq("site_key", VIDEO_AI_SITE_KEY);
     if (deleteError) {
       alert(deleteError.message);
       return;
@@ -184,6 +191,7 @@ export default function AdminProductManager({ initialProducts }: { initialProduc
     const { error: updateError } = await supabase
       .from("products")
       .update({ price: nextPrice, updated_at: new Date().toISOString() })
+      .eq("site_key", VIDEO_AI_SITE_KEY)
       .in("id", targetIds);
 
     if (updateError) {

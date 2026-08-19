@@ -3,6 +3,7 @@ import { createClient } from "@/lib/supabase/server";
 import { publicProductSlug } from "@/lib/product-url";
 import { absoluteUrl } from "@/lib/site";
 import { PRODUCT_TYPE_ROUTE, type ProductType } from "@/lib/types";
+import { VIDEO_AI_SITE_KEY } from "@/lib/product-scope";
 
 const STATIC_PAGES = [
   { path: "/", priority: 1, changeFrequency: "daily" as const },
@@ -28,6 +29,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const { data: products } = await supabase
     .from("products")
     .select("id, slug, type, updated_at, images")
+    .eq("site_key", VIDEO_AI_SITE_KEY)
     .eq("is_published", true);
 
   const staticEntries: MetadataRoute.Sitemap = STATIC_PAGES.map((page) => ({

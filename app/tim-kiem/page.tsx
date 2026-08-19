@@ -5,6 +5,7 @@ import Footer from "@/components/layout/Footer";
 import ProductCard from "@/components/product/ProductCard";
 import { createClient } from "@/lib/supabase/server";
 import type { Product } from "@/lib/types";
+import { VIDEO_AI_SITE_KEY } from "@/lib/product-scope";
 
 export const metadata: Metadata = {
   title: "Tìm kiếm sản phẩm",
@@ -29,6 +30,7 @@ export default async function TimKiemPage({
       const { data } = await supabase
         .from("products")
         .select("*")
+        .eq("site_key", VIDEO_AI_SITE_KEY)
         .eq("is_published", true)
         .or(`title.ilike.%${safeQuery}%,description.ilike.%${safeQuery}%`)
         .order("created_at", { ascending: false })

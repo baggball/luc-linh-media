@@ -6,6 +6,7 @@ import NewsletterForm from "@/components/home/NewsletterForm";
 import { createClient } from "@/lib/supabase/server";
 import { applyProductsOverrides } from "@/lib/product-overrides";
 import { SITE_NAME } from "@/lib/site";
+import { VIDEO_AI_SITE_KEY } from "@/lib/product-scope";
 import type { Product } from "@/lib/types";
 import type { Metadata } from "next";
 import styles from "./home.module.css";
@@ -58,10 +59,10 @@ export default async function Home() {
   const supabase = await createClient();
 
   const [{ data: newest }, { data: chatbots }, { data: workflows }, { data: freeTools }] = await Promise.all([
-    supabase.from("products").select("*").eq("is_published", true).order("created_at", { ascending: false }).limit(6),
-    supabase.from("products").select("*").eq("is_published", true).eq("type", "chatbot").order("created_at", { ascending: false }).limit(64),
-    supabase.from("products").select("*").eq("is_published", true).eq("type", "workflow").order("created_at", { ascending: false }).limit(8),
-    supabase.from("products").select("*").eq("is_published", true).eq("is_free", true).order("created_at", { ascending: false }).limit(4),
+    supabase.from("products").select("*").eq("site_key", VIDEO_AI_SITE_KEY).eq("is_published", true).order("created_at", { ascending: false }).limit(6),
+    supabase.from("products").select("*").eq("site_key", VIDEO_AI_SITE_KEY).eq("is_published", true).eq("type", "chatbot").order("created_at", { ascending: false }).limit(64),
+    supabase.from("products").select("*").eq("site_key", VIDEO_AI_SITE_KEY).eq("is_published", true).eq("type", "workflow").order("created_at", { ascending: false }).limit(8),
+    supabase.from("products").select("*").eq("site_key", VIDEO_AI_SITE_KEY).eq("is_published", true).eq("is_free", true).order("created_at", { ascending: false }).limit(4),
   ]);
 
   const newestProducts = applyProductsOverrides((newest ?? []) as Product[]);

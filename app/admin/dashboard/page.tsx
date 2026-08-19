@@ -3,6 +3,7 @@ import { createAdminClient } from "@/lib/supabase/admin";
 import { formatVND } from "@/lib/format";
 import { PRODUCT_TYPE_ROUTE, type ProductType } from "@/lib/types";
 import { publicProductSlug } from "@/lib/product-url";
+import { VIDEO_AI_SITE_KEY } from "@/lib/product-scope";
 import styles from "./dashboard.module.css";
 
 export const revalidate = 0;
@@ -173,12 +174,14 @@ export default async function AdminDashboardPage() {
   ] = await Promise.all([
     supabase
       .from("purchases")
-      .select("id, user_id, product_id, order_code, amount, status, created_at, paid_at, sepay_reference_code, products(id, slug, title, type, price, is_published, created_at), profiles(full_name)")
+      .select("id, user_id, product_id, order_code, amount, status, created_at, paid_at, sepay_reference_code, products!inner(id, slug, title, type, price, is_published, created_at, site_key), profiles(full_name)")
+      .eq("products.site_key", VIDEO_AI_SITE_KEY)
       .order("created_at", { ascending: false })
       .limit(1000),
     supabase
       .from("products")
       .select("id, slug, title, type, price, is_published, created_at")
+      .eq("site_key", VIDEO_AI_SITE_KEY)
       .order("created_at", { ascending: false })
       .limit(500),
     supabase

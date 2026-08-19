@@ -2,6 +2,7 @@ export type ProductType = "chatbot" | "workflow" | "app" | "veo3";
 
 export type Product = {
   id: string;
+  site_key: string;
   type: ProductType;
   slug: string;
   title: string;

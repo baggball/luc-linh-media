@@ -3,6 +3,7 @@ import { revalidatePath } from "next/cache";
 import { createClient } from "@/lib/supabase/server";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { formatVND } from "@/lib/format";
+import { VIDEO_AI_SITE_KEY } from "@/lib/product-scope";
 
 export const revalidate = 0;
 export const metadata = { title: "Quản lý đơn hàng" };
@@ -23,6 +24,14 @@ async function approvePurchaseAction(formData: FormData) {
   if (profile?.role !== "admin") return;
 
   const admin = createAdminClient();
+  const { data: allowedPurchase } = await admin
+    .from("purchases")
+    .select("id, products!inner(site_key)")
+    .eq("id", purchaseId)
+    .eq("products.site_key", VIDEO_AI_SITE_KEY)
+    .maybeSingle();
+  if (!allowedPurchase) return;
+
   await admin
     .from("purchases")
     .update({
@@ -58,7 +67,8 @@ export default async function AdminOrdersPage() {
   const supabase = await createClient();
   const { data } = await supabase
     .from("purchases")
-    .select("id, order_code, amount, status, created_at, paid_at, sepay_reference_code, products(title), profiles(full_name)")
+    .select("id, order_code, amount, status, created_at, paid_at, sepay_reference_code, products!inner(title, site_key), profiles(full_name)")
+    .eq("products.site_key", VIDEO_AI_SITE_KEY)
     .order("created_at", { ascending: false })
     .limit(200);
   const orders = (data ?? []) as unknown as AdminPurchase[];

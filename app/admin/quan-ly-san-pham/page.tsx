@@ -2,6 +2,7 @@ import Link from "next/link";
 import AdminProductManager from "@/components/admin/AdminProductManager";
 import { createClient } from "@/lib/supabase/server";
 import type { Product } from "@/lib/types";
+import { VIDEO_AI_SITE_KEY } from "@/lib/product-scope";
 
 export const revalidate = 0;
 export const metadata = { title: "Quản lý sản phẩm" };
@@ -11,6 +12,7 @@ export default async function QuanLySanPhamPage() {
   const { data } = await supabase
     .from("products")
     .select("*, product_private_content(workflow_link, video_url)")
+    .eq("site_key", VIDEO_AI_SITE_KEY)
     .order("created_at", { ascending: false });
   const products = (data ?? []).map((row) => {
     const privateContent = Array.isArray(row.product_private_content)

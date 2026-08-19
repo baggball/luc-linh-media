@@ -6,6 +6,7 @@ import { createClient } from "@/lib/supabase/server";
 import { formatVND } from "@/lib/format";
 import { PRODUCT_TYPE_ROUTE, type ProductType } from "@/lib/types";
 import { ZALO_COMMUNITY_URL } from "@/lib/community";
+import { VIDEO_AI_SITE_KEY } from "@/lib/product-scope";
 
 export const revalidate = 0;
 export const metadata = { title: "Sản phẩm của tôi" };
@@ -17,7 +18,7 @@ type PurchaseRow = {
   paid_at: string | null;
   created_at: string;
   product_id: string;
-  products: { title: string; type: ProductType; images: string[] } | null;
+  products: { title: string; type: ProductType; images: string[]; site_key: string } | null;
 };
 
 type PurchaseItemRow = {
@@ -32,8 +33,9 @@ export default async function MyProductsPage() {
 
   const { data } = await supabase
     .from("purchases")
-    .select("id, amount, status, paid_at, created_at, product_id, products(title, type, images)")
+    .select("id, amount, status, paid_at, created_at, product_id, products!inner(title, type, images, site_key)")
     .eq("user_id", user.id)
+    .eq("products.site_key", VIDEO_AI_SITE_KEY)
     .order("created_at", { ascending: false });
   const purchases = (data ?? []) as unknown as PurchaseRow[];
   const purchaseIds = purchases.map((purchase) => purchase.id);

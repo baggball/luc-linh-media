@@ -2,6 +2,7 @@ import Link from "next/link";
 import { createAdminClient } from "@/lib/supabase/admin";
 import { formatVND } from "@/lib/format";
 import styles from "./customers.module.css";
+import { VIDEO_AI_SITE_KEY } from "@/lib/product-scope";
 
 export const revalidate = 0;
 export const metadata = { title: "Danh sách khách hàng" };
@@ -31,7 +32,12 @@ export default async function AdminCustomersPage({
   const [{ data: authData, error: authError }, { data: profileData }, { data: purchaseData }] = await Promise.all([
     admin.auth.admin.listUsers({ page: 1, perPage: 1000 }),
     admin.from("profiles").select("id, full_name, email, role, created_at").limit(1000),
-    admin.from("purchases").select("user_id, amount, status, created_at, paid_at").order("created_at", { ascending: false }).limit(5000),
+    admin
+      .from("purchases")
+      .select("user_id, amount, status, created_at, paid_at, products!inner(site_key)")
+      .eq("products.site_key", VIDEO_AI_SITE_KEY)
+      .order("created_at", { ascending: false })
+      .limit(5000),
   ]);
 
   const profiles = new Map((profileData ?? []).map((profile) => [profile.id, profile]));

@@ -7,6 +7,7 @@ import { createClient } from "@/lib/supabase/server";
 import { applyProductsOverrides } from "@/lib/product-overrides";
 import { publicProductSlug } from "@/lib/product-url";
 import { absoluteUrl, SITE_NAME } from "@/lib/site";
+import { VIDEO_AI_SITE_KEY } from "@/lib/product-scope";
 import { PRODUCT_TYPE_LABEL, PRODUCT_TYPE_ROUTE, type Product, type ProductType } from "@/lib/types";
 
 const CATALOG_SEO = {
@@ -68,6 +69,7 @@ export default async function CatalogPage({
   const { data } = await supabase
     .from("products")
     .select("*")
+    .eq("site_key", VIDEO_AI_SITE_KEY)
     .eq("is_published", true)
     .eq("type", type)
     .order("created_at", { ascending: false });
